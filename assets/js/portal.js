@@ -1,4 +1,5 @@
 (() => {
+  const currentPage = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const seoPages = {
     'index.html': {title: 'PatriaSoul — Hrvatska, povijest, znanje i identitet', description: 'PatriaSoul donosi hrvatske priče, povijest, baštinu, vjeru, obitelj, domovinu i provjerene izvore.'},
     'vjera.html': {title: 'Vjera — PatriaSoul', description: 'Vjera, hrvatska kršćanska baština, svetišta, svjedočanstva i život vjere na PatriaSoul portalu.'},
@@ -60,7 +61,7 @@
     ['kontakt.html', '✉️ Kontakt']
   ];
 
-  const currentPage = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
   const header = document.querySelector('.site-header');
 
   if (header) {
