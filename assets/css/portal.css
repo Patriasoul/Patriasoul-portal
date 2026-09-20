@@ -149,3 +149,45 @@ background-size:cover;background-position:center center;background-attachment:fi
   .faith-daily-card blockquote{font-size:18px}
   .faith-source{padding:15px 20px}
 }
+
+/* PatriaSoul logo — jedinstveni identitet navigacije i footera */
+:root{--patriasoul-logo:url("https://raw.githubusercontent.com/Patriasoul/patriasoul/main/images/file_0000000082ec81f4a6fc17bdbd959622_114540.png")}
+
+.brand-mark{
+  width:48px;
+  height:48px;
+  flex:0 0 48px;
+  display:block;
+  font-size:0;
+  background-image:var(--patriasoul-logo);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:contain;
+}
+
+.footer-grid>div:first-child>strong{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:48px;
+  font-size:18px;
+  line-height:1.2;
+}
+
+.footer-grid>div:first-child>strong:before{
+  content:"";
+  width:48px;
+  height:48px;
+  flex:0 0 48px;
+  display:block;
+  background-image:var(--patriasoul-logo);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:contain;
+}
+
+@media(max-width:560px){
+  .brand-mark{width:42px;height:42px;flex-basis:42px}
+  .footer-grid>div:first-child>strong:before{width:42px;height:42px;flex-basis:42px}
+}
+
