@@ -55,7 +55,7 @@ window.PatriaSoulContent = {
       deck:"U Zagrebu je početkom 20. stoljeća nastao niz izuma koji nisu ostali samo na papiru. Među njima je bila automatska mehanička olovka Slavoljuba Eduarda Penkale, ali njegova priča govori i o tome kako znanje, proizvodnja i poduzetništvo mogu pretvoriti zamisao u predmet koji ulazi u svakodnevni život.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Zagreb · 8 min čitanja", url:"clanak-penkala.html",
       category:"Hrvatska stvara", subcategory:"Znanost i izumi", rubric:"Hrvatska stvara", tags:["Slavoljub Penkala","Penkala","izumi","inovacije","Zagreb","mehanička olovka","zrakoplov"], place:"Zagreb", period:"1871.–1922.", type:"Priča o stvaranju",
-      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Perkovi%C4%87%20Thompson%202025%20Zagreb%20Hipodrom%20concert.jpg", imageAlt:"Portret Slavoljuba Eduarda Penkale", imageCaption:"Slavoljub Eduard Penkala. Fotografija je u javnoj domeni."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Slavoljub%20Penkala%20crop.jpg", imageAlt:"Portret Slavoljuba Eduarda Penkale", imageCaption:"Slavoljub Eduard Penkala. Fotografija je u javnoj domeni."
     },
     vlatkoGribl: {
       title:"Vlatko Gribl: kada se zanat naslijedi, ali ne može uvijek i nastaviti", kicker:"BAŠTINA · TRADICIJSKI OBRTI",
