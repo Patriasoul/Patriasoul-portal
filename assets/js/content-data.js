@@ -4,25 +4,20 @@ window.PatriaSoulContent = {
       title: "Trpinjska cesta: ljudi iza jedne od najpoznatijih priča obrane Vukovara",
       kicker: "BRANITELJSKE PRIČE",
       deck: "U jesen 1991. godine Trpinjska cesta u Borovu Naselju postala je jedno od ključnih mjesta obrane Vukovara. Iza naziva koji je ostao zapisan u hrvatskom ratnom sjećanju stajali su konkretni ljudi, male skupine, zapovjednici, policajci, vojnici i dragovoljci.",
-      date: "2026-09-20",
-      meta: "Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 8 min čitanja",
-      url: "clanak-trpinjska-cesta.html",
-      category: "Domovina", subcategory: "Branitelji i Domovinski rat", rubric: "Braniteljske priče",
-      tags: ["Vukovar","Trpinjska cesta","Domovinski rat","branitelji","Vukovarska bitka","1991."], place: "Vukovar", period: "1991.", type: "Braniteljska priča",
-      image: "https://zutecizme.files.wordpress.com/2017/01/16176943_10202759582986626_1433906622_n.jpg?w=1200", imageAlt: "Trpinjska cesta u Vukovaru, rujan 1991.", imageCaption: "Trpinjska cesta, rujan 1991."
+      date: "2026-09-20", meta: "Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 8 min čitanja", url: "clanak-trpinjska-cesta.html",
+      category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Braniteljske priče", tags:["Vukovar","Trpinjska cesta","Domovinski rat","branitelji","Vukovarska bitka","1991."], place:"Vukovar", period:"1991.", type:"Braniteljska priča",
+      image:"https://zutecizme.files.wordpress.com/2017/01/16176943_10202759582986626_1433906622_n.jpg?w=1200", imageAlt:"Trpinjska cesta u Vukovaru, rujan 1991.", imageCaption:"Trpinjska cesta, rujan 1991."
     },
     blagoZadro: {
-      title: "Blago Zadro: čovjek i zapovjednik iza imena koje je ostalo vezano uz Trpinjsku cestu",
-      kicker: "LJUDI DOMOVINSKOG RATA",
-      deck: "Rođen u Donjim Mamićima 1944., Blago Zadro s obitelji je kao dijete doselio u Borovo Naselje. U jesen 1991. postao je zapovjednik obrane toga dijela Vukovara, a poginuo je 16. listopada na prvoj crti obrane.",
-      date: "2026-09-20", meta: "Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 9 min čitanja", url: "clanak-blago-zadro.html",
+      title:"Blago Zadro: čovjek i zapovjednik iza imena koje je ostalo vezano uz Trpinjsku cestu", kicker:"LJUDI DOMOVINSKOG RATA",
+      deck:"Rođen u Donjim Mamićima 1944., Blago Zadro s obitelji je kao dijete doselio u Borovo Naselje. U jesen 1991. postao je zapovjednik obrane toga dijela Vukovara, a poginuo je 16. listopada na prvoj crti obrane.",
+      date:"2026-09-20", meta:"Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 9 min čitanja", url:"clanak-blago-zadro.html",
       category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Ljudi Domovinskog rata", tags:["Blago Zadro","Vukovar","Borovo Naselje","Trpinjska cesta","Domovinski rat","1991."], place:"Vukovar", period:"1944.–1991.", type:"Povijesna priča",
       image:"https://upload.wikimedia.org/wikipedia/commons/3/3e/Vukovar_heroes_Andrija_Maric_Blago_Zadro_Goran_Radicevic.jpg", imageAlt:"Blago Zadro", imageCaption:"Blago Zadro među pripadnicima obrane Vukovara."
     },
     markoBabic: {
-      title: "Marko Babić: Trpinjska cesta, protuoklopna borba i život poslije Vukovara",
-      kicker: "LJUDI DOMOVINSKOG RATA",
-      deck: "Na Trpinjskoj cesti 1991. godine Marko Babić postao je jedno od prepoznatljivih imena obrane Borova Naselja. Bio je zamjenik Blage Zadre, sudjelovao u organiziranju protuoklopne obrane, a nakon Zadrine pogibije preuzeo je zapovijedanje 3. bojnom.",
+      title:"Marko Babić: Trpinjska cesta, protuoklopna borba i život poslije Vukovara", kicker:"LJUDI DOMOVINSKOG RATA",
+      deck:"Na Trpinjskoj cesti 1991. godine Marko Babić postao je jedno od prepoznatljivih imena obrane Borova Naselja. Bio je zamjenik Blage Zadre, sudjelovao u organiziranju protuoklopne obrane, a nakon Zadrine pogibije preuzeo je zapovijedanje 3. bojnom.",
       date:"2026-09-20", meta:"Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 9 min čitanja", url:"clanak-marko-babic.html",
       category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Ljudi Domovinskog rata", tags:["Marko Babić","Vukovar","Trpinjska cesta","Domovinski rat","1991."], place:"Vukovar", period:"1965.–2007.", type:"Povijesna priča",
       image:"https://arhiva.nacional.hr/img/e9a9bb3bbdd12bf1f5f3d467ccdcbd0a_700x550.jpg", imageAlt:"Branitelji na Trpinjskoj cesti", imageCaption:"Branitelji na Trpinjskoj cesti."
@@ -63,22 +58,19 @@ window.PatriaSoulContent = {
       image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Slavoljub_Eduard_Penkala.jpg", imageAlt:"Portret Slavoljuba Eduarda Penkale", imageCaption:"Slavoljub Eduard Penkala. Fotografija je u javnoj domeni."
     },
     vlatkoGribl: {
-      title:"Vlatko Gribl: kada se zanat naslijedi, ali ne može uvijek i nastaviti",
-      kicker:"BAŠTINA · TRADICIJSKI OBRTI",
+      title:"Vlatko Gribl: kada se zanat naslijedi, ali ne može uvijek i nastaviti", kicker:"BAŠTINA · TRADICIJSKI OBRTI",
       deck:"U Slatini je obitelj Gribl desetljećima njegovala krznarski zanat. Vlatko Gribl naučio ga je od oca i nastavio obiteljsku radionicu, ali je 2010. morao zatvoriti obrt. Ostali su predmeti, alati, znanje i priča o poslu koji je nekoć bio dio svakodnevice.",
-      date:"2026-09-20",
-      meta:"Piše: PatriaSoul · 20. rujna 2026. · Slatina · 8 min čitanja",
-      url:"clanak-vlatko-gribl.html",
-      category:"Povijest",
-      subcategory:"Baština i kultura",
-      rubric:"Tradicijski obrti",
-      tags:["Vlatko Gribl","Slatina","krznarski obrt","tradicijski obrt","nematerijalna baština","obitelj Gribl"],
-      place:"Slatina",
-      period:"20. stoljeće",
-      type:"Priča o baštini",
-      image:"https://upload.wikimedia.org/wikipedia/commons/5/5c/Fur_sewing_machine.jpg",
-      imageAlt:"Stroj za šivanje krzna",
-      imageCaption:"Ilustrativna fotografija stroja za šivanje krzna, javna domena."
+      date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Slatina · 8 min čitanja", url:"clanak-vlatko-gribl.html",
+      category:"Povijest", subcategory:"Baština i kultura", rubric:"Tradicijski obrti", tags:["Vlatko Gribl","Slatina","krznarski obrt","tradicijski obrt","nematerijalna baština","obitelj Gribl"], place:"Slatina", period:"20. stoljeće", type:"Priča o baštini",
+      image:"https://upload.wikimedia.org/wikipedia/commons/5/5c/Fur_sewing_machine.jpg", imageAlt:"Stroj za šivanje krzna", imageCaption:"Ilustrativna fotografija stroja za šivanje krzna, javna domena."
+    },
+    mihaelStosic: {
+      title:"Mihael Stošić: kada se obiteljsko sjećanje pretvori u mjesto za buduće generacije",
+      kicker:"ČUVARI NASLJEĐA #001 · SJEĆANJE",
+      deck:"Kao sin hrvatskog branitelja, Mihael Stošić počeo je još kao dječak skupljati oznake koje je viđao na okupljanjima branitelja. Godinama poslije njegova je zbirka prerasla u privatni Spomen dom „Sinovi Domovine” u Buzinu, mjesto na kojem čuva odore, oznake, fotografije, knjige i osobne tragove ljudi iz Domovinskog rata.",
+      date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Buzin, Zagreb · 8 min čitanja", url:"clanak-mihael-stosic.html",
+      category:"Čuvari nasljeđa", subcategory:"Sjećanje", rubric:"Čuvari nasljeđa", tags:["Mihael Stošić","Sinovi Domovine","Buzin","Domovinski rat","sjećanje","obitelj","branitelji","baština"], place:"Buzin, Zagreb", period:"2000-e–danas", type:"Čuvar nasljeđa",
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Hrvatski%20povijesni%20muzej%2027012012%20Domovinski%20rat%2049%20dijelovi%20ratne%20odore%20HV.jpg", imageAlt:"Dio ratne odore iz zbirke Hrvatskog povijesnog muzeja", imageCaption:"Ilustrativna fotografija ratne odore iz zbirke Hrvatskog povijesnog muzeja; Wikimedia Commons, CC BY-SA 3.0. Fotografija nije snimka Spomen doma „Sinovi Domovine“."
     }
   }
 };
