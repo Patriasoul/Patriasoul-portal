@@ -28,8 +28,11 @@
 .ps-stat{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);padding:13px 17px}
 .ps-stat strong{display:block;font-size:21px;color:#e8c76a}.ps-stat span{font-size:12px;color:#dce4ec}
 .ps-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
-.ps-btn{display:inline-block;padding:14px 20px;text-decoration:none;font-weight:900;border-radius:3px}
-.ps-btn-red{background:#cf2028;color:#fff}.ps-btn-light{background:#fff;color:#17395f}
+.ps-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 18px;margin:10px 0 0;background:#fff;color:#17395f;border:1px solid #cfd5da;border-radius:3px;font-size:12px;font-weight:800;letter-spacing:.015em;text-decoration:none;box-shadow:0 4px 14px rgba(23,32,42,.06);overflow:hidden;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease,color .16s ease}
+.ps-btn:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,#cf2028 0 33.33%,#f4f4f2 33.33% 66.66%,#17395f 66.66% 100%)}
+.ps-btn:hover{transform:translateY(-2px);border-color:#b9c2ca;box-shadow:0 8px 20px rgba(23,32,42,.10);color:#cf2028}
+.ps-btn-red,.ps-btn-light{background:#fff;color:#17395f}
+.ps-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
 .ps-principles{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .ps-principle{padding:25px;border-left:5px solid #cf2028;background:#fff;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
 .ps-principle strong{display:block;color:#17395f;font-size:18px;margin-bottom:7px}.ps-principle p{margin:0;line-height:1.6}
