@@ -13,21 +13,21 @@ window.PatriaSoulContent = {
       deck:"Rođen u Donjim Mamićima 1944., Spomenik Blagi Zadri u Vukovaru s obitelji je kao dijete doselio u Borovo Naselje. U jesen 1991. postao je zapovjednik obrane toga dijela Vukovara, a poginuo je 16. listopada na prvoj crti obrane.",
       date:"2026-09-20", meta:"Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 9 min čitanja", url:"clanak-blago-zadro.html",
       category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Ljudi Domovinskog rata", tags:["Spomenik Blagi Zadri u Vukovaru","Vukovar","Borovo Naselje","Trpinjska cesta","Domovinski rat","1991."], place:"Vukovar", period:"1944.–1991.", type:"Povijesna priča",
-      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Blago%20Zadro%20Memorial%2C%20Vukovar%2C%20Croatia.JPG", imageAlt:"Spomenik Blagi Zadri u Vukovaru", imageCaption:"Spomenik Blagi Zadri u Vukovaru među pripadnicima obrane Vukovara."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Blago%20Zadro%20Memorial%2C%20Vukovar%2C%20Croatia.JPG", imageAlt:"Spomenik Blagi Zadri u Vukovaru", imageCaption:"Spomenik Blagi Zadri u Vukovaru. Foto: Modzzak / Wikimedia Commons, javna domena."
     },
     markoBabic: {
       title:"Marko Babić: Trpinjska cesta, protuoklopna borba i život poslije Vukovara", kicker:"LJUDI DOMOVINSKOG RATA",
       deck:"Na Trpinjskoj cesti 1991. godine Marko Babić postao je jedno od prepoznatljivih imena obrane Borova Naselja. Bio je zamjenik Blage Zadre, sudjelovao u organiziranju protuoklopne obrane, a nakon Zadrine pogibije preuzeo je zapovijedanje 3. bojnom.",
       date:"2026-09-20", meta:"Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 9 min čitanja", url:"clanak-marko-babic.html",
       category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Ljudi Domovinskog rata", tags:["Marko Babić","Vukovar","Trpinjska cesta","Domovinski rat","1991."], place:"Vukovar", period:"1965.–2007.", type:"Povijesna priča",
-      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Babic%20%28Vukovar%29.JPG", imageAlt:"Marko Babić, fotografija na nadgrobnoj ploči u Vukovaru", imageCaption:"Marko Babić, fotografija na nadgrobnoj ploči u Vukovaru."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Babic%20%28Vukovar%29.JPG", imageAlt:"Marko Babić, fotografija na nadgrobnoj ploči u Vukovaru", imageCaption:"Marko Babić, fotografija na nadgrobnoj ploči u Vukovaru. Foto: Ex13 / Wikimedia Commons, CC BY-SA 3.0."
     },
     krbavskaBitka: {
       title:"Krbavska bitka 1493.: dan koji je ostao zapisan u hrvatskom sjećanju", kicker:"POVIJESNE PRIČE",
       deck:"Na Krbavskome polju kraj Udbine 9. rujna 1493. sukobile su se hrvatska plemićka vojska i osmanska vojska. Poraz je bio težak, ali njegova povijesna priča nije završila tog dana.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Krbava, Lika · 8 min čitanja", url:"clanak-krbavska-bitka.html",
       category:"Povijest", subcategory:"Povijesne priče", rubric:"Povijesne priče", tags:["Krbavska bitka","Krbava","Udbina","srednji vijek","1493.","hrvatska povijest"], place:"Krbava", period:"1493.", type:"Povijesna priča",
-      image:"https://upload.wikimedia.org/wikipedia/commons/6/65/Battle_of_Krbava_Field.jpg", imageAlt:"Prikaz Krbavske bitke", imageCaption:"Prikaz Krbavske bitke."
+      image:"https://upload.wikimedia.org/wikipedia/commons/6/65/Battle_of_Krbava_Field.jpg", imageAlt:"Prikaz Krbavske bitke", imageCaption:"Prikaz Krbavske bitke, Leonhard Beck, oko 1514.–1516. / Wikimedia Commons, javna domena."
     },
     australskiHrvati: {
       title:"Kad hrvatska riječ živi tisućama kilometara od domovine", kicker:"DIJASPORA",
@@ -48,7 +48,7 @@ window.PatriaSoulContent = {
       deck:"Dubrovčanin iz 18. stoljeća ostavio je trag u matematici, astronomiji, fizici, filozofiji i diplomaciji.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Dubrovnik · 8 min čitanja", url:"clanak-ruder-boskovic.html",
       category:"Ljudi", subcategory:"Životne priče", rubric:"Ljudi", tags:["Ruđer Bošković","Dubrovnik","znanost","astronomija","matematika","filozofija","diplomacija"], place:"Dubrovnik", period:"1711.–1787.", type:"Životna priča",
-      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Rudjer_Boskovic.jpg", imageAlt:"Portret Ruđera Boškovića", imageCaption:"Portret Ruđera Boškovića, djelo R. Edgea Pinea iz 1760."
+      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Rudjer_Boskovic.jpg", imageAlt:"Portret Ruđera Boškovića", imageCaption:"Portret Ruđera Boškovića, djelo R. Edgea Pinea iz 1760. / Wikimedia Commons, javna domena."
     },
     penkala: {
       title:"Slavoljub Penkala: kada je izum postao dio svakodnevice", kicker:"HRVATSKA STVARA · ZNANOST I IZUMI",
