@@ -22,6 +22,7 @@
   <h1>Trpinjska cesta: ljudi iza jedne od najpoznatijih priča obrane Vukovara</h1>
   <p class="article-deck">U jesen 1991. godine Trpinjska cesta u Borovu Naselju postala je jedno od ključnih mjesta obrane Vukovara. Iza naziva koji je ostao zapisan u hrvatskom ratnom sjećanju stajali su konkretni ljudi, male skupine, zapovjednici, policajci, vojnici i dragovoljci.</p>
   <div class="article-meta">Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 8 min čitanja</div>
+  <div id="article-tags" class="article-tags" aria-label="Oznake članka"></div>
 
   <figure class="article-figure">
     <img src="https://zutecizme.files.wordpress.com/2017/01/16176943_10202759582986626_1433906622_n.jpg?w=1200" alt="Trpinjska cesta u Vukovaru, rujan 1991.">
@@ -87,6 +88,13 @@
     </div>
   </div>
 </footer>
-<script src="assets/js/portal.js"></script>
+<script src="assets/js/content-data.js?v=4"></script><script>
+(function(){
+ var a=window.PatriaSoulContent&&window.PatriaSoulContent.articles.trpinjskaCesta,box=document.getElementById("article-tags");
+ if(!a||!box)return;
+ var items=[a.category,a.subcategory,a.rubric,a.place,a.period].concat(a.tags||[]).filter(function(v,i,self){return v&&self.indexOf(v)===i});
+ box.innerHTML=items.map(function(tag){return '<a class="article-tag" href="pretraga.html?q='+encodeURIComponent(tag)+'">'+tag+'</a>'}).join("");
+})();
+</script><script src="assets/js/portal.js"></script>
 </body>
 </html>
