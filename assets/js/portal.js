@@ -11,8 +11,8 @@
   ];
 
   const currentPage = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
-
   const header = document.querySelector('.site-header');
+
   if (header) {
     header.innerHTML = `
       <div class="utility-bar"><div class="utility-inner"></div></div>
@@ -48,8 +48,7 @@
       const link = document.createElement('a');
       link.href = href;
       link.textContent = label;
-      const normalized = href.toLowerCase();
-      if (currentPage === normalized || (currentPage === '' && normalized === 'index.html')) {
+      if (currentPage === href.toLowerCase()) {
         link.classList.add('active');
         link.setAttribute('aria-current', 'page');
       }
@@ -57,10 +56,21 @@
     });
 
     const toggle = header.querySelector('.menu-toggle');
+    const closeMenu = () => {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = 'Izbornik';
+    };
+
     toggle.addEventListener('click', () => {
       const open = nav.classList.toggle('open');
       toggle.setAttribute('aria-expanded', String(open));
       toggle.textContent = open ? 'Zatvori' : 'Izbornik';
+    });
+
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeMenu();
     });
   }
 
