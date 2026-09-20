@@ -48,5 +48,23 @@ window.PatriaSoulContent = {
       category:"Vjera", subcategory:"Vjera i život", rubric:"Vjera i život", tags:["Vjera","obitelj","Vjera i život","Crkva","hrvatska baština","svjedočanstvo"], place:"Hrvatska", period:"20. i 21. stoljeće", type:"Vjerska priča",
       image:"https://upload.wikimedia.org/wikipedia/commons/6/6b/Aljmas_Church.jpg", imageAlt:"Svetište Gospe od Utočišta u Aljmašu", imageCaption:"Crkvena baština i svetišta."
     }
+    ruderBoskovic: {
+      title:"Ruđer Bošković: čovjek koji je znanje nosio preko granica",
+      kicker:"ŽIVOTNE PRIČE · LJUDI",
+      deck:"Dubrovčanin iz 18. stoljeća ostavio je trag u matematici, astronomiji, fizici, filozofiji i diplomaciji.",
+      date:"2026-09-20",
+      meta:"Piše: PatriaSoul · 20. rujna 2026. · Dubrovnik · 8 min čitanja",
+      url:"clanak-ruder-boskovic.html",
+      category:"Ljudi",
+      subcategory:"Životne priče",
+      rubric:"Ljudi",
+      tags:["Ruđer Bošković","Dubrovnik","znanost","astronomija","matematika","filozofija","diplomacija"],
+      place:"Dubrovnik",
+      period:"1711.–1787.",
+      type:"Životna priča",
+      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Rudjer_Boskovic.jpg",
+      imageAlt:"Portret Ruđera Boškovića",
+      imageCaption:"Portret Ruđera Boškovića, djelo R. Edgea Pinea iz 1760."
+    },
   }
 };
