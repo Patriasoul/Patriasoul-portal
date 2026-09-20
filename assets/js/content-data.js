@@ -6,21 +6,21 @@ window.PatriaSoulContent = {
       deck: "U jesen 1991. godine Trpinjska cesta u Borovu Naselju postala je jedno od ključnih mjesta obrane Vukovara. Iza naziva koji je ostao zapisan u hrvatskom ratnom sjećanju stajali su konkretni ljudi, male skupine, zapovjednici, policajci, vojnici i dragovoljci.",
       date: "2026-09-20", meta: "Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 8 min čitanja", url: "clanak-trpinjska-cesta.html",
       category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Braniteljske priče", tags:["Vukovar","Trpinjska cesta","Domovinski rat","branitelji","Vukovarska bitka","1991."], place:"Vukovar", period:"1991.", type:"Braniteljska priča",
-      image:"https://zutecizme.files.wordpress.com/2017/01/16176943_10202759582986626_1433906622_n.jpg?w=1200", imageAlt:"Trpinjska cesta u Vukovaru, rujan 1991.", imageCaption:"Trpinjska cesta, rujan 1991."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Croatian%20War%201991%20Vukovar%20street.jpg", imageAlt:"Vukovar, studeni 1991., ratna fotografija iz vremena Vukovarske bitke.", imageCaption:"Vukovar, 1991. Ilustrativna ratna fotografija / Wikimedia Commons, Peter Denton, CC BY-SA 2.0."
     },
     blagoZadro: {
-      title:"Blago Zadro: čovjek i zapovjednik iza imena koje je ostalo vezano uz Trpinjsku cestu", kicker:"LJUDI DOMOVINSKOG RATA",
-      deck:"Rođen u Donjim Mamićima 1944., Blago Zadro s obitelji je kao dijete doselio u Borovo Naselje. U jesen 1991. postao je zapovjednik obrane toga dijela Vukovara, a poginuo je 16. listopada na prvoj crti obrane.",
+      title:"Spomenik Blagi Zadri u Vukovaru: čovjek i zapovjednik iza imena koje je ostalo vezano uz Trpinjsku cestu", kicker:"LJUDI DOMOVINSKOG RATA",
+      deck:"Rođen u Donjim Mamićima 1944., Spomenik Blagi Zadri u Vukovaru s obitelji je kao dijete doselio u Borovo Naselje. U jesen 1991. postao je zapovjednik obrane toga dijela Vukovara, a poginuo je 16. listopada na prvoj crti obrane.",
       date:"2026-09-20", meta:"Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 9 min čitanja", url:"clanak-blago-zadro.html",
-      category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Ljudi Domovinskog rata", tags:["Blago Zadro","Vukovar","Borovo Naselje","Trpinjska cesta","Domovinski rat","1991."], place:"Vukovar", period:"1944.–1991.", type:"Povijesna priča",
-      image:"https://upload.wikimedia.org/wikipedia/commons/3/3e/Vukovar_heroes_Andrija_Maric_Blago_Zadro_Goran_Radicevic.jpg", imageAlt:"Blago Zadro", imageCaption:"Blago Zadro među pripadnicima obrane Vukovara."
+      category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Ljudi Domovinskog rata", tags:["Spomenik Blagi Zadri u Vukovaru","Vukovar","Borovo Naselje","Trpinjska cesta","Domovinski rat","1991."], place:"Vukovar", period:"1944.–1991.", type:"Povijesna priča",
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Blago%20Zadro%20Memorial%2C%20Vukovar%2C%20Croatia.JPG", imageAlt:"Spomenik Blagi Zadri u Vukovaru", imageCaption:"Spomenik Blagi Zadri u Vukovaru među pripadnicima obrane Vukovara."
     },
     markoBabic: {
       title:"Marko Babić: Trpinjska cesta, protuoklopna borba i život poslije Vukovara", kicker:"LJUDI DOMOVINSKOG RATA",
       deck:"Na Trpinjskoj cesti 1991. godine Marko Babić postao je jedno od prepoznatljivih imena obrane Borova Naselja. Bio je zamjenik Blage Zadre, sudjelovao u organiziranju protuoklopne obrane, a nakon Zadrine pogibije preuzeo je zapovijedanje 3. bojnom.",
       date:"2026-09-20", meta:"Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 9 min čitanja", url:"clanak-marko-babic.html",
       category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Ljudi Domovinskog rata", tags:["Marko Babić","Vukovar","Trpinjska cesta","Domovinski rat","1991."], place:"Vukovar", period:"1965.–2007.", type:"Povijesna priča",
-      image:"https://arhiva.nacional.hr/img/e9a9bb3bbdd12bf1f5f3d467ccdcbd0a_700x550.jpg", imageAlt:"Branitelji na Trpinjskoj cesti", imageCaption:"Branitelji na Trpinjskoj cesti."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Babic%20%28Vukovar%29.JPG", imageAlt:"Marko Babić, fotografija na nadgrobnoj ploči u Vukovaru", imageCaption:"Marko Babić, fotografija na nadgrobnoj ploči u Vukovaru."
     },
     krbavskaBitka: {
       title:"Krbavska bitka 1493.: dan koji je ostao zapisan u hrvatskom sjećanju", kicker:"POVIJESNE PRIČE",
@@ -34,14 +34,14 @@ window.PatriaSoulContent = {
       deck:"U Australiji se hrvatski jezik i kultura desetljećima čuvaju kroz škole, udruge, obitelji i kulturne programe.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Sydney, Australija · 7 min čitanja", url:"clanak-australski-hrvati.html",
       category:"Dijaspora", subcategory:"Hrvatske zajednice", rubric:"Priče dijaspore", tags:["Australija","Hrvati u Australiji","hrvatski jezik","hrvatske škole","Sydney","dijaspora"], place:"Australija", period:"20. i 21. stoljeće", type:"Priča dijaspore",
-      image:"https://matis.hr/wp-content/uploads/2024/12/20241211_1.jpg", imageAlt:"Proslava hrvatskog jezika u Australiji", imageCaption:"Proslava hrvatskog jezika i kulture u Australiji."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/HrvArhAus.jpg", imageAlt:"Proslava hrvatskog jezika u Australiji", imageCaption:"Hrvatski arhiv Australije u Sydneyju."
     },
     vjeraObitelj: {
       title:"Vjera koja se prenosi: od obitelji do svakodnevice", kicker:"VJERA I ŽIVOT",
       deck:"Vjera se često ne pamti po velikim riječima, nego po malim stvarima: molitvi, blagdanu, crkvi i primjeru čovjeka koji je znao pomoći drugome.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Hrvatska · 7 min čitanja", url:"clanak-vjera-obitelj.html",
       category:"Vjera", subcategory:"Vjera i život", rubric:"Vjera i život", tags:["Vjera","obitelj","Vjera i život","Crkva","hrvatska baština","svjedočanstvo"], place:"Hrvatska", period:"20. i 21. stoljeće", type:"Vjerska priča",
-      image:"https://upload.wikimedia.org/wikipedia/commons/6/6b/Aljmas_Church.jpg", imageAlt:"Svetište Gospe od Utočišta u Aljmašu", imageCaption:"Crkvena baština i svetišta."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Aljmas.jpg", imageAlt:"Crkva Pohođenja Marijina u Aljmašu", imageCaption:"Crkva Pohođenja Marijina u Aljmašu. Foto: Ueikap / Wikimedia Commons, javna domena."
     },
     ruderBoskovic: {
       title:"Ruđer Bošković: čovjek koji je znanje nosio preko granica", kicker:"ŽIVOTNE PRIČE · LJUDI",
@@ -62,7 +62,7 @@ window.PatriaSoulContent = {
       deck:"U Slatini je obitelj Gribl desetljećima njegovala krznarski zanat. Vlatko Gribl naučio ga je od oca i nastavio obiteljsku radionicu, ali je 2010. morao zatvoriti obrt. Ostali su predmeti, alati, znanje i priča o poslu koji je nekoć bio dio svakodnevice.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Slatina · 8 min čitanja", url:"clanak-vlatko-gribl.html",
       category:"Povijest", subcategory:"Baština i kultura", rubric:"Tradicijski obrti", tags:["Vlatko Gribl","Slatina","krznarski obrt","tradicijski obrt","nematerijalna baština","obitelj Gribl"], place:"Slatina", period:"20. stoljeće", type:"Priča o baštini",
-      image:"https://upload.wikimedia.org/wikipedia/commons/5/5c/Fur_sewing_machine.jpg", imageAlt:"Stroj za šivanje krzna", imageCaption:"Ilustrativna fotografija stroja za šivanje krzna, javna domena."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Fur%20sewing%20machine%20%28c%201900%29%20-%202.jpg", imageAlt:"Stroj za šivanje krzna", imageCaption:"Ilustrativna povijesna fotografija stroja za šivanje krzna, javna domena / Wikimedia Commons."
     },
     mihaelStosic: {
       title:"Mihael Stošić: kada se obiteljsko sjećanje pretvori u mjesto za buduće generacije",
