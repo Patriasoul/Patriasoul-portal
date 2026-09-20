@@ -31,10 +31,10 @@
       <div class="story-photo story-photo-flag"><span>FOTOGRAFIJA GLAVNE PRIČE</span></div>
       <div class="story-copy">
         <span class="section-label">PREDLOŽAK ČLANKA · DOMOVINA</span>
-        <h2>Trpinjska cesta: ljudi iza jedne od najpoznatijih priča obrane Vukovara</h2>
-        <p class="story-deck">U jesen 1991. godine ova je ulica postala jedno od ključnih mjesta obrane Vukovara. Iza naziva „Groblje tenkova” stajali su konkretni ljudi i njihova svjedočanstva.</p>
-        <div class="story-meta">PatriaSoul · 20. rujna 2026. · 6 min čitanja</div>
-        <a class="read-more" href="clanak-trpinjska-cesta.html">Pročitaj priču →</a>
+        <h2 id="trpinjska-title">Trpinjska cesta: ljudi iza jedne od najpoznatijih priča obrane Vukovara</h2>
+        <p class="story-deck" id="trpinjska-deck">U jesen 1991. godine Trpinjska cesta u Borovu Naselju postala je jedno od ključnih mjesta obrane Vukovara. Iza naziva koji je ostao zapisan u hrvatskom ratnom sjećanju stajali su konkretni ljudi, male skupine, zapovjednici, policajci, vojnici i dragovoljci.</p>
+        <div class="story-meta" id="trpinjska-meta">Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 8 min čitanja</div>
+        <a class="read-more" id="trpinjska-link" href="clanak-trpinjska-cesta.html">Pročitaj priču →</a>
       </div>
     </article>
 
@@ -108,6 +108,21 @@
 </main>
 
 <footer class="site-footer"><div class="container"><div class="footer-grid"><div><strong>PatriaSoul · Domovina</strong><p>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></div><div><strong>Domovina</strong><a href="#rubrike">Rubrike</a><a href="#branitelji">Branitelji i Domovinski rat</a></div><div><strong>PatriaSoul</strong><a href="o-nama.html">O nama</a><a href="urednicki-standard.html">Urednički standard</a></div><small>© PatriaSoul · sadržaj se objavljuje nakon uredničke provjere</small></div></div></footer>
+<script src="assets/js/content-data.js"></script>
+<script>
+(function(){
+  var a = window.PatriaSoulContent && window.PatriaSoulContent.articles.trpinjskaCesta;
+  if(!a) return;
+  var title = document.getElementById("trpinjska-title");
+  var deck = document.getElementById("trpinjska-deck");
+  var meta = document.getElementById("trpinjska-meta");
+  var link = document.getElementById("trpinjska-link");
+  if(title) title.textContent = a.title;
+  if(deck) deck.textContent = a.deck;
+  if(meta) meta.textContent = a.meta;
+  if(link) link.href = a.url;
+})();
+</script>
 <script src="assets/js/portal.js"></script>
 </body>
 </html>
