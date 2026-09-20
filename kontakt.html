@@ -14,6 +14,41 @@
 </div>
 </section>
 <section class="section-block">
+<div class="module-title">PIŠI NAM PUTEM OBRASCA</div>
+<div style="background:#fff;border:1px solid var(--line);padding:32px">
+<form id="contact-form" style="display:grid;gap:18px" novalidate>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px">
+<label style="display:grid;gap:8px;font-weight:700">Ime i prezime
+<input name="name" type="text" autocomplete="name" required placeholder="Tvoje ime i prezime" style="padding:13px;border:1px solid var(--line);border-radius:6px;font:inherit">
+</label>
+<label style="display:grid;gap:8px;font-weight:700">E-pošta
+<input name="email" type="email" autocomplete="email" required placeholder="tvoja@email.com" style="padding:13px;border:1px solid var(--line);border-radius:6px;font:inherit">
+</label>
+</div>
+<label style="display:grid;gap:8px;font-weight:700">Tema
+<select name="topic" style="padding:13px;border:1px solid var(--line);border-radius:6px;font:inherit;background:#fff">
+<option>Opći upit</option>
+<option>Čuvar nasljeđa</option>
+<option>Priča ili svjedočanstvo</option>
+<option>Fotografija ili dokument</option>
+<option>Ispravak sadržaja</option>
+<option>Prijedlog suradnje</option>
+<option>Nova tema</option>
+</select>
+</label>
+<label style="display:grid;gap:8px;font-weight:700">Poruka
+<textarea name="message" rows="8" required placeholder="Napiši nam što želiš podijeliti..." style="padding:13px;border:1px solid var(--line);border-radius:6px;font:inherit;resize:vertical"></textarea>
+</label>
+<label style="display:flex;gap:10px;align-items:flex-start;font-weight:500;line-height:1.5">
+<input name="consent" type="checkbox" required style="margin-top:4px">
+<span>Razumijem da slanje obrasca ne znači automatsko dopuštenje za javnu objavu moje priče, fotografija ili podataka.</span>
+</label>
+<button type="submit" style="border:0;border-radius:6px;padding:14px 20px;background:var(--red);color:#fff;font:800 16px inherit;cursor:pointer">✉️ Pripremi poruku</button>
+<p id="contact-form-status" role="status" aria-live="polite" style="margin:0;color:#555"></p>
+</form>
+</div>
+</section>
+<section class="section-block">
 <div class="module-title">KAKO MOŽEŠ POMOĆI</div>
 <div class="card-grid">
 <article class="card"><h3>📜 Imaš priču?</h3><p>Pošalji nam je i reci što znaš, iz kojeg mjesta dolazi i na kojim se izvorima temelji.</p></article>
@@ -34,4 +69,15 @@
 <strong>VAŽNO · ČUVARI NASLJEĐA</strong>
 <p>Ako nam šalješ svoju osobnu ili obiteljsku priču, slanjem poruke ne daješ automatsko dopuštenje za objavu. Ako priču želimo pretvoriti u članak, najprije ćemo je dogovoriti s tobom, provjeriti dostupne izvore i <strong>objaviti tek nakon tvog odobrenja</strong>. Ako ne želiš javnu objavu, samo to napiši u poruci.</p>
 </section>
-</main><footer class="site-footer"><div class="container"><strong>PatriaSoul</strong><p>PatriaSoul · Čuvari nasljeđa</p></div></footer><script src="assets/js/portal.js"></script></body></html>
+<script>
+document.getElementById('contact-form').addEventListener('submit',function(event){
+  event.preventDefault();
+  if(!this.checkValidity()){ this.reportValidity(); return; }
+  const data=new FormData(this);
+  const subject='PatriaSoul - '+data.get('topic');
+  const body='Ime i prezime: '+data.get('name')+'\\nE-pošta: '+data.get('email')+'\\nTema: '+data.get('topic')+'\\n\\nPoruka:\\n'+data.get('message')+'\\n\\nNapomena: Pošiljatelj je potvrdio da slanje obrasca nije automatsko dopuštenje za javnu objavu.';
+  const mailto='mailto:patriasoul@protonmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  document.getElementById('contact-form-status').textContent='Otvaramo tvoj program za e-poštu. Provjeri poruku i pošalji je kada bude spremna.';
+  window.location.href=mailto;
+});
+</script></main><footer class="site-footer"><div class="container"><strong>PatriaSoul</strong><p>PatriaSoul · Čuvari nasljeđa</p></div></footer><script src="assets/js/portal.js"></script></body></html>
