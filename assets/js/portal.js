@@ -46,8 +46,8 @@
   if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical); }
   canonical.href = window.location.origin + window.location.pathname;
   let favicon = document.head.querySelector('link[rel="icon"]');
-  if (!favicon) { favicon = document.createElement('link'); favicon.rel = 'icon'; favicon.type = 'image/svg+xml'; document.head.appendChild(favicon); }
-  favicon.href = 'favicon.svg';
+  if (!favicon) { favicon = document.createElement('link'); favicon.rel = 'icon'; favicon.type = 'image/png'; document.head.appendChild(favicon); }
+  favicon.href = 'https://raw.githubusercontent.com/Patriasoul/patriasoul/main/images/file_0000000082ec81f4a6fc17bdbd959622_114540.png';
   upsertMeta('theme-color', '#8b0000');
 
   const navItems = [
