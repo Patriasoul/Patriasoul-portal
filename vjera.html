@@ -69,7 +69,7 @@
     }
   };
   const now=new Date(), key=now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");
-  const d=daily[key]||daily["2026-09-20"];
+  const d=daily[key]||{liturgical:"Liturgijski dan",gospelTitle:"Današnje Evanđelje",gospelRef:"Provjeri današnju liturgiju",gospelText:"Za današnji puni liturgijski sadržaj otvorite provjereni liturgijski izvor. PatriaSoul dnevni zapis priprema se prema datumu.",saint:"Svetac dana",saintText:"Podatak za ovaj datum bit će dopunjen nakon provjere liturgijskog kalendara.",verse:"Riječ dana",verseRef:"Provjeri izvor",thoughtTitle:"Kratka misao dana",thought:"Zastani, pročitaj, razmisli i pronađi trenutak zahvalnosti."};
   const months=["siječnja","veljače","ožujka","travnja","svibnja","lipnja","srpnja","kolovoza","rujna","listopada","studenoga","prosinca"];
   document.getElementById("faith-date").textContent=now.getDate()+". "+months[now.getMonth()]+" "+now.getFullYear+". · "+d.liturgical;
   document.getElementById("faith-gospel-title").textContent=d.gospelTitle;
