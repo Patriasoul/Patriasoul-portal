@@ -1,4 +1,54 @@
 (() => {
+  const seoPages = {
+    'index.html': {title: 'PatriaSoul — Hrvatska, povijest, znanje i identitet', description: 'PatriaSoul donosi hrvatske priče, povijest, baštinu, vjeru, obitelj, domovinu i provjerene izvore.'},
+    'vjera.html': {title: 'Vjera — PatriaSoul', description: 'Vjera, hrvatska kršćanska baština, svetišta, svjedočanstva i život vjere na PatriaSoul portalu.'},
+    'ljudi.html': {title: 'Obitelj i ljudi — PatriaSoul', description: 'Ljudi, obitelj, vjera i priče koje oblikuju hrvatski identitet i nasljeđe.'},
+    'domovina.html': {title: 'Domovina — PatriaSoul', description: 'Hrvatska kroz ljude, mjesta, sjećanja i priče o Domovini.'},
+    'cuvari-nasljeda.html': {title: 'Čuvari nasljeđa — PatriaSoul', description: 'Priče o ljudima i zajednicama koje čuvaju hrvatsku baštinu, sjećanje i nasljeđe.'},
+    'o-nama.html': {title: 'O PatriaSoul — Čuvari nasljeđa', description: 'Saznajte što je PatriaSoul, kako radimo i zašto su provjera izvora i očuvanje nasljeđa važni.'},
+    'pretraga.html': {title: 'Pretraga — PatriaSoul', description: 'Pretražite priče, povijest, baštinu i druge sadržaje portala PatriaSoul.'},
+    'kontakt.html': {title: 'Kontakt — PatriaSoul', description: 'Kontaktirajte PatriaSoul i pošaljite prijedlog priče, ispravak ili upit.'},
+    'najnovije.html': {title: 'Najnovije — PatriaSoul', description: 'Najnovije objavljene priče PatriaSoula, uz aktualne vremenske podatke za hrvatske gradove.'},
+    'povijest.html': {title: 'Povijest — PatriaSoul', description: 'Hrvatska povijest kroz provjerene priče, ljude, događaje i izvore.'},
+    'urednicki-standard.html': {title: 'Urednički standard — PatriaSoul', description: 'Kako PatriaSoul provjerava izvore, razlikuje činjenice od svjedočanstava i ispravlja pogreške.'},
+    'biblija.html': {title: 'Biblija — PatriaSoul', description: 'Biblija, vjera i hrvatska kršćanska baština na PatriaSoul portalu.'},
+    'crkvena-bastina.html': {title: 'Crkvena baština — PatriaSoul', description: 'Crkve, sakralna baština, predaja i tragovi kršćanstva u Hrvatskoj.'},
+    'dijaspora.html': {title: 'Hrvatska dijaspora — PatriaSoul', description: 'Priče o Hrvatima izvan Hrvatske, njihovoj povezanosti s domovinom i očuvanju identiteta.'},
+    'hrvatska-stvara.html': {title: 'Hrvatska stvara — PatriaSoul', description: 'Hrvatska znanost, stvaralaštvo, izumi i ljudi koji su ostavili trag.'},
+    'ljudi-vjere.html': {title: 'Ljudi vjere — PatriaSoul', description: 'Ljudi čiji su život i djelo povezani s vjerom, služenjem i hrvatskom baštinom.'},
+    'povijest-crkve.html': {title: 'Povijest Crkve — PatriaSoul', description: 'Povijest Crkve i razvoj kršćanske baštine na hrvatskom prostoru.'},
+    'svetista.html': {title: 'Svetišta — PatriaSoul', description: 'Hrvatska svetišta, hodočašća i mjesta kršćanske baštine.'},
+    'svjedocanstva.html': {title: 'Svjedočanstva — PatriaSoul', description: 'Svjedočanstva, osobna sjećanja i životne priče povezane s vjerom i nasljeđem.'},
+    'vjera-hrvatska-bastina.html': {title: 'Vjera i hrvatska baština — PatriaSoul', description: 'Povezanost vjere, hrvatske povijesti i kulturne baštine.'},
+    'vjera-zivot.html': {title: 'Vjera i život — PatriaSoul', description: 'Vjera u svakodnevnom životu, obitelji i zajednici.'}
+  };
+  const seo = seoPages[currentPage] || {title: document.title || 'PatriaSoul — Čuvari nasljeđa', description: 'PatriaSoul — hrvatske priče, povijest, znanje, baština i identitet.'};
+  document.title = seo.title;
+  const upsertMeta = (name, content, attr='name') => {
+    let el = document.head.querySelector('meta[' + attr + '="' + name + '"]');
+    if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
+    el.setAttribute('content', content);
+  };
+  upsertMeta('description', seo.description);
+  upsertMeta('og:type', 'website', 'property');
+  upsertMeta('og:site_name', 'PatriaSoul', 'property');
+  upsertMeta('og:locale', 'hr_HR', 'property');
+  upsertMeta('og:title', seo.title, 'property');
+  upsertMeta('og:description', seo.description, 'property');
+  upsertMeta('og:url', window.location.href.split('#')[0], 'property');
+  upsertMeta('og:image', 'https://raw.githubusercontent.com/Patriasoul/patriasoul/main/images/file_0000000082ec81f4a6fc17bdbd959622_114540.png', 'property');
+  upsertMeta('twitter:card', 'summary', 'name');
+  upsertMeta('twitter:title', seo.title, 'name');
+  upsertMeta('twitter:description', seo.description, 'name');
+  upsertMeta('twitter:image', 'https://raw.githubusercontent.com/Patriasoul/patriasoul/main/images/file_0000000082ec81f4a6fc17bdbd959622_114540.png', 'name');
+  let canonical = document.head.querySelector('link[rel="canonical"]');
+  if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical); }
+  canonical.href = window.location.origin + window.location.pathname;
+  let favicon = document.head.querySelector('link[rel="icon"]');
+  if (!favicon) { favicon = document.createElement('link'); favicon.rel = 'icon'; favicon.type = 'image/svg+xml'; document.head.appendChild(favicon); }
+  favicon.href = 'favicon.svg';
+  upsertMeta('theme-color', '#8b0000');
+
   const navItems = [
     ['index.html', '🏠 Naslovnica'],
     ['vjera.html', '✝️ Vjera'],
