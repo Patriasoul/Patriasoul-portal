@@ -49,22 +49,11 @@ window.PatriaSoulContent = {
       image:"https://upload.wikimedia.org/wikipedia/commons/6/6b/Aljmas_Church.jpg", imageAlt:"Svetište Gospe od Utočišta u Aljmašu", imageCaption:"Crkvena baština i svetišta."
     },
     ruderBoskovic: {
-      title:"Ruđer Bošković: čovjek koji je znanje nosio preko granica",
-      kicker:"ŽIVOTNE PRIČE · LJUDI",
+      title:"Ruđer Bošković: čovjek koji je znanje nosio preko granica", kicker:"ŽIVOTNE PRIČE · LJUDI",
       deck:"Dubrovčanin iz 18. stoljeća ostavio je trag u matematici, astronomiji, fizici, filozofiji i diplomaciji.",
-      date:"2026-09-20",
-      meta:"Piše: PatriaSoul · 20. rujna 2026. · Dubrovnik · 8 min čitanja",
-      url:"clanak-ruder-boskovic.html",
-      category:"Ljudi",
-      subcategory:"Životne priče",
-      rubric:"Ljudi",
-      tags:["Ruđer Bošković","Dubrovnik","znanost","astronomija","matematika","filozofija","diplomacija"],
-      place:"Dubrovnik",
-      period:"1711.–1787.",
-      type:"Životna priča",
-      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Rudjer_Boskovic.jpg",
-      imageAlt:"Portret Ruđera Boškovića",
-      imageCaption:"Portret Ruđera Boškovića, djelo R. Edgea Pinea iz 1760."
+      date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Dubrovnik · 8 min čitanja", url:"clanak-ruder-boskovic.html",
+      category:"Ljudi", subcategory:"Životne priče", rubric:"Ljudi", tags:["Ruđer Bošković","Dubrovnik","znanost","astronomija","matematika","filozofija","diplomacija"], place:"Dubrovnik", period:"1711.–1787.", type:"Životna priča",
+      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Rudjer_Boskovic.jpg", imageAlt:"Portret Ruđera Boškovića", imageCaption:"Portret Ruđera Boškovića, djelo R. Edgea Pinea iz 1760."
     },
     penkala: {
       title:"Slavoljub Penkala: kada je izum postao dio svakodnevice", kicker:"HRVATSKA STVARA · ZNANOST I IZUMI",
@@ -73,5 +62,23 @@ window.PatriaSoulContent = {
       category:"Hrvatska stvara", subcategory:"Znanost i izumi", rubric:"Hrvatska stvara", tags:["Slavoljub Penkala","Penkala","izumi","inovacije","Zagreb","mehanička olovka","zrakoplov"], place:"Zagreb", period:"1871.–1922.", type:"Priča o stvaranju",
       image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Slavoljub_Eduard_Penkala.jpg", imageAlt:"Portret Slavoljuba Eduarda Penkale", imageCaption:"Slavoljub Eduard Penkala. Fotografija je u javnoj domeni."
     },
+    vlatkoGribl: {
+      title:"Vlatko Gribl: kada se zanat naslijedi, ali ne može uvijek i nastaviti",
+      kicker:"BAŠTINA · TRADICIJSKI OBRTI",
+      deck:"U Slatini je obitelj Gribl desetljećima njegovala krznarski zanat. Vlatko Gribl naučio ga je od oca i nastavio obiteljsku radionicu, ali je 2010. morao zatvoriti obrt. Ostali su predmeti, alati, znanje i priča o poslu koji je nekoć bio dio svakodnevice.",
+      date:"2026-09-20",
+      meta:"Piše: PatriaSoul · 20. rujna 2026. · Slatina · 8 min čitanja",
+      url:"clanak-vlatko-gribl.html",
+      category:"Povijest",
+      subcategory:"Baština i kultura",
+      rubric:"Tradicijski obrti",
+      tags:["Vlatko Gribl","Slatina","krznarski obrt","tradicijski obrt","nematerijalna baština","obitelj Gribl"],
+      place:"Slatina",
+      period:"20. stoljeće",
+      type:"Priča o baštini",
+      image:"https://upload.wikimedia.org/wikipedia/commons/5/5c/Fur_sewing_machine.jpg",
+      imageAlt:"Stroj za šivanje krzna",
+      imageCaption:"Ilustrativna fotografija stroja za šivanje krzna, javna domena."
+    }
   }
 };
