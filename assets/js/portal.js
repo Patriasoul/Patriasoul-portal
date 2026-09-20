@@ -3,7 +3,12 @@
   if(utility){
     const date=document.createElement('span');
     date.className='utility-date';
-    date.textContent='Četvrtak, 6. kolovoza 2026.';
+
+    const days=['Nedjelja','Ponedjeljak','Utorak','Srijeda','Četvrtak','Petak','Subota'];
+    const months=['siječnja','veljače','ožujka','travnja','svibnja','lipnja','srpnja','kolovoza','rujna','listopada','studenoga','prosinca'];
+    const today=new Date();
+    date.textContent=`${days[today.getDay()]}, ${today.getDate()}. ${months[today.getMonth()]} ${today.getFullYear()}.`;
+
     const social=document.createElement('a');
     social.className='utility-social';
     social.href='https://www.tiktok.com/@patriasoul?lang=hr';
