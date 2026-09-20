@@ -1,1 +1,78 @@
-<!doctype html><html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>O nama · PatriaSoul</title><link rel="stylesheet" href="assets/css/portal.css"></head><body><header class="site-header"><div class="topbar"><a class="brand" href="index.html"><span class="brand-mark">🇭🇷</span><span><strong>PatriaSoul</strong><small>Čuvari nasljeđa</small></span></a><button class="menu-toggle" type="button">Izbornik</button></div><nav id="main-nav" class="main-nav"><a href="index.html">🏠 Naslovnica</a><a href="vjera.html">✝️ Vjera</a><a href="ljudi.html">❤️ Obitelj</a><a href="domovina.html">🇭🇷 Domovina</a><a href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa</a><a href="pretraga.html">🔎 Pretraga</a></nav></header><main class="container"><section class="page-head"><span class="kicker">O PATRIASOUL</span><h1>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</h1><p>PatriaSoul je digitalni prostor posvećen hrvatskim pričama, ljudima, povijesti, baštini, sjećanju i suvremenom životu.</p></section><div class="content-columns"><article class="text-panel"><h2>Naša ideja</h2><p>PatriaSoul ne želi samo nabrajati Hrvatsku. Želimo istraživati, provjeravati i pripovijedati njezine priče.</p><p>Internet, knjige, arhivi, muzeji, institucije i druga literatura služe nam za istraživanje i provjeru. Konačan tekst pišemo vlastitim riječima i odgovorno navodimo ono što možemo potvrditi.</p><h2>Urednički standard</h2><p>Istinitost je ispred atraktivnosti. Razlikujemo činjenicu, tumačenje, svjedočanstvo i tradiciju te ne izmišljamo podatke, citate ili izvore.</p><a class="read-more" href="urednicki-standard.html">Pročitaj cijeli standard →</a></article><aside class="text-panel"><h2>Kontakt</h2><p>Za prijedloge tema, ispravke, dopune i suradnju:</p><a class="read-more" href="kontakt.html">Kontaktiraj PatriaSoul →</a></aside></div></main><footer class="site-footer"><div class="container"><strong>PatriaSoul</strong><p>PatriaSoul · Čuvari nasljeđa</p></div></footer><script src="assets/js/portal.js"></script></body></html>
+<!doctype html>
+<html lang="hr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>O PatriaSoul · Hrvatska · Povijest · Znanje · Identitet</title>
+<link rel="stylesheet" href="assets/css/portal.css">
+<style>
+.ps-about-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#17395f 0%,#17395f 48%,#b51f2a 48%,#cf2028 100%);color:#fff;padding:72px 58px;border-bottom:7px solid #e8c76a}
+.ps-about-hero:after{content:"HRVATSKA";position:absolute;right:-35px;bottom:-35px;font:900 130px/1 Arial,sans-serif;letter-spacing:8px;color:rgba(255,255,255,.06);transform:rotate(-8deg)}
+.ps-kicker{font-size:12px;letter-spacing:2.5px;font-weight:900;color:#e8c76a}
+.ps-about-hero h1{font:800 clamp(40px,7vw,76px)/1.05 'Libre Baskerville',serif;margin:14px 0 20px;max-width:950px}
+.ps-about-hero p{font-size:20px;line-height:1.75;max-width:850px;color:rgba(255,255,255,.93)}
+.ps-motto{margin-top:28px;font-weight:900;letter-spacing:1.5px;font-size:15px}
+.ps-section{margin:34px 0}
+.ps-title{font-size:12px;letter-spacing:2px;font-weight:900;color:#17395f;margin-bottom:12px}
+.ps-story{background:#fff;border:1px solid var(--line);padding:36px;box-shadow:0 12px 34px rgba(23,57,95,.07)}
+.ps-story h2{font:800 clamp(28px,4vw,42px)/1.15 'Libre Baskerville',serif;color:#17395f;margin:0 0 18px}
+.ps-story p{font-size:17px;line-height:1.8}
+.ps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ps-card{background:#fff;border:1px solid var(--line);padding:27px;position:relative}
+.ps-card:before{content:"";display:block;width:48px;height:4px;background:linear-gradient(90deg,#cf2028 50%,#17395f 50%);margin-bottom:18px}
+.ps-card h3{color:#17395f;margin:0 0 10px;font-size:21px}
+.ps-card p{line-height:1.65;margin:0}
+.ps-quiz{background:linear-gradient(135deg,#17395f,#102c49);color:#fff;border:1px solid #0d243b;padding:42px;position:relative;overflow:hidden}
+.ps-quiz:after{content:"2000";position:absolute;right:20px;bottom:-35px;font:900 170px/1 Arial;color:rgba(255,255,255,.045)}
+.ps-quiz h2{font:800 clamp(30px,4vw,48px)/1.1 'Libre Baskerville',serif;margin:8px 0 15px}
+.ps-quiz p{font-size:17px;line-height:1.75;max-width:850px;color:rgba(255,255,255,.88)}
+.ps-quiz-stats{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0}
+.ps-stat{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);padding:13px 17px}
+.ps-stat strong{display:block;font-size:21px;color:#e8c76a}.ps-stat span{font-size:12px;color:#dce4ec}
+.ps-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
+.ps-btn{display:inline-block;padding:14px 20px;text-decoration:none;font-weight:900;border-radius:3px}
+.ps-btn-red{background:#cf2028;color:#fff}.ps-btn-light{background:#fff;color:#17395f}
+.ps-principles{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.ps-principle{padding:25px;border-left:5px solid #cf2028;background:#fff;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ps-principle strong{display:block;color:#17395f;font-size:18px;margin-bottom:7px}.ps-principle p{margin:0;line-height:1.6}
+.ps-quote{background:linear-gradient(90deg,#f4f6f8,#fff);border-left:6px solid #17395f;padding:30px 34px;font:700 24px/1.55 'Libre Baskerville',serif;color:#17395f}
+.ps-sources{font-size:13px;line-height:1.7;color:#596575}
+@media(max-width:800px){.ps-about-hero{padding:48px 28px}.ps-grid,.ps-principles{grid-template-columns:1fr}.ps-story,.ps-quiz{padding:28px}.ps-about-hero h1{font-size:42px}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="topbar"><a class="brand" href="index.html"><span class="brand-mark">🇭🇷</span><span><strong>PatriaSoul</strong><small>Čuvari nasljeđa</small></span></a><button class="menu-toggle" type="button">Izbornik</button></div>
+<nav id="main-nav" class="main-nav"><a href="index.html">🏠 Naslovnica</a><a href="vjera.html">✝️ Vjera</a><a href="ljudi.html">❤️ Obitelj</a><a href="domovina.html">🇭🇷 Domovina</a><a href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa</a><a class="active" href="o-nama.html">🇭🇷 O PatriaSoul</a><a href="kontakt.html">✉️ Kontakt</a><a href="pretraga.html">🔎 Pretraga</a></nav></header>
+<main class="container">
+<section class="ps-about-hero"><span class="ps-kicker">PATRIASOUL · HRVATSKA · POVIJEST · ZNANJE · IDENTITET</span><h1>Čuvamo ono što jesmo.<br>Učimo ono što je bilo.<br>Prenosimo dalje.</h1><p>PatriaSoul je digitalni prostor posvećen Hrvatskoj — njezinoj povijesti, ljudima, obiteljima, vjeri, gradovima, baštini, sjećanju i znanju.</p><div class="ps-motto">ZNANJE · PONOS · NASLJEĐE</div></section>
+
+<section class="ps-section"><div class="ps-title">ZAŠTO POSTOJIMO</div><div class="ps-story"><h2>Jer narod koji poznaje svoju priču zna što čuva.</h2><p>Hrvatska nije samo granica na karti. Hrvatska je priča koju su stvarali ljudi, obitelji, branitelji, učitelji, radnici, umjetnici, svećenici, znanstvenici, obrtnici i naraštaji koji su prije nas ostavljali trag.</p><p>PatriaSoul želi te tragove povezati na jednom mjestu. Želimo približiti povijest bez zaborava, baštinu bez površnosti i znanje bez nepotrebnog udaljavanja od čovjeka kojemu je ta priča važna.</p><p>Naša je ideja jednostavna: <strong>upoznaj Hrvatsku, čuvaj baštinu i prenesi priču.</strong></p></div></section>
+
+<section class="ps-section"><div class="ps-title">ŠTO JE PATRIASOUL</div><div class="ps-grid">
+<article class="ps-card"><h3>🇭🇷 Domovina</h3><p>Mjesta, ljudi, povijesni događaji, Domovinski rat, branitelji i priče koje povezuju hrvatski prostor i hrvatsko iskustvo.</p></article>
+<article class="ps-card"><h3>✝️ Vjera</h3><p>Vjera, crkvena povijest, svetišta, ljudi vjere i tragovi kršćanske baštine u hrvatskom kulturnom prostoru.</p></article>
+<article class="ps-card"><h3>❤️ Obitelj</h3><p>Obiteljske priče, biografije, uspomene i ljudi čiji životni trag zaslužuje ostati zapisan.</p></article>
+<article class="ps-card"><h3>🛡️ Čuvari nasljeđa</h3><p>Ljudi i zajednice koji čuvaju fotografije, dokumente, običaje, zanate, sjećanja, mjesta i predaje.</p></article>
+<article class="ps-card"><h3>📚 Povijest i baština</h3><p>Priče gradimo uz izvore, razlikujući dokumentiranu činjenicu od predaje, svjedočanstva i kasnijeg tumačenja.</p></article>
+<article class="ps-card"><h3>🧠 Znanje</h3><p>Znanje želimo učiniti dostupnim, zanimljivim i korisnim — od povijesti i geografije do kulture i hrvatskih posebnosti.</p></article>
+</div></section>
+
+<section class="ps-section"><div class="ps-title">PATRIASOUL HRVATSKI KVIZ</div><div class="ps-quiz"><span class="ps-kicker">TESTIRAJ SVOJE ZNANJE</span><h2>Znanje nije samo odgovor. Znanje je sjećanje.</h2><p>PatriaSoul ima i vlastiti digitalni kviz — mjesto na kojem se hrvatsko znanje pretvara u izazov. Kviz je zamišljen kao spoj učenja, natjecanja i otkrivanja Hrvatske: povijest, geografija, kultura i baština, Domovinski rat, Glagoljica i druge teme povezane s Hrvatskom.</p><div class="ps-quiz-stats"><div class="ps-stat"><strong>2000+</strong><span>glavnih pitanja</span></div><div class="ps-stat"><strong>127</strong><span>hrvatskih gradova u projektu</span></div><div class="ps-stat"><strong>75</strong><span>pitanja po gradskom izazovu</span></div><div class="ps-stat"><strong>3</strong><span>načina igranja</span></div></div><p>Poseban dio projekta je <strong>Brani svoj grad</strong> — izazov koji želi upoznati igrača s vlastitim gradom i drugim hrvatskim gradovima kroz lokalnu povijest, ljude, baštinu, geografiju i zanimljivosti.</p><div class="ps-btns"><a class="ps-btn ps-btn-red" href="https://patriasoul.github.io/kviz/">🎮 Igraj PatriaSoul kviz</a><a class="ps-btn ps-btn-light" href="https://patriasoul.github.io/kviz/">🏆 Testiraj svoje znanje</a></div></div></section>
+
+<section class="ps-section"><div class="ps-title">NAŠ NAČIN RADA</div><div class="ps-principles">
+<div class="ps-principle"><strong>1. Činjenica prije senzacije.</strong><p>Ne želimo jači naslov od izvora. Kada nešto nije potvrđeno, to jasno razlikujemo od dokumentirane činjenice.</p></div>
+<div class="ps-principle"><strong>2. Izvor prije tvrdnje.</strong><p>Kada je moguće, oslanjamo se na službene, arhivske, muzejske, znanstvene i druge vjerodostojne izvore.</p></div>
+<div class="ps-principle"><strong>3. Sjećanje ima svoje mjesto.</strong><p>Osobno svjedočanstvo, obiteljska predaja i lokalno pamćenje vrijedni su izvori priče, ali ih ne predstavljamo automatski kao dokazanu povijesnu činjenicu.</p></div>
+<div class="ps-principle"><strong>4. Ispravak je dio odgovornosti.</strong><p>Ako pronađemo pogrešku ili dobijemo vjerodostojan ispravak, želimo ga razmotriti i sadržaj po potrebi ispraviti.</p></div>
+<div class="ps-principle"><strong>5. Čovjek nije samo podatak.</strong><p>Biografije i obiteljske priče pišemo s poštovanjem prema osobi, privatnosti i dostojanstvu.</p></div>
+<div class="ps-principle"><strong>6. Baština pripada i budućnosti.</strong><p>Čuvanje nasljeđa nije okretanje samo prema prošlosti. To je način da ono vrijedno ostane dostupno ljudima koji dolaze poslije nas.</p></div>
+</div></section>
+
+<section class="ps-section"><div class="ps-quote">„Ne želimo samo gledati što je ostalo iza nas. Želimo razumjeti, sačuvati i prenijeti ono što vrijedi da bi Hrvatska svoju priču mogla pričati i sutra.”</div></section>
+
+<section class="ps-section"><div class="ps-title">HRVATSKA KULTURNA BAŠTINA</div><div class="ps-story"><h2>Čuvati znači i provjeravati.</h2><p>PatriaSoul razlikuje urednički pojam <strong>Čuvar nasljeđa</strong> od službenog statusa kulturnoga dobra. Službeni Registar kulturnih dobara Republike Hrvatske vodi Ministarstvo kulture i medija, a registar je javna knjiga koja se kontinuirano mijenja i nadopunjuje. citeturn0search0</p><p>Nematerijalna baština obuhvaća, među ostalim, usmenu predaju, govore i izričaje, izvedbene umjetnosti, običaje, obrede i svečanosti, tradicijska znanja i vještine te tradicijske obrte. Za upis u službeni Registar postoji stručna procedura i evaluacija. citeturn0search8turn0search7</p><p>Na PatriaSoulu zato želimo biti most između ljudi i izvora: saslušati priču, pronaći trag, provjeriti ga i tek onda graditi sadržaj.</p><p><a class="read-more" href="cuvari-nasljeda.html">Saznaj tko je Čuvar nasljeđa →</a> &nbsp; <a class="read-more" href="kontakt.html">Pošalji nam svoju priču →</a></p></div></section>
+
+<section class="ps-section"><div class="ps-title">BUDI DIO PRIČE</div><div class="ps-story"><h2>Hrvatska se ne čuva samo u knjigama.</h2><p>Čuva se u obiteljskoj fotografiji. U starom pismu. U pjesmi. U običaju. U priči koju djed još pamti. U dokumentu koji je godinama stajao u ladici. U zanatu koji netko još uvijek zna napraviti. U sjećanju na ljude koji su ostavili trag.</p><p>Ako imaš nešto što vrijedi sačuvati — <strong>javi nam se.</strong></p><div class="ps-btns"><a class="ps-btn ps-btn-red" href="kontakt.html">✉️ Piši PatriaSoulu</a><a class="ps-btn ps-btn-light" href="cuvari-nasljeda.html">🛡️ Budi Čuvar nasljeđa</a></div></div></section>
+
+<section class="editorial-note"><strong>PATRIASOUL · UREDNIČKI STANDARD</strong><p>PatriaSoul je domoljubni projekt posvećen Hrvatskoj, ali domoljublje za nas znači i odgovornost prema istini. Ne izmišljamo izvore, citate ni podatke. Jasno razlikujemo činjenice, tumačenja, svjedočanstva i predaje. Kada koristimo fotografije ili vanjske izvore, nastojimo ih jasno navesti i poštovati uvjete korištenja.</p></section>
+</main>
+<footer class="site-footer"><div class="container"><strong>PatriaSoul</strong><p>Hrvatska · Povijest · Znanje · Identitet</p><p><a href="o-nama.html">O PatriaSoul</a> · <a href="kontakt.html">Kontakt</a> · <a href="urednicki-standard.html">Urednički standard</a></p></div></footer>
+<script src="assets/js/portal.js"></script></body></html>
