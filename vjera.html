@@ -54,34 +54,53 @@
 <script src="assets/js/portal.js"></script>
 <script>
 (function(){
-  const daily={
-    "2026-09-20":{
-      liturgical:"25. nedjelja kroz godinu",
-      gospelTitle:"Prispodoba o radnicima u vinogradu",
-      gospelRef:"Mt 20, 1–16a",
-      gospelText:"Današnje Evanđelje donosi prispodobu o radnicima u vinogradu i Božjoj velikodušnosti. Za puni liturgijski tekst otvorite izvor.",
-      saint:"Sveti Andrija Kim Taegŏn, Pavao Chŏng Ha-sang i drugovi",
-      saintText:"Crkva danas slavi korejske mučenike, svjedoke vjere koji su dali život za Krista.",
-      verse:"Blizu je Gospodin svima koji ga prizivlju.",
-      verseRef:"Ps 145, 18",
-      thoughtTitle:"Ne mjeri Božju dobrotu ljudskim mjerilima.",
-      thought:"Današnja prispodoba poziva na zahvalnost i povjerenje: tuđi dar ne umanjuje ono što je nama darovano."
-    }
-  };
-  const now=new Date(), key=now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");
-  const d=daily[key]||{liturgical:"Liturgijski dan",gospelTitle:"Današnje Evanđelje",gospelRef:"Provjeri današnju liturgiju",gospelText:"Za današnji puni liturgijski sadržaj otvorite provjereni liturgijski izvor. PatriaSoul dnevni zapis priprema se prema datumu.",saint:"Svetac dana",saintText:"Podatak za ovaj datum bit će dopunjen nakon provjere liturgijskog kalendara.",verse:"Riječ dana",verseRef:"Provjeri izvor",thoughtTitle:"Kratka misao dana",thought:"Zastani, pročitaj, razmisli i pronađi trenutak zahvalnosti."};
+  const API="https://cpbjr.github.io/catholic-readings-api";
   const months=["siječnja","veljače","ožujka","travnja","svibnja","lipnja","srpnja","kolovoza","rujna","listopada","studenoga","prosinca"];
-  document.getElementById("faith-date").textContent=now.getDate()+". "+months[now.getMonth()]+" "+now.getFullYear+". · "+d.liturgical;
-  document.getElementById("faith-gospel-title").textContent=d.gospelTitle;
-  document.getElementById("faith-gospel-ref").textContent=d.gospelRef;
-  document.getElementById("faith-gospel-text").textContent=d.gospelText;
-  document.getElementById("faith-saint").textContent=d.saint;
-  document.getElementById("faith-saint-text").textContent=d.saintText;
-  document.getElementById("faith-verse").textContent="„"+d.verse+"“";
-  document.getElementById("faith-verse-ref").textContent=d.verseRef;
-  document.getElementById("faith-thought-title").textContent=d.thoughtTitle;
-  document.getElementById("faith-thought").textContent=d.thought;
-  document.getElementById("faith-liturgical-link").href="https://hkm.hr/liturgija-dana/";
+  const now=new Date();
+  const yyyy=now.getFullYear(), mm=String(now.getMonth()+1).padStart(2,"0"), dd=String(now.getDate()).padStart(2,"0");
+  const key=yyyy+"-"+mm+"-"+dd, md=mm+"-"+dd;
+
+  function set(id,value){const el=document.getElementById(id);if(el)el.textContent=value||"—";}
+  function titleFromRef(ref){
+    const map={"Mt 20, 1–16a":"Prispodoba o radnicima u vinogradu"};
+    return map[ref]||"Današnje Evanđelje";
+  }
+  async function load(){
+    try{
+      const [calRes,readRes]=await Promise.all([
+        fetch(API+"/liturgical-calendar/"+yyyy+"/"+md+".json",{cache:"no-store"}),
+        fetch(API+"/readings/"+yyyy+"/"+md+".json",{cache:"no-store"})
+      ]);
+      if(!calRes.ok||!readRes.ok) throw new Error("Dnevni liturgijski izvor nije dostupan.");
+      const cal=await calRes.json(), readings=await readRes.json();
+      const celebration=cal.celebration||{};
+      const gospel=readings.readings?.gospel||"";
+      const liturgical=celebration.name||cal.season||"Liturgijski dan";
+      set("faith-date",now.getDate()+". "+months[now.getMonth()]+" "+yyyy+". · "+liturgical);
+      set("faith-gospel-title",titleFromRef(gospel));
+      set("faith-gospel-ref",gospel);
+      set("faith-gospel-text","Današnje Evanđelje: "+gospel+". Za puni liturgijski tekst otvorite provjereni liturgijski izvor.");
+      set("faith-saint",celebration.name||"Svetac dana");
+      set("faith-saint-text",celebration.description||"Današnji liturgijski spomendan i svetac prema dnevnom kalendaru.");
+      set("faith-verse","Riječ dana: "+(readings.readings?.psalm||"Psalam dana"));
+      set("faith-verse-ref","Dnevna liturgijska čitanja");
+      set("faith-thought-title","Kratka misao dana");
+      set("faith-thought",celebration.quote||"Zastani, pročitaj današnju Božju riječ i pronađi trenutak zahvalnosti.");
+      const link=document.getElementById("faith-liturgical-link"); if(link) link.href="https://hkm.hr/liturgija-dana/";
+    }catch(err){
+      set("faith-date",now.getDate()+". "+months[now.getMonth()]+" "+yyyy+". · Liturgijski dan");
+      set("faith-gospel-title","Današnje Evanđelje");
+      set("faith-gospel-ref","Provjeri liturgiju");
+      set("faith-gospel-text","Dnevni liturgijski podaci trenutačno nisu dostupni. Otvorite provjereni liturgijski izvor.");
+      set("faith-saint","Svetac dana");
+      set("faith-saint-text","Dnevni podatak nije trenutačno dostupan.");
+      set("faith-verse","Riječ dana");
+      set("faith-verse-ref","Provjeri izvor");
+      set("faith-thought-title","Kratka misao dana");
+      set("faith-thought","Zastani, pročitaj i razmisli.");
+    }
+  }
+  load();
 })();
 </script>
 </body></html>
