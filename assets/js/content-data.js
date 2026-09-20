@@ -36,6 +36,24 @@ window.PatriaSoulContent = {
       imageAlt: "Blago Zadro s pripadnicima obrane Vukovara, jesen 1991.",
       imageCaption: "Blago Zadro među pripadnicima obrane Vukovara, jesen 1991. Foto: Carluvmost / Wikimedia Commons, CC BY-SA 3.0."
     },
+    krbavskaBitka: {
+      title: "Krbavska bitka 1493.: dan koji je ostao zapisan u hrvatskom sjećanju",
+      kicker: "POVIJESNE PRIČE",
+      deck: "Na Krbavskome polju kraj Udbine 9. rujna 1493. sukobile su se hrvatska plemićka vojska i osmanska vojska. Poraz je bio težak, ali njegova povijesna priča nije završila tog dana: obrambeni sustav hrvatskih zemalja nastavio je funkcionirati još desetljećima.",
+      date: "2026-09-20",
+      meta: "Piše: PatriaSoul · 20. rujna 2026. · Krbava, Lika · 8 min čitanja",
+      url: "clanak-krbavska-bitka.html",
+      category: "Povijest",
+      subcategory: "Povijesne priče",
+      rubric: "Povijesne priče",
+      tags: ["Krbavska bitka", "Krbava", "Udbina", "srednji vijek", "Osmanlije", "1493.", "hrvatska povijest"],
+      place: "Krbava",
+      period: "1493.",
+      type: "Povijesna priča",
+      image: "https://upload.wikimedia.org/wikipedia/commons/6/65/Battle_of_Krbava_Field.jpg",
+      imageAlt: "Prikaz Krbavske bitke iz 1493.",
+      imageCaption: "Prikaz Krbavske bitke. Leonhard Beck, oko 1514.–1516. / Wikimedia Commons, javno vlasništvo."
+    },
     markoBabic: {
       title: "Marko Babić: Trpinjska cesta, protuoklopna borba i život poslije Vukovara",
       kicker: "LJUDI DOMOVINSKOG RATA",
