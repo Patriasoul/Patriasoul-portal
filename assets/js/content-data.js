@@ -36,6 +36,24 @@ window.PatriaSoulContent = {
       imageAlt: "Blago Zadro s pripadnicima obrane Vukovara, jesen 1991.",
       imageCaption: "Blago Zadro među pripadnicima obrane Vukovara, jesen 1991. Foto: Carluvmost / Wikimedia Commons, CC BY-SA 3.0."
     },
+    australskiHrvati: {
+      title: "Kad hrvatska riječ živi tisućama kilometara od domovine",
+      kicker: "DIJASPORA",
+      deck: "U Australiji se hrvatski jezik i kultura desetljećima čuvaju kroz škole, udruge, obitelji i kulturne programe. Priča o hrvatskoj zajednici ondje nije samo priča o iseljavanju, nego i o generacijama koje su pokušavale prenijeti jezik i osjećaj pripadnosti djeci rođenoj daleko od Hrvatske.",
+      date: "2026-09-20",
+      meta: "Piše: PatriaSoul · 20. rujna 2026. · Sydney, Australija · 7 min čitanja",
+      url: "clanak-australski-hrvati.html",
+      category: "Dijaspora",
+      subcategory: "Hrvatske zajednice",
+      rubric: "Priče dijaspore",
+      tags: ["Australija", "Hrvati u Australiji", "hrvatski jezik", "hrvatske škole", "Sydney", "dijaspora"],
+      place: "Australija",
+      period: "20. i 21. stoljeće",
+      type: "Priča dijaspore",
+      image: "https://matis.hr/wp-content/uploads/2024/12/20241211_1.jpg",
+      imageAlt: "Proslava hrvatskog jezika u Australiji",
+      imageCaption: "Proslava hrvatskog jezika i kulture u Australiji, prosinac 2024. Foto: Hrvatska matica iseljenika."
+    },
     krbavskaBitka: {
       title: "Krbavska bitka 1493.: dan koji je ostao zapisan u hrvatskom sjećanju",
       kicker: "POVIJESNE PRIČE",
