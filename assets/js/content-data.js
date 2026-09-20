@@ -35,7 +35,7 @@ window.PatriaSoulContent = {
       image: "https://upload.wikimedia.org/wikipedia/commons/3/3e/Vukovar_heroes_Andrija_Maric_Blago_Zadro_Goran_Radicevic.jpg",
       imageAlt: "Blago Zadro s pripadnicima obrane Vukovara, jesen 1991.",
       imageCaption: "Blago Zadro među pripadnicima obrane Vukovara, jesen 1991. Foto: Carluvmost / Wikimedia Commons, CC BY-SA 3.0."
-    }
+    },
     markoBabic: {
       title: "Marko Babić: Trpinjska cesta, protuoklopna borba i život poslije Vukovara",
       kicker: "LJUDI DOMOVINSKOG RATA",
