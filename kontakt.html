@@ -94,14 +94,41 @@
 <p>Ako nam šalješ svoju osobnu ili obiteljsku priču, slanjem poruke ne daješ automatsko dopuštenje za objavu. Ako priču želimo pretvoriti u članak, najprije ćemo je dogovoriti s tobom, provjeriti dostupne izvore i <strong>objaviti tek nakon tvog odobrenja</strong>. Ako ne želiš javnu objavu, samo to napiši u poruci.</p>
 </section>
 <script>
-document.getElementById('contact-form').addEventListener('submit',function(event){
+document.getElementById('contact-form').addEventListener('submit',async function(event){
   event.preventDefault();
   if(!this.checkValidity()){this.reportValidity();return;}
+  const button=this.querySelector('button[type="submit"]');
+  const status=document.getElementById('contact-form-status');
   const data=new FormData(this);
-  const guardian=data.get('guardian')?'DA — želi biti Čuvar nasljeđa':'NE';
-  const subject='PatriaSoul - '+data.get('topic')+(data.get('guardian')?' - Čuvar nasljeđa':'');
-  const body='Ime i prezime: '+data.get('name')+'\\nE-pošta: '+data.get('email')+'\\nTema: '+data.get('topic')+'\\nŽeli biti Čuvar nasljeđa: '+guardian+'\\n\\nPoruka:\\n'+data.get('message')+'\\n\\nNapomena: Pošiljatelj je potvrdio da slanje obrasca nije automatsko dopuštenje za javnu objavu.';
-  document.getElementById('contact-form-status').textContent='Otvaramo tvoju e-poštu — poruka je pripremljena.';
-  window.location.href='mailto:patriasoul@protonmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  button.disabled=true;
+  button.textContent='Šaljem…';
+  status.textContent='Poruka se sigurno šalje PatriaSoulu…';
+  try{
+    const res=await fetch('https://ijimozjfdffejbczwyzb.supabase.co/functions/v1/contact-form',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':'sb_publishable_SvuPtQUmXamt1a1_JpU6Jg_Bf3Fshqr'},
+      body:JSON.stringify({
+        name:String(data.get('name')||'').trim(),
+        email:String(data.get('email')||'').trim(),
+        topic:String(data.get('topic')||'').trim(),
+        message:String(data.get('message')||'').trim(),
+        guardian:data.get('guardian')==='on',
+        consent:data.get('consent')==='on',
+        website:''
+      })
+    });
+    const result=await res.json();
+    if(!res.ok || !result.ok) throw new Error(result.error||'Slanje nije uspjelo.');
+    status.textContent='✓ Poruka je zaprimljena. Hvala ti — javit ćemo se na navedenu e-poštu.';
+    status.style.color='#176b3a';
+    this.reset();
+  }catch(error){
+    console.error(error);
+    status.textContent='Poruku trenutačno nije moguće poslati. Možeš nam se javiti na patriasoul@protonmail.com.';
+    status.style.color='#a9141b';
+  }finally{
+    button.disabled=false;
+    button.textContent='✉️ Pošalji prema PatriaSoulu';
+  }
 });
 </script></main><footer class="site-footer"><div class="container"><strong>PatriaSoul</strong><p>PatriaSoul · Čuvari nasljeđa</p></div></footer><script src="assets/js/portal.js"></script></body></html>
