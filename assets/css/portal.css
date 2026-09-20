@@ -165,7 +165,7 @@ background-size:cover;background-position:center center;background-attachment:fi
   background-size:contain;
 }
 
-.footer-grid>div:first-child>strong{
+.site-footer strong{
   display:flex;
   align-items:center;
   gap:12px;
@@ -174,7 +174,7 @@ background-size:cover;background-position:center center;background-attachment:fi
   line-height:1.2;
 }
 
-.footer-grid>div:first-child>strong:before{
+.site-footer strong:before{
   content:"";
   width:48px;
   height:48px;
@@ -188,6 +188,6 @@ background-size:cover;background-position:center center;background-attachment:fi
 
 @media(max-width:560px){
   .brand-mark{width:42px;height:42px;flex-basis:42px}
-  .footer-grid>div:first-child>strong:before{width:42px;height:42px;flex-basis:42px}
+  .site-footer strong:before{width:42px;height:42px;flex-basis:42px}
 }
 
