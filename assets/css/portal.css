@@ -86,3 +86,36 @@ background-size:cover;background-position:center center;background-attachment:fi
 .domovina-main-story .read-more:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--red) 0 33.33%,#f4f4f2 33.33% 66.66%,var(--blue) 66.66% 100%)}
 .domovina-main-story .read-more:hover{transform:translateY(-2px);border-color:#b9c2ca;box-shadow:0 8px 20px rgba(23,32,42,.10);color:var(--red)}
 @media(max-width:560px){.domovina-main-story .read-more{min-height:42px;padding:10px 15px;margin-left:18px;margin-right:18px;font-size:11px}}
+
+/* Bog · profesionalne podstranice */
+.faith-breadcrumb{display:flex;align-items:center;gap:9px;margin:28px 0 8px;font-size:12px;color:var(--muted)}
+.faith-breadcrumb a{color:var(--blue);font-weight:800;text-decoration:none}
+.faith-breadcrumb span:last-child{color:#8a9299}
+.faith-subpage .page-head{padding-top:8px}
+.faith-subpage-hero{margin-top:30px}
+.faith-hero-image{display:block;width:100%;height:360px;object-fit:cover;margin:-28px -28px 26px;width:calc(100% + 56px)}
+.faith-editorial-note{max-width:1000px;margin:28px auto;padding:18px 22px;background:rgba(255,255,255,.88);border-left:4px solid var(--red);box-shadow:0 5px 18px rgba(23,32,42,.05)}
+.faith-editorial-note strong{display:block;font-size:10px;letter-spacing:.14em;color:var(--red);margin-bottom:6px}
+.faith-editorial-note p{margin:0;color:#59636d;font-size:14px;line-height:1.65}
+.faith-highlight-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.faith-story-card{display:grid;grid-template-columns:180px 1fr;background:#fff;border:1px solid var(--line);text-decoration:none;color:inherit;overflow:hidden;min-height:185px;transition:.18s ease}
+.faith-story-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(23,32,42,.08)}
+.faith-story-card img{width:100%;height:100%;min-height:185px;object-fit:cover}
+.faith-story-card span{padding:18px;display:flex;flex-direction:column}
+.faith-story-card b{font:800 10px/1.2 Inter,sans-serif;letter-spacing:.1em;color:var(--red)}
+.faith-story-card strong{font:700 18px/1.3 "Libre Baskerville",serif;margin:8px 0}
+.faith-story-card small{font-size:13px;line-height:1.5;color:var(--muted)}
+.faith-story-card em{font:800 12px/1.2 Inter,sans-serif;color:var(--blue);font-style:normal;margin-top:auto;padding-top:12px}
+.faith-latest-box{background:#fff;border:1px solid var(--line);padding:24px 26px;box-shadow:0 5px 18px rgba(23,32,42,.04)}
+.faith-latest-box p{max-width:780px;margin:0 0 10px;color:#59636d}
+@media(max-width:760px){
+  .faith-highlight-grid{grid-template-columns:1fr}
+  .faith-story-card{grid-template-columns:125px 1fr}
+  .faith-story-card img{min-height:155px}
+  .faith-hero-image{height:270px}
+}
+@media(max-width:560px){
+  .faith-hero-image{height:220px;margin:-22px -22px 22px;width:calc(100% + 44px)}
+  .faith-story-card{grid-template-columns:1fr}
+  .faith-story-card img{height:190px;min-height:0}
+}
