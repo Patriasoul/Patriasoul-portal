@@ -55,7 +55,7 @@ window.PatriaSoulContent = {
       deck:"U Zagrebu je početkom 20. stoljeća nastao niz izuma koji nisu ostali samo na papiru. Među njima je bila automatska mehanička olovka Slavoljuba Eduarda Penkale, ali njegova priča govori i o tome kako znanje, proizvodnja i poduzetništvo mogu pretvoriti zamisao u predmet koji ulazi u svakodnevni život.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Zagreb · 8 min čitanja", url:"clanak-penkala.html",
       category:"Hrvatska stvara", subcategory:"Znanost i izumi", rubric:"Hrvatska stvara", tags:["Slavoljub Penkala","Penkala","izumi","inovacije","Zagreb","mehanička olovka","zrakoplov"], place:"Zagreb", period:"1871.–1922.", type:"Priča o stvaranju",
-      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Slavoljub_Eduard_Penkala.jpg", imageAlt:"Portret Slavoljuba Eduarda Penkale", imageCaption:"Slavoljub Eduard Penkala. Fotografija je u javnoj domeni."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Perkovi%C4%87%20Thompson%202025%20Zagreb%20Hipodrom%20concert.jpg", imageAlt:"Portret Slavoljuba Eduarda Penkale", imageCaption:"Slavoljub Eduard Penkala. Fotografija je u javnoj domeni."
     },
     vlatkoGribl: {
       title:"Vlatko Gribl: kada se zanat naslijedi, ali ne može uvijek i nastaviti", kicker:"BAŠTINA · TRADICIJSKI OBRTI",
@@ -79,42 +79,42 @@ window.PatriaSoulContent = {
       deck:"Od ratnih Čavoglava i prve pjesme do velikih pozornica, obiteljskog života, vjere i humanitarnih koncerata: priča o Marku Perkoviću Thompsonu nije samo priča o glazbeniku, nego o čovjeku čiji je javni put desetljećima isprepleten s hrvatskim društvom.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Čavoglave · 18 min čitanja", url:"clanak-marko-perkovic-thompson.html",
       category:"Čuvari nasljeđa", subcategory:"Domovina · Vjera · Obitelj", rubric:"Čuvari nasljeđa", tags:["Marko Perković Thompson","Thompson","Čavoglave","Domovinski rat","vjera","obitelj","domovina","humanitarni rad","glazba"], place:"Čavoglave", period:"1966.–danas", type:"Čuvar nasljeđa",
-      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Slavoljub_Eduard_Penkala.jpg", imageAlt:"Ilustrativna fotografija za priču o Marku Perkoviću Thompsonu", imageCaption:"Ilustrativna fotografija; konačna verzija treba koristiti fotografiju s jasno riješenim pravima objave."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Perkovi%C4%87%20Thompson%202025%20Zagreb%20Hipodrom%20concert.jpg", imageAlt:"Marko Perković Thompson na koncertu u Zagrebu, 5. srpnja 2025.", imageCaption:"Ilustrativna fotografija; konačna verzija treba koristiti fotografiju s jasno riješenim pravima objave."
     },
     thompsonCavoglave: {
       title:"Bojna Čavoglave i čovjek iza pjesme", kicker:"DOMOVINA · DOMOVINSKI RAT",
       deck:"Kako je ratno iskustvo iz Čavoglava oblikovalo pjesmu koja je obilježila početak Thompsonova javnog glazbenog puta.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Čavoglave · 9 min čitanja", url:"clanak-thompson-cavoglave.html",
       category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Ljudi Domovinskog rata", tags:["Marko Perković Thompson","Bojna Čavoglave","Čavoglave","Domovinski rat","1991."], place:"Čavoglave", period:"1991.–danas", type:"Povijesna priča",
-      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Slavoljub_Eduard_Penkala.jpg", imageAlt:"Ilustrativna fotografija", imageCaption:"Ilustrativna fotografija; konačna verzija treba koristiti fotografiju s jasno riješenim pravima objave."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Perkovi%C4%87%20Thompson%202025%20Zagreb%20Hipodrom%20concert.jpg", imageAlt:"Ilustrativna fotografija", imageCaption:"Ilustrativna fotografija; konačna verzija treba koristiti fotografiju s jasno riješenim pravima objave."
     },
     thompsonVjera: {
       title:"Marko Perković Thompson: vjera, obitelj i život izvan pozornice", kicker:"VJERA · OBITELJ · LJUDI",
       deck:"Iza javnog lika glazbenika stoji obitelj koju je godinama nastojao držati podalje od medijske buke, a vjera je važan dio njegova javno iskazanog identiteta.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Split · 10 min čitanja", url:"clanak-thompson-vjera-obitelj.html",
       category:"Vjera", subcategory:"Vjera i život", rubric:"Ljudi vjere", tags:["Marko Perković Thompson","Sandra Perković","vjera","obitelj","brak","Split"], place:"Split", period:"2000-e–danas", type:"Obiteljska priča",
-      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Slavoljub_Eduard_Penkala.jpg", imageAlt:"Ilustrativna fotografija", imageCaption:"Ilustrativna fotografija; konačna verzija treba koristiti fotografiju s jasno riješenim pravima objave."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Perkovi%C4%87%20Thompson%202025%20Zagreb%20Hipodrom%20concert.jpg", imageAlt:"Ilustrativna fotografija", imageCaption:"Ilustrativna fotografija; konačna verzija treba koristiti fotografiju s jasno riješenim pravima objave."
     },
     thompsonHumanitarno: {
       title:"Marko Perković Thompson i humanitarni rad: kada koncert postane pomoć drugima", kicker:"HUMANITARNO · DOMOVINA",
       deck:"Od prvih humanitarnih koncerata nakon obrane Čavoglava do milijunske neto dobiti koncerta u Vukovaru 2026., humanitarni dio Thompsonova javnog rada ima dokumentirane primjere.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Hrvatska · 11 min čitanja", url:"clanak-thompson-humanitarni-rad.html",
       category:"Čuvari nasljeđa", subcategory:"Služiti drugima", rubric:"Humanitarno", tags:["Marko Perković Thompson","humanitarno","Vukovar","Sisak","Studentski dom sv. Josipa","Stadion 12 hrvatskih redarstvenika"], place:"Hrvatska", period:"1992.–danas", type:"Humanitarna priča",
-      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Slavoljub_Eduard_Penkala.jpg", imageAlt:"Ilustrativna fotografija", imageCaption:"Ilustrativna fotografija; konačna verzija treba koristiti fotografiju s jasno riješenim pravima objave."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Perkovi%C4%87%20Thompson%202025%20Zagreb%20Hipodrom%20concert.jpg", imageAlt:"Ilustrativna fotografija", imageCaption:"Ilustrativna fotografija; konačna verzija treba koristiti fotografiju s jasno riješenim pravima objave."
     },
     thompsonGlazba: {
       title:"Marko Perković Thompson: glazbeni put, pjesme i publika", kicker:"GLAZBA · HRVATSKA STVARA",
       deck:"Od prvog albuma i ratnih pjesama do velikih koncerata i nagrađivanih autorskih pjesama: pregled glazbenog puta Marka Perkovića Thompsona.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Hrvatska · 10 min čitanja", url:"clanak-thompson-glazba.html",
       category:"Hrvatska stvara", subcategory:"Glazba", rubric:"Ljudi koji stvaraju", tags:["Marko Perković Thompson","glazba","pjesme","publika","Porin","Moli mala","Bojna Čavoglave"], place:"Hrvatska", period:"1991.–danas", type:"Glazbena priča",
-      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Slavoljub_Eduard_Penkala.jpg", imageAlt:"Ilustrativna fotografija", imageCaption:"Ilustrativna fotografija; konačna verzija treba koristiti fotografiju s jasno riješenim pravima objave."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Perkovi%C4%87%20Thompson%202025%20Zagreb%20Hipodrom%20concert.jpg", imageAlt:"Ilustrativna fotografija", imageCaption:"Ilustrativna fotografija; konačna verzija treba koristiti fotografiju s jasno riješenim pravima objave."
     },
     thompsonKontroverze: {
       title:"Thompson: kontroverze, kritike i ono što izvori stvarno govore", kicker:"KONTEKST · DOKUMENTIRANO",
       deck:"O javnim sporovima oko Thompsona treba govoriti precizno: razlikovati povijesni kontekst, konkretne događaje, tvrdnje kritičara i odgovore samog izvođača.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Hrvatska · 12 min čitanja", url:"clanak-thompson-kontroverze.html",
       category:"Čuvari nasljeđa", subcategory:"Dokumentirano", rubric:"Kontekst", tags:["Marko Perković Thompson","kontroverze","Za dom spremni","ustaški režim","Domovinski rat","javne kritike"], place:"Hrvatska", period:"1990-e–danas", type:"Dokumentirani kontekst",
-      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Slavoljub_Eduard_Penkala.jpg", imageAlt:"Ilustrativna fotografija", imageCaption:"Ilustrativna fotografija; konačna verzija treba koristiti fotografiju s jasno riješenim pravima objave."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Perkovi%C4%87%20Thompson%202025%20Zagreb%20Hipodrom%20concert.jpg", imageAlt:"Ilustrativna fotografija", imageCaption:"Ilustrativna fotografija; konačna verzija treba koristiti fotografiju s jasno riješenim pravima objave."
     }
   }
 };
