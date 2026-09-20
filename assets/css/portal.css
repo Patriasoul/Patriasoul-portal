@@ -75,8 +75,9 @@ background-size:cover;background-position:center center;background-attachment:fi
 @media(max-width:700px){.pillar-intro{align-items:flex-start;flex-direction:column;padding:22px}.pillar-intro-link{white-space:normal}.pillar-intro h1{font-size:25px}}
 
 /* Elegantni PatriaSoul CTA gumbi */
-.guardian-cta,.article-page .read-more{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 22px;margin:12px 0 24px;background:#fff;color:var(--blue);border:1px solid #cfd5da;border-radius:3px;font-size:13px;font-weight:800;letter-spacing:.015em;box-shadow:0 4px 14px rgba(23,32,42,.07);overflow:hidden;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
-.guardian-cta:before,.article-page .read-more:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--red) 0 33.33%,#f4f4f2 33.33% 66.66%,var(--blue) 66.66% 100%)}
-.guardian-cta:hover,.article-page .read-more:hover{transform:translateY(-2px);border-color:#b9c2ca;box-shadow:0 8px 20px rgba(23,32,42,.11);color:var(--red)}
+/* Hrvatski tricolor CTA */
+.guardian-cta,.article-page .read-more{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:13px 24px;margin:12px 0 24px;background:linear-gradient(90deg,var(--red) 0 33.33%,#fff 33.33% 66.66%,var(--blue) 66.66% 100%);color:var(--ink);border:1px solid rgba(23,32,42,.16);border-radius:3px;font-size:13px;font-weight:800;letter-spacing:.015em;box-shadow:0 5px 16px rgba(23,32,42,.10);overflow:hidden;transition:transform .16s ease,box-shadow .16s ease}
+.guardian-cta:after,.article-page .read-more:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 33.33%,rgba(255,255,255,.18) 33.33% 66.66%,transparent 66.66% 100%);pointer-events:none}
+.guardian-cta:hover,.article-page .read-more:hover{transform:translateY(-2px);box-shadow:0 9px 22px rgba(23,32,42,.15);color:var(--red)}
 .guardian-cta{margin-left:0}.article-page .read-more{margin-left:24px;margin-right:24px}
-@media(max-width:560px){.guardian-cta,.article-page .read-more{min-height:50px;padding:13px 18px;font-size:12px}.article-page .read-more{margin-left:18px;margin-right:18px}}
+@media(max-width:560px){.guardian-cta,.article-page .read-more{min-height:48px;padding:12px 19px;font-size:12px}.article-page .read-more{margin-left:18px;margin-right:18px}}
