@@ -1,27 +1,48 @@
-<!doctype html><html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pretraga · PatriaSoul</title><link rel="stylesheet" href="assets/css/portal.css"></head><body><header class="site-header"><div class="topbar"><a class="brand" href="index.html"><span class="brand-mark">🇭🇷</span><span><strong>PatriaSoul</strong><small>Čuvari nasljeđa</small></span></a><button class="menu-toggle" type="button">Izbornik</button></div><nav id="main-nav" class="main-nav"><a href="index.html">🏠 Naslovnica</a><a href="vjera.html">✝️ Vjera</a><a href="ljudi.html">❤️ Obitelj</a><a href="domovina.html">🇭🇷 Domovina</a><a href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa</a><a href="o-nama.html">🇭🇷 O PatriaSoul</a><a class="active" href="pretraga.html">🔎 Pretraga</a><a href="kontakt.html">✉️ Kontakt</a></nav></header><main class="container"><section class="page-head"><span class="kicker">PRETRAGA</span><h1>Pretražite PatriaSoul</h1><p>Pretražite objavljene priče prema naslovu, temi, mjestu, razdoblju, rubrici ili oznaci.</p></section><form class="search-box" id="portal-search" action="#" method="get"><input id="search-input" type="search" name="q" placeholder="Pretražite priče, ljude, mjesta..." aria-label="Pretraga"><button type="submit">Pretraži</button></form>
-<div id="search-results" class="text-panel" aria-live="polite"><h2>Objavljene priče</h2><p>Upišite pojam za pretragu.</p></div>
-<script src="assets/js/content-data.js?v=2"></script>
-<script>
+<!doctype html><html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pretraga · PatriaSoul</title><link rel="stylesheet" href="assets/css/portal.css"></head><body><header class="site-header"><div class="topbar"><a class="brand" href="index.html"><span class="brand-mark">🇭🇷</span><span><strong>PatriaSoul</strong><small>Čuvari nasljeđa</small></span></a><button class="menu-toggle" type="button">Izbornik</button></div><nav id="main-nav" class="main-nav"><a href="index.html">🏠 Naslovnica</a><a href="vjera.html">✝️ Vjera</a><a href="ljudi.html">❤️ Obitelj</a><a href="domovina.html">🇭🇷 Domovina</a><a href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa</a><a href="o-nama.html">🇭🇷 O PatriaSoul</a><a class="active" href="pretraga.html">🔎 Pretraga</a><a href="kontakt.html">✉️ Kontakt</a></nav></header><main class="container"><section class="page-head"><span class="kicker">PRETRAGA</span><h1>Pretražite PatriaSoul</h1><p>Pretražite priče, stranice, ljude, mjesta, teme i oznake na cijelom portalu.</p></section><form class="search-box" id="portal-search" method="get"><input id="search-input" type="search" name="q" placeholder="Pretražite PatriaSoul..." aria-label="Pretraga cijelog portala"><button type="submit">Pretraži</button></form><div id="search-results" class="text-panel" aria-live="polite"><h2>Objavljene priče</h2><p>Upišite pojam za pretragu.</p></div>
+<script src="assets/js/content-data.js?v=2"></script><script>
 (function(){
-  var form=document.getElementById("portal-search"), input=document.getElementById("search-input"), box=document.getElementById("search-results");
+  var form=document.getElementById("portal-search"),input=document.getElementById("search-input"),box=document.getElementById("search-results");
   var data=window.PatriaSoulContent&&window.PatriaSoulContent.articles||{};
   var articles=Object.keys(data).map(function(k){return data[k]});
-  function render(q){
-    q=(q||"").trim().toLocaleLowerCase("hr-HR");
-    var matches=articles.filter(function(a){
-      var hay=[a.title,a.deck,a.category,a.subcategory,a.rubric,a.place,a.period,a.type].concat(a.tags||[]).join(" ").toLocaleLowerCase("hr-HR");
-      return !q || hay.indexOf(q)!==-1;
-    });
-    box.innerHTML="<h2>"+(q?"Rezultati pretrage":"Objavljene priče")+"</h2>";
-    if(!matches.length){box.innerHTML+="<p>Nema pronađenih objavljenih priča za ovaj pojam.</p>";return}
+  var pages=["index.html","biblija.html","clanak-australski-hrvati.html","clanak-blago-zadro.html","clanak-krbavska-bitka.html","clanak-marko-babic.html","clanak-marko-perkovic-thompson.html","clanak-mihael-stosic.html","clanak-penkala.html","clanak-ruder-boskovic.html","clanak-thompson-cavoglave.html","clanak-thompson-glazba.html","clanak-thompson-humanitarni-rad.html","clanak-thompson-kontroverze.html","clanak-thompson-vjera-obitelj.html","clanak-trpinjska-cesta.html","clanak-vjera-obitelj.html","clanak-vlatko-gribl.html","clanak.html","crkvena-bastina.html","cuvari-nasljeda.html","dijaspora.html","domovina.html","hrvatska-stvara.html","kontakt.html","ljudi-vjere.html","ljudi.html","najnovije.html","o-nama.html","povijest-crkve.html","povijest.html","pretraga.html","svetista.html","svjedocanstva.html","urednicki-standard.html","vjera-hrvatska-bastina.html","vjera-zivot.html","vjera.html"];
+  var pageCache=[];
+  function esc(s){return String(s||"").replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]})}
+  function renderArticles(q,matches){
     matches.forEach(function(a){
-      var article=document.createElement("article");
-      article.className="search-result";
-      var tags=[a.category,a.subcategory,a.rubric,a.place,a.period].concat(a.tags||[]).filter(function(v,i,self){return v&&self.indexOf(v)===i}); article.innerHTML='<span class="section-label">'+a.rubric+' · '+a.category+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p><div class="article-tags">'+tags.map(function(t){return '<a class="article-tag" href="pretraga.html?q='+encodeURIComponent(t)+'">'+t+'</a>'}).join("")+'</div>';
+      var tags=[a.category,a.subcategory,a.rubric,a.place,a.period].concat(a.tags||[]).filter(function(v,i,self){return v&&self.indexOf(v)===i});
+      var article=document.createElement("article"); article.className="search-result";
+      article.innerHTML='<span class="section-label">'+esc(a.rubric)+' · '+esc(a.category)+'</span><h3><a href="'+esc(a.url)+'">'+esc(a.title)+'</a></h3><p>'+esc(a.deck)+'</p><div class="article-tags">'+tags.map(function(t){return '<a class="article-tag" href="pretraga.html?q='+encodeURIComponent(t)+'">'+esc(t)+'</a>'}).join("")+'</div>';
       box.appendChild(article);
     });
   }
-  form.addEventListener("submit",function(e){e.preventDefault();render(input.value);history.replaceState(null,"","?q="+encodeURIComponent(input.value))});
-  var q=new URLSearchParams(location.search).get("q"); if(q){input.value=q;render(q)} else render("");
+  function renderPages(q,results){
+    results.forEach(function(p){
+      var article=document.createElement("article"); article.className="search-result";
+      article.innerHTML='<span class="section-label">STRANICA PORTALA</span><h3><a href="'+p.url+'">'+esc(p.title)+'</a></h3><p>'+esc(p.text.slice(0,260))+(p.text.length>260?"…":"")+'</p>';
+      box.appendChild(article);
+    });
+  }
+  async function render(q){
+    q=(q||"").trim(); var needle=q.toLocaleLowerCase("hr-HR");
+    box.innerHTML="<h2>"+(q?"Rezultati pretrage":"Objavljene priče")+"</h2>";
+    if(!q){renderArticles("",articles);return}
+    var matches=articles.filter(function(a){return [a.title,a.deck,a.category,a.subcategory,a.rubric,a.place,a.period,a.type].concat(a.tags||[]).join(" ").toLocaleLowerCase("hr-HR").indexOf(needle)!==-1});
+    renderArticles(q,matches);
+    if(needle.length>=2){
+      if(!pageCache.length){
+        box.insertAdjacentHTML("beforeend","<p id=\"search-loading\">Pretražujem i ostale stranice portala…</p>");
+        var loaded=await Promise.all(pages.map(async function(url){
+          try{var res=await fetch(url,{cache:"no-store"});if(!res.ok)return null;var html=await res.text();var doc=new DOMParser().parseFromString(html,"text/html");return {url:url,title:doc.title||url,text:(doc.querySelector("main")||doc.body).textContent.replace(/\\s+/g," ").trim()};}catch(e){return null}
+        }));
+        pageCache=loaded.filter(Boolean);
+      }
+      var pageMatches=pageCache.filter(function(p){return (p.title+" "+p.text).toLocaleLowerCase("hr-HR").indexOf(needle)!==-1});
+      var loading=document.getElementById("search-loading");if(loading)loading.remove();
+      renderPages(q,pageMatches.filter(function(p){return !matches.some(function(a){return a.url===p.url})}));
+      if(!matches.length&&!pageMatches.length)box.insertAdjacentHTML("beforeend","<p>Nema pronađenih rezultata za ovaj pojam.</p>");
+    }
+  }
+  form.addEventListener("submit",function(e){e.preventDefault();history.replaceState(null,"","?q="+encodeURIComponent(input.value));render(input.value)});
+  var q=new URLSearchParams(location.search).get("q");if(q){input.value=q;render(q)}else render("");
 })();
 </script></main><footer class="site-footer"><div class="container"><strong>PatriaSoul</strong><p>PatriaSoul · Čuvari nasljeđa</p></div></footer><script src="assets/js/portal.js"></script></body></html>
