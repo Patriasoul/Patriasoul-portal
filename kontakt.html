@@ -14,19 +14,20 @@
 </div>
 </section>
 <section class="section-block">
-<div class="module-title">PIŠI NAM PUTEM OBRASCA</div>
-<div style="background:#fff;border:1px solid var(--line);padding:32px">
-<form id="contact-form" style="display:grid;gap:18px" novalidate>
-<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px">
-<label style="display:grid;gap:8px;font-weight:700">Ime i prezime
-<input name="name" type="text" autocomplete="name" required placeholder="Tvoje ime i prezime" style="padding:13px;border:1px solid var(--line);border-radius:6px;font:inherit">
-</label>
-<label style="display:grid;gap:8px;font-weight:700">E-pošta
-<input name="email" type="email" autocomplete="email" required placeholder="tvoja@email.com" style="padding:13px;border:1px solid var(--line);border-radius:6px;font:inherit">
-</label>
+<div class="module-title">IZRAVNO · PATRIASOUL</div>
+<div class="ps-contact-shell">
+<div class="ps-contact-intro">
+<span class="ps-contact-kicker">🇭🇷 ČUVAJ · ZAPIŠI · PRENESI</span>
+<h2>Pošalji nam svoju priču.</h2>
+<p>Ovo nije običan kontakt obrazac. Ovo je izravna veza s PatriaSoulom — za priče, ljude, fotografije, dokumente i ideje koje vrijedi sačuvati.</p>
 </div>
-<label style="display:grid;gap:8px;font-weight:700">Tema
-<select name="topic" style="padding:13px;border:1px solid var(--line);border-radius:6px;font:inherit;background:#fff">
+<form id="contact-form" class="ps-contact-form" novalidate>
+<div class="ps-form-grid">
+<label>IME I PREZIME<input name="name" type="text" autocomplete="name" required placeholder="Kako ti se možemo obratiti?"></label>
+<label>E-POŠTA<input name="email" type="email" autocomplete="email" required placeholder="tvoja@email.com"></label>
+</div>
+<label>TEMA
+<select name="topic">
 <option>Opći upit</option>
 <option>Čuvar nasljeđa</option>
 <option>Priča ili svjedočanstvo</option>
@@ -36,18 +37,41 @@
 <option>Nova tema</option>
 </select>
 </label>
-<label style="display:grid;gap:8px;font-weight:700">Poruka
-<textarea name="message" rows="8" required placeholder="Napiši nam što želiš podijeliti..." style="padding:13px;border:1px solid var(--line);border-radius:6px;font:inherit;resize:vertical"></textarea>
+<label>PORUKA<textarea name="message" rows="8" required placeholder="Napiši nam što želiš sačuvati, ispričati ili predložiti..."></textarea></label>
+<label class="ps-guardian">
+<input id="guardian-choice" name="guardian" type="checkbox">
+<span><strong>🛡️ Želim biti Čuvar nasljeđa</strong><small>Želim predstaviti svoju priču, obitelj, mjesto, običaj, dokument, tradiciju ili rad koji čuvam.</small></span>
 </label>
-<label style="display:flex;gap:10px;align-items:flex-start;font-weight:500;line-height:1.5">
-<input name="consent" type="checkbox" required style="margin-top:4px">
-<span>Razumijem da slanje obrasca ne znači automatsko dopuštenje za javnu objavu moje priče, fotografija ili podataka.</span>
-</label>
-<button type="submit" style="border:0;border-radius:6px;padding:14px 20px;background:var(--red);color:#fff;font:800 16px inherit;cursor:pointer">✉️ Pripremi poruku</button>
-<p id="contact-form-status" role="status" aria-live="polite" style="margin:0;color:#555"></p>
+<label class="ps-consent"><input name="consent" type="checkbox" required><span>Razumijem da slanje obrasca nije automatsko dopuštenje za javnu objavu. Objavu ćemo prethodno dogovoriti i odobriti.</span></label>
+<div class="ps-form-bottom"><button type="submit">✉️ Pošalji prema PatriaSoulu</button><span id="contact-form-status" role="status" aria-live="polite"></span></div>
 </form>
 </div>
 </section>
+<style>
+.ps-contact-shell{position:relative;overflow:hidden;display:grid;grid-template-columns:.82fr 1.18fr;gap:0;background:#fff;border:1px solid #d9dee5;box-shadow:0 18px 50px rgba(23,57,95,.10)}
+.ps-contact-shell:before{content:"";position:absolute;inset:0 0 auto 0;height:7px;background:linear-gradient(90deg,#cf2028 0 33.33%,#fff 33.33% 66.66%,#17395f 66.66%)}
+.ps-contact-intro{padding:48px 38px;background:linear-gradient(145deg,#17395f,#244c73);color:#fff;position:relative}
+.ps-contact-intro:after{content:"✦";position:absolute;right:28px;bottom:18px;font-size:100px;line-height:1;color:rgba(255,255,255,.07)}
+.ps-contact-kicker{font-size:12px;letter-spacing:2px;font-weight:800;color:#e8c76a}
+.ps-contact-intro h2{font:800 clamp(30px,4vw,46px)/1.1 'Libre Baskerville',serif;margin:14px 0 18px}
+.ps-contact-intro p{line-height:1.8;color:rgba(255,255,255,.88);margin:0;max-width:440px}
+.ps-contact-form{padding:42px;background:linear-gradient(180deg,#fff,#f7f9fb);display:grid;gap:20px}
+.ps-contact-form label{display:grid;gap:8px;font-size:11px;letter-spacing:1.4px;font-weight:900;color:#17395f}
+.ps-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ps-contact-form input:not([type=checkbox]),.ps-contact-form select,.ps-contact-form textarea{width:100%;box-sizing:border-box;padding:14px 15px;border:1px solid #cbd3dc;border-radius:4px;background:#fff;color:#182331;font:500 15px/1.45 inherit;letter-spacing:0;outline:none;transition:border-color .2s,box-shadow .2s}
+.ps-contact-form input:not([type=checkbox]):focus,.ps-contact-form select:focus,.ps-contact-form textarea:focus{border-color:#17395f;box-shadow:0 0 0 3px rgba(23,57,95,.10)}
+.ps-contact-form textarea{resize:vertical;min-height:150px}
+.ps-guardian{display:flex!important;align-items:flex-start;gap:13px;padding:18px 18px;background:linear-gradient(90deg,rgba(207,32,40,.06),rgba(232,199,106,.10));border:1px solid #e3c9a0;border-left:5px solid #cf2028;border-radius:4px;letter-spacing:0!important}
+.ps-guardian input,.ps-consent input{margin-top:3px;accent-color:#cf2028}
+.ps-guardian span{display:grid;gap:5px;letter-spacing:0;color:#17395f;font-size:15px}
+.ps-guardian small{font-size:13px;font-weight:500;line-height:1.5;color:#596575}
+.ps-consent{display:flex!important;grid-template-columns:none!important;align-items:flex-start;gap:10px;letter-spacing:0!important;font-size:12px!important;font-weight:600!important;color:#596575!important;line-height:1.5}
+.ps-form-bottom{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ps-form-bottom button{border:0;border-radius:3px;padding:15px 22px;background:linear-gradient(135deg,#cf2028,#a9141b);color:#fff;font:900 14px/1 inherit;letter-spacing:.4px;cursor:pointer;box-shadow:0 8px 18px rgba(207,32,40,.22);transition:transform .15s,box-shadow .15s}
+.ps-form-bottom button:hover{transform:translateY(-1px);box-shadow:0 11px 22px rgba(207,32,40,.28)}
+#contact-form-status{font-size:12px;line-height:1.4;color:#596575}
+@media(max-width:800px){.ps-contact-shell{grid-template-columns:1fr}.ps-contact-intro{padding:38px 28px}.ps-contact-form{padding:28px 22px}.ps-form-grid{grid-template-columns:1fr}}
+</style>
 <section class="section-block">
 <div class="module-title">KAKO MOŽEŠ POMOĆI</div>
 <div class="card-grid">
@@ -72,12 +96,12 @@
 <script>
 document.getElementById('contact-form').addEventListener('submit',function(event){
   event.preventDefault();
-  if(!this.checkValidity()){ this.reportValidity(); return; }
+  if(!this.checkValidity()){this.reportValidity();return;}
   const data=new FormData(this);
-  const subject='PatriaSoul - '+data.get('topic');
-  const body='Ime i prezime: '+data.get('name')+'\\nE-pošta: '+data.get('email')+'\\nTema: '+data.get('topic')+'\\n\\nPoruka:\\n'+data.get('message')+'\\n\\nNapomena: Pošiljatelj je potvrdio da slanje obrasca nije automatsko dopuštenje za javnu objavu.';
-  const mailto='mailto:patriasoul@protonmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-  document.getElementById('contact-form-status').textContent='Otvaramo tvoj program za e-poštu. Provjeri poruku i pošalji je kada bude spremna.';
-  window.location.href=mailto;
+  const guardian=data.get('guardian')?'DA — želi biti Čuvar nasljeđa':'NE';
+  const subject='PatriaSoul - '+data.get('topic')+(data.get('guardian')?' - Čuvar nasljeđa':'');
+  const body='Ime i prezime: '+data.get('name')+'\\nE-pošta: '+data.get('email')+'\\nTema: '+data.get('topic')+'\\nŽeli biti Čuvar nasljeđa: '+guardian+'\\n\\nPoruka:\\n'+data.get('message')+'\\n\\nNapomena: Pošiljatelj je potvrdio da slanje obrasca nije automatsko dopuštenje za javnu objavu.';
+  document.getElementById('contact-form-status').textContent='Otvaramo tvoju e-poštu — poruka je pripremljena.';
+  window.location.href='mailto:patriasoul@protonmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
 });
 </script></main><footer class="site-footer"><div class="container"><strong>PatriaSoul</strong><p>PatriaSoul · Čuvari nasljeđa</p></div></footer><script src="assets/js/portal.js"></script></body></html>
