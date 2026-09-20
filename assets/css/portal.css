@@ -162,3 +162,23 @@ background-size:cover;background-position:center center;background-attachment:fi
   .utility-social{font-size:10px;gap:5px}
   .utility-social svg{width:17px;height:17px}
 }
+
+
+/* Najnovije · pokretna traka na naslovnici */
+.breaking-ticker{flex:1;min-width:0;overflow:hidden;position:relative;white-space:nowrap}
+.breaking-ticker:after{content:"";position:absolute;right:0;top:0;bottom:0;width:42px;background:linear-gradient(90deg,transparent,#fff)}
+#breaking-ticker-track{display:inline-flex;align-items:center;gap:14px;min-width:max-content;animation:patriasoulTicker 42s linear infinite}
+#breaking-ticker-track:hover{animation-play-state:paused}
+#breaking-ticker-track a{font-size:12px;color:var(--muted);font-weight:600}
+#breaking-ticker-track a:hover{color:var(--red)}
+.breaking-sep{color:var(--red);font-weight:900}
+@keyframes patriasoulTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:560px){
+  .breaking-inner{gap:10px}
+  .breaking-ticker{min-width:0}
+  #breaking-ticker-track{animation-duration:34s}
+  #breaking-ticker-track a{font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){
+  #breaking-ticker-track{animation:none}
+}
