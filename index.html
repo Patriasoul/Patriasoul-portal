@@ -115,23 +115,40 @@
       return '<a href="'+a.url+'">'+(a.category||"PRIČA")+' · '+a.title+'</a>';
     });
     if(tickerItems.length){
-      ticker.innerHTML=tickerItems.concat(tickerItems).join('<span class="breaking-sep">•</span>');
+      var tickerHtml=tickerItems.concat(tickerItems).join('<span class="breaking-sep">•</span>');
+      ticker.innerHTML=tickerHtml;
+      ticker.setAttribute("data-ready","true");
     } else {
-      ticker.textContent="PatriaSoul · nove priče uskoro";
+      ticker.innerHTML='<span>PatriaSoul · nove priče uskoro</span>';
     }
   }
 
   var box=document.getElementById("weather-cities"), status=document.getElementById("weather-status");
-  Promise.all(Object.keys(cities).map(function(city){
+  var cityNames=Object.keys(cities);
+  var weatherRows={};
+  box.innerHTML=cityNames.map(function(city){
+    return '<span>'+city+' <b>…</b><small>Učitavanje</small></span>';
+  }).join("");
+  function renderWeather(){
+    box.innerHTML=cityNames.map(function(city){
+      var x=weatherRows[city]||{temp:null,code:null};
+      return '<span>'+city+' <b>'+(x.temp===null?"—":x.temp+" °C")+'</b><small>'+(x.code===null?"Podatak nije dostupan":(labels[x.code]||"Vrijeme"))+'</small></span>';
+    }).join("");
+  }
+  cityNames.forEach(function(city){
     var p=cities[city];
-    return fetch("https://api.open-meteo.com/v1/forecast?latitude="+p[0]+"&longitude="+p[1]+"&current=temperature_2m,weather_code&timezone=Europe%2FZagreb&forecast_days=1",{cache:"no-store"})
-      .then(function(r){if(!r.ok)throw new Error("weather");return r.json();})
-      .then(function(d){return {city:city,temp:Math.round(d.current.temperature_2m),code:d.current.weather_code};})
-      .catch(function(){return {city:city,temp:null,code:null};});
-  })).then(function(rows){
-    box.innerHTML=rows.map(function(x){return '<span>'+x.city+' <b>'+(x.temp===null?"—":x.temp+" °C")+'</b><small>'+(x.code===null?"Podatak nije dostupan":(labels[x.code]||"Vrijeme"))+'</small></span>';}).join("");
-    status.textContent="Aktualno stanje · Open-Meteo · osvježava se pri učitavanju stranice";
+    var controller=typeof AbortController!=="undefined"?new AbortController():null;
+    var timer=controller?setTimeout(function(){controller.abort();},7000):null;
+    fetch("https://api.open-meteo.com/v1/forecast?latitude="+p[0]+"&longitude="+p[1]+"&current=temperature_2m,weather_code&timezone=Europe%2FZagreb",{cache:"no-store",signal:controller?controller.signal:undefined})
+      .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
+      .then(function(d){
+        if(!d.current)throw new Error("Nema current podataka");
+        weatherRows[city]={temp:Math.round(Number(d.current.temperature_2m)),code:Number(d.current.weather_code)};
+      })
+      .catch(function(){weatherRows[city]={temp:null,code:null};})
+      .then(function(){if(timer)clearTimeout(timer);renderWeather();});
   });
+  status.textContent="Aktualno stanje · podaci se učitavaju za svaki grad";
 })();
 </script><script src="assets/js/portal.js"></script>
 </body>
