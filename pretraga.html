@@ -17,7 +17,7 @@
     matches.forEach(function(a){
       var article=document.createElement("article");
       article.className="search-result";
-      article.innerHTML='<span class="section-label">'+a.rubric+' · '+a.category+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p><div class="article-tags">(function(){return [a.category,a.subcategory,a.rubric,a.place,a.period].concat(a.tags||[]).filter(function(v,i,self){return v&&self.indexOf(v)===i}).map(function(t){return '<a class="article-tag" href="pretraga.html?q='+encodeURIComponent(t)+'">'+t+'</a>'}).join("")})()</div>';
+      var tags=[a.category,a.subcategory,a.rubric,a.place,a.period].concat(a.tags||[]).filter(function(v,i,self){return v&&self.indexOf(v)===i}); article.innerHTML='<span class="section-label">'+a.rubric+' · '+a.category+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p><div class="article-tags">'+tags.map(function(t){return '<a class="article-tag" href="pretraga.html?q='+encodeURIComponent(t)+'">'+t+'</a>'}).join("")+'</div>';
       box.appendChild(article);
     });
   }
