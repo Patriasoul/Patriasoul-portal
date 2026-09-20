@@ -23,44 +23,33 @@
 
   <section class="container lead-layout">
     <article class="lead-story">
-      <div id="home-lead-image" class="story-image image-placeholder"><span>FOTOGRAFIJA</span></div>
+      <div id="home-lead-image" class="story-image" role="img" aria-label="Naslovna fotografija"><span></span></div>
       <div class="story-meta"><span class="section-label" id="home-lead-label">ISTAKNUTA PRIČA</span><span id="home-lead-meta"></span></div>
       <h1 id="home-lead-title"></h1><p class="lead" id="home-lead-deck"></p><a class="read-more" id="home-lead-link" href="#">Pročitaj priču</a>
     </article>
-    <aside class="top-stories">
-      <div class="module-title"><h2>Najnovije</h2><a href="najnovije.html">Više →</a></div>
-      <article class="side-story"><span class="section-label">DOMOVINA</span><h3>Gradovi i krajevi kroz ljude, događaje i sjećanja</h3><p>Predložak za buduću autorsku priču.</p></article>
-      <article class="side-story"><span class="section-label">POVIJEST</span><h3>Dokumentirana priča počinje izvorom</h3><p>Predložak za tekst s provjerenim izvorima.</p></article>
-      <article class="side-story"><span class="section-label">ČUVARI NASLJEĐA</span><h3>Ljudi koji čuvaju ono što smo naslijedili</h3><p>Posebna PatriaSoul serija.</p></article>
-    </aside>
+    <aside class="top-stories" id="home-top-stories"></aside>
   </section>
 
   <section class="container portal-section">
     <div class="module-title"><div><span class="kicker">HRVATSKA DANAS</span><h2>Najnovije vijesti i vrijeme</h2></div><a href="najnovije.html">Sve najnovije →</a></div>
     <div class="news-grid">
-      <div class="news-list">
-        <article class="news-row"><div class="thumb image-placeholder"><span>FOTO</span></div><div><span class="section-label">VIJESTI</span><h3>Prostor za aktualnu, provjerenu vijest</h3><p>Datum, mjesto, izvor i potvrđene činjenice bit će jasno navedeni.</p><small>PatriaSoul · vrijeme objave</small></div></article>
-        <article class="news-row"><div class="thumb image-placeholder"><span>FOTO</span></div><div><span class="section-label">HRVATSKA DANAS</span><h3>Prostor za priču koja objašnjava što se događa danas</h3><p>Vijest, kontekst i izvori — bez kopiranja drugih medija.</p><small>PatriaSoul · vrijeme objave</small></div></article>
-      </div>
-      <aside class="weather-module"><div class="module-title"><h2>Vrijeme</h2><a href="najnovije.html">Detalji →</a></div><p class="muted">Aktualni vremenski podaci bit će povezani u sljedećoj fazi.</p><div class="weather-cities"><span>Zagreb <b>—</b></span><span>Split <b>—</b></span><span>Rijeka <b>—</b></span><span>Osijek <b>—</b></span><span>Pula <b>—</b></span><span>Zadar <b>—</b></span></div></aside>
+      <div class="news-list" id="home-news-list"></div>
+      <aside class="weather-module">
+        <div class="module-title"><h2>Vrijeme</h2><a href="najnovije.html">Detalji →</a></div>
+        <p class="muted" id="weather-status">Dohvaćamo aktualne podatke…</p>
+        <div class="weather-cities" id="weather-cities"></div>
+      </aside>
     </div>
   </section>
 
   <section class="container portal-section">
     <div class="module-title"><div><span class="kicker">DOMOVINA</span><h2>Hrvatska kroz ljude i mjesta</h2></div><a href="domovina.html">Više →</a></div>
-    <div class="feature-grid">
-      <article class="feature-card"><div class="card-image image-placeholder"><span>FOTO</span></div><span class="section-label">GRADOVI</span><h3>Grad nije samo broj — iza njega stoje ljudi, događaji i sjećanja</h3><p>Priče o hrvatskim gradovima i krajevima, obrađene kroz stvarni život.</p></article>
-      <article class="feature-card"><div class="card-image image-placeholder"><span>FOTO</span></div><span class="section-label">BRANITELJI I DOMOVINSKI RAT</span><h3>Sjećanja, dokumenti i mjesta koja treba sačuvati</h3><p>Dostojanstveno i provjereno, uz jasno razlikovanje svjedočanstva od dokumentirane činjenice.</p></article>
-      <article class="feature-card"><div class="card-image image-placeholder"><span>FOTO</span></div><span class="section-label">SJEĆANJA</span><h3>Mjesta koja pamte</h3><p>Predložak za priče o ljudima, mjestima i događajima.</p></article>
-    </div>
+    <div class="feature-grid" id="home-domovina-grid"></div>
   </section>
 
   <section class="container portal-section">
     <div class="module-title"><div><span class="kicker">POVIJEST</span><h2>Prošlost kroz priče i izvore</h2></div><a href="povijest.html">Više →</a></div>
-    <div class="history-layout">
-      <article class="large-card"><div class="card-image image-placeholder"><span>FOTO / ARHIVA</span></div><span class="section-label">POVIJESNA PRIČA</span><h3>Od izvora do priče: kako PatriaSoul provjerava povijesne teme</h3><p>Dokumenti, arhivi, muzeji, znanstvena literatura i relevantne institucije polazište su za tekst koji treba ostati vjerodostojan i godinama kasnije.</p></article>
-      <div class="mini-list"><article><span class="section-label">BAŠTINA I KULTURA</span><h3>Baština nije samo popis — ona ima ljude i priče</h3></article><article><span class="section-label">DOKUMENTI</span><h3>Iz arhive: prostor za dokumentirane izvore</h3></article><article><span class="section-label">VAŽAN DATUM</span><h3>Datum koji otvara vrata većoj priči</h3></article></div>
-    </div>
+    <div class="history-layout" id="home-history"></div>
   </section>
 
   <section class="container portal-section special-series">
@@ -79,9 +68,59 @@
   <section class="container portal-section editorial"><div><span class="kicker">PATRIASOUL STANDARD</span><h2>Činjenica prije atraktivnosti.</h2><p>Ne želimo samo zapisati što se dogodilo. Želimo razumjeti, provjeriti i ispričati zašto je ta priča važna.</p><a class="read-more" href="urednicki-standard.html">Pročitaj Urednički standard →</a></div><blockquote>„Bolje jedna istinita, provjerena i dobro ispričana priča nego deset brzih tekstova napisanih samo da bi stranica bila puna.”</blockquote></section>
 </main>
 <footer class="site-footer"><div class="container footer-grid"><div><strong>PatriaSoul</strong><p>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></div><div><strong>Temelji</strong><a href="vjera.html">✝️ Vjera</a><a href="ljudi.html">❤️ Obitelj</a><a href="domovina.html">🇭🇷 Domovina</a><a href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa</a></div><div><strong>O nama</strong><a href="o-nama.html">O PatriaSoul</a><a href="urednicki-standard.html">Urednički standard</a><a href="kontakt.html">Kontakt</a><a href="pretraga.html">Pretraga</a></div><small>PatriaSoul · Čuvari nasljeđa</small></div></footer>
-<script src="assets/js/content-data.js?v=5"></script><script>
-(function(){var d=window.PatriaSoulContent&&window.PatriaSoulContent.articles||{},a=Object.keys(d).map(function(k){return d[k]}).sort(function(x,y){return (y.date||"").localeCompare(x.date||"")})[0];if(!a)return;
-document.getElementById("home-lead-title").textContent=a.title;document.getElementById("home-lead-deck").textContent=a.deck;document.getElementById("home-lead-meta").textContent=a.meta;document.getElementById("home-lead-label").textContent=a.rubric+" · "+a.category;document.getElementById("home-lead-link").href=a.url;var im=document.getElementById("home-lead-image");im.style.backgroundImage="url('"+a.image+"')";im.style.backgroundSize="cover";im.style.backgroundPosition="center";im.querySelector("span").textContent=a.place+" · "+a.period;})();
+<script src="assets/js/content-data.js?v=6"></script><script>
+(function(){
+  var data=window.PatriaSoulContent&&window.PatriaSoulContent.articles||{};
+  var articles=Object.keys(data).map(function(k){return data[k]}).filter(function(a){return a&&a.url}).sort(function(a,b){return (b.date||"").localeCompare(a.date||"");});
+  if(!articles.length)return;
+
+  var lead=articles[0];
+  document.getElementById("home-lead-title").textContent=lead.title;
+  document.getElementById("home-lead-deck").textContent=lead.deck;
+  document.getElementById("home-lead-meta").textContent=lead.meta;
+  document.getElementById("home-lead-label").textContent=(lead.rubric||lead.kicker||"PRIČA")+" · "+(lead.category||"");
+  document.getElementById("home-lead-link").href=lead.url;
+  var limg=document.getElementById("home-lead-image");
+  limg.style.backgroundImage="url('"+lead.image+"')";
+  limg.style.backgroundSize="cover";
+  limg.style.backgroundPosition="center";
+  limg.querySelector("span").textContent=lead.place+" · "+lead.period;
+
+  var top=articles.slice(1,4).map(function(a){
+    return '<article class="side-story"><span class="section-label">'+(a.category||"PRIČA")+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p></article>';
+  }).join("");
+  document.getElementById("home-top-stories").innerHTML=top;
+
+  var news=articles.slice(0,2).map(function(a){
+    return '<article class="news-row"><a class="thumb" href="'+a.url+'"><img src="'+a.image+'" alt="'+(a.imageAlt||a.title)+'" loading="lazy"></a><div><span class="section-label">'+(a.category||"PRIČA")+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p><small>'+a.meta+'</small></div></article>';
+  }).join("");
+  document.getElementById("home-news-list").innerHTML=news;
+
+  var dom=[articles.find(function(a){return a.url==="clanak-blago-zadro.html";}),articles.find(function(a){return a.url==="clanak-mihael-stosic.html";}),articles.find(function(a){return a.url==="clanak-vlatko-gribl.html";})].filter(Boolean);
+  document.getElementById("home-domovina-grid").innerHTML=dom.map(function(a){
+    return '<article class="feature-card"><a class="card-image" href="'+a.url+'"><img src="'+a.image+'" alt="'+(a.imageAlt||a.title)+'" loading="lazy"></a><span class="section-label">'+(a.rubric||a.category)+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p></article>';
+  }).join("");
+
+  var hist=articles.find(function(a){return a.url==="clanak-krbavska-bitka.html";})||articles.find(function(a){return a.category==="Povijest";});
+  var penkala=articles.find(function(a){return a.url==="clanak-penkala.html";});
+  var boskovic=articles.find(function(a){return a.url==="clanak-ruder-boskovic.html";});
+  var histMini=[penkala,boskovic].filter(Boolean).map(function(a){return '<article><span class="section-label">'+(a.rubric||a.category)+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3></article>';}).join("");
+  document.getElementById("home-history").innerHTML=(hist?'<article class="large-card"><a class="card-image" href="'+hist.url+'"><img src="'+hist.image+'" alt="'+(hist.imageAlt||hist.title)+'" loading="lazy"></a><span class="section-label">'+(hist.rubric||hist.category)+'</span><h3><a href="'+hist.url+'">'+hist.title+'</a></h3><p>'+hist.deck+'</p></article>':"")+"<div class="mini-list">"+histMini+'<article><span class="section-label">UREDNICI STANDARD</span><h3><a href="urednicki-standard.html">Kako PatriaSoul provjerava izvore i razlikuje činjenicu od svjedočanstva</a></h3></article></div>';
+
+  var cities={Zagreb:[45.815,15.982],Split:[43.508,16.440],Rijeka:[45.327,14.442],Osijek:[45.555,18.695],Pula:[44.867,13.849],Zadar:[44.119,15.232]};
+  var labels={0:"Vedro",1:"Pretežno vedro",2:"Djelomično oblačno",3:"Oblačno",45:"Magla",48:"Magla",51:"Rosulja",53:"Rosulja",55:"Rosulja",61:"Kiša",63:"Kiša",65:"Jaka kiša",71:"Snijeg",73:"Snijeg",75:"Jaki snijeg",80:"Pljuskovi",81:"Pljuskovi",82:"Jaki pljuskovi",95:"Grmljavina",96:"Grmljavina",99:"Grmljavina"};
+  var box=document.getElementById("weather-cities"), status=document.getElementById("weather-status");
+  Promise.all(Object.keys(cities).map(function(city){
+    var p=cities[city];
+    return fetch("https://api.open-meteo.com/v1/forecast?latitude="+p[0]+"&longitude="+p[1]+"&current=temperature_2m,weather_code&timezone=Europe%2FZagreb")
+      .then(function(r){if(!r.ok)throw new Error("weather");return r.json();})
+      .then(function(d){return {city:city,temp:Math.round(d.current.temperature_2m),code:d.current.weather_code};})
+      .catch(function(){return {city:city,temp:null,code:null};});
+  })).then(function(rows){
+    box.innerHTML=rows.map(function(x){return '<span>'+x.city+' <b>'+(x.temp===null?"—":x.temp+" °C")+'</b><small>'+(x.code===null?"Podatak nije dostupan":(labels[x.code]||"Vrijeme"))+'</small></span>';}).join("");
+    status.textContent="Aktualno stanje · Open-Meteo · osvježava se pri učitavanju stranice";
+  });
+})();
 </script><script src="assets/js/portal.js"></script>
 </body>
 </html>
