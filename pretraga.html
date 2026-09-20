@@ -1,1 +1,27 @@
-<!doctype html><html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pretraga · PatriaSoul</title><link rel="stylesheet" href="assets/css/portal.css"></head><body><header class="site-header"><div class="topbar"><a class="brand" href="index.html"><span class="brand-mark">🇭🇷</span><span><strong>PatriaSoul</strong><small>Čuvari nasljeđa</small></span></a><button class="menu-toggle" type="button">Izbornik</button></div><nav id="main-nav" class="main-nav"><a href="index.html">Naslovnica</a><a href="najnovije.html">Najnovije</a><a href="domovina.html">Domovina</a><a href="povijest.html">Povijest</a><a href="dijaspora.html">Dijaspora</a><a href="vjera.html">Vjera</a><a href="ljudi.html">Ljudi</a><a href="hrvatska-stvara.html">Hrvatska stvara</a><a href="cuvari-nasljeda.html">Čuvari nasljeđa</a><a href="o-nama.html">O nama</a><a class="active" href="pretraga.html">Pretraga</a></nav></header><main class="container"><section class="page-head"><span class="kicker">PRETRAGA</span><h1>Pretražite PatriaSoul</h1><p>Pretraga je pripremljena za povezivanje sa stvarnim sadržajem portala.</p></section><form class="search-box" action="#" method="get"><input type="search" name="q" placeholder="Pretražite priče, ljude, mjesta..." aria-label="Pretraga"><button type="submit">Pretraži</button></form><div class="text-panel"><h2>Što će pretraga obuhvaćati?</h2><p>Vijesti, povijesne priče, gradove, baštinu, ljude, Čuvare nasljeđa i druge objavljene sadržaje.</p></div></main><footer class="site-footer"><div class="container"><strong>PatriaSoul</strong><p>PatriaSoul · Čuvari nasljeđa</p></div></footer><script src="assets/js/portal.js"></script></body></html>
+<!doctype html><html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pretraga · PatriaSoul</title><link rel="stylesheet" href="assets/css/portal.css"></head><body><header class="site-header"><div class="topbar"><a class="brand" href="index.html"><span class="brand-mark">🇭🇷</span><span><strong>PatriaSoul</strong><small>Čuvari nasljeđa</small></span></a><button class="menu-toggle" type="button">Izbornik</button></div><nav id="main-nav" class="main-nav"><a href="index.html">Naslovnica</a><a href="najnovije.html">Najnovije</a><a href="domovina.html">Domovina</a><a href="povijest.html">Povijest</a><a href="dijaspora.html">Dijaspora</a><a href="vjera.html">Vjera</a><a href="ljudi.html">Ljudi</a><a href="hrvatska-stvara.html">Hrvatska stvara</a><a href="cuvari-nasljeda.html">Čuvari nasljeđa</a><a href="o-nama.html">O nama</a><a class="active" href="pretraga.html">Pretraga</a></nav></header><main class="container"><section class="page-head"><span class="kicker">PRETRAGA</span><h1>Pretražite PatriaSoul</h1><p>Pretražite objavljene priče prema naslovu, temi, mjestu, razdoblju, rubrici ili oznaci.</p></section><form class="search-box" id="portal-search" action="#" method="get"><input id="search-input" type="search" name="q" placeholder="Pretražite priče, ljude, mjesta..." aria-label="Pretraga"><button type="submit">Pretraži</button></form>
+<div id="search-results" class="text-panel" aria-live="polite"><h2>Objavljene priče</h2><p>Upišite pojam za pretragu.</p></div>
+<script src="assets/js/content-data.js?v=2"></script>
+<script>
+(function(){
+  var form=document.getElementById("portal-search"), input=document.getElementById("search-input"), box=document.getElementById("search-results");
+  var data=window.PatriaSoulContent&&window.PatriaSoulContent.articles||{};
+  var articles=Object.keys(data).map(function(k){return data[k]});
+  function render(q){
+    q=(q||"").trim().toLocaleLowerCase("hr-HR");
+    var matches=articles.filter(function(a){
+      var hay=[a.title,a.deck,a.category,a.subcategory,a.rubric,a.place,a.period,a.type].concat(a.tags||[]).join(" ").toLocaleLowerCase("hr-HR");
+      return !q || hay.indexOf(q)!==-1;
+    });
+    box.innerHTML="<h2>"+(q?"Rezultati pretrage":"Objavljene priče")+"</h2>";
+    if(!matches.length){box.innerHTML+="<p>Nema pronađenih objavljenih priča za ovaj pojam.</p>";return}
+    matches.forEach(function(a){
+      var article=document.createElement("article");
+      article.className="search-result";
+      article.innerHTML='<span class="section-label">'+a.rubric+' · '+a.category+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p><small>'+a.place+' · '+a.period+' · '+(a.tags||[]).join(" · ")+'</small>';
+      box.appendChild(article);
+    });
+  }
+  form.addEventListener("submit",function(e){e.preventDefault();render(input.value);history.replaceState(null,"","?q="+encodeURIComponent(input.value))});
+  var q=new URLSearchParams(location.search).get("q"); if(q){input.value=q;render(q)} else render("");
+})();
+</script></main><footer class="site-footer"><div class="container"><strong>PatriaSoul</strong><p>PatriaSoul · Čuvari nasljeđa</p></div></footer><script src="assets/js/portal.js"></script></body></html>
