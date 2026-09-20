@@ -17,7 +17,7 @@
   <nav id="main-nav" class="main-nav" aria-label="Glavna navigacija"><a class="active" href="index.html">🏠 Naslovnica</a><a href="vjera.html">✝️ Vjera</a><a href="ljudi.html">❤️ Obitelj</a><a href="domovina.html">🇭🇷 Domovina</a><a href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa</a><a href="o-nama.html">🇭🇷 O PatriaSoul</a><a href="pretraga.html">🔎 Pretraga</a><a href="kontakt.html">✉️ Kontakt</a></nav>
 </header>
 <main>
-  <section class="breaking-strip"><div class="container breaking-inner"><strong>NAJNOVIJE</strong><span>PatriaSoul portal priprema prostor za stvarne, provjerene i autorski obrađene priče.</span><a href="najnovije.html">Sve vijesti →</a></div></section>
+  <section class="breaking-strip"><div class="container breaking-inner"><strong>NAJNOVIJE</strong><div class="breaking-ticker" aria-live="polite"><div id="breaking-ticker-track"></div></div><a href="najnovije.html">Sve vijesti →</a></div></section>
 
   <section class="container pillar-intro"><div><span class="kicker">PATRIASOUL</span><h1>BOG · OBITELJ · DOMOVINA</h1><p>Tri temelja. Jedno nasljeđe.</p><small>Vjera, obitelj i domovina nisu tri odvojene priče. One se susreću u ljudima, sjećanjima, vrijednostima i djelima koja vrijedi sačuvati.</small></div><a class="pillar-intro-link" href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa →</a></section>
 
@@ -109,10 +109,22 @@
 
   var cities={Zagreb:[45.815,15.982],Split:[43.508,16.440],Rijeka:[45.327,14.442],Osijek:[45.555,18.695],Pula:[44.867,13.849],Zadar:[44.119,15.232]};
   var labels={0:"Vedro",1:"Pretežno vedro",2:"Djelomično oblačno",3:"Oblačno",45:"Magla",48:"Magla",51:"Rosulja",53:"Rosulja",55:"Rosulja",61:"Kiša",63:"Kiša",65:"Jaka kiša",71:"Snijeg",73:"Snijeg",75:"Jaki snijeg",80:"Pljuskovi",81:"Pljuskovi",82:"Jaki pljuskovi",95:"Grmljavina",96:"Grmljavina",99:"Grmljavina"};
+  var ticker=document.getElementById("breaking-ticker-track");
+  if(ticker){
+    var tickerItems=articles.slice(0,8).map(function(a){
+      return '<a href="'+a.url+'">'+(a.category||"PRIČA")+' · '+a.title+'</a>';
+    });
+    if(tickerItems.length){
+      ticker.innerHTML=tickerItems.concat(tickerItems).join('<span class="breaking-sep">•</span>');
+    } else {
+      ticker.textContent="PatriaSoul · nove priče uskoro";
+    }
+  }
+
   var box=document.getElementById("weather-cities"), status=document.getElementById("weather-status");
   Promise.all(Object.keys(cities).map(function(city){
     var p=cities[city];
-    return fetch("https://api.open-meteo.com/v1/forecast?latitude="+p[0]+"&longitude="+p[1]+"&current=temperature_2m,weather_code&timezone=Europe%2FZagreb")
+    return fetch("https://api.open-meteo.com/v1/forecast?latitude="+p[0]+"&longitude="+p[1]+"&current=temperature_2m,weather_code&timezone=Europe%2FZagreb&forecast_days=1",{cache:"no-store"})
       .then(function(r){if(!r.ok)throw new Error("weather");return r.json();})
       .then(function(d){return {city:city,temp:Math.round(d.current.temperature_2m),code:d.current.weather_code};})
       .catch(function(){return {city:city,temp:null,code:null};});
