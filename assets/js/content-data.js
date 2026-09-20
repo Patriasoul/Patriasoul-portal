@@ -66,7 +66,7 @@ window.PatriaSoulContent = {
     },
     mihaelStosic: {
       title:"Mihael Stošić: kada se obiteljsko sjećanje pretvori u mjesto za buduće generacije",
-      kicker:"ČUVARI NASLJEĐA #001 · SJEĆANJE",
+      kicker:"ČUVARI NASLJEĐA · SJEĆANJE",
       deck:"Kao sin hrvatskog branitelja, Mihael Stošić počeo je još kao dječak skupljati oznake koje je viđao na okupljanjima branitelja. Godinama poslije njegova je zbirka prerasla u privatni Spomen dom „Sinovi Domovine” u Buzinu, mjesto na kojem čuva odore, oznake, fotografije, knjige i osobne tragove ljudi iz Domovinskog rata.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Buzin, Zagreb · 8 min čitanja", url:"clanak-mihael-stosic.html",
       category:"Čuvari nasljeđa", subcategory:"Sjećanje", rubric:"Čuvari nasljeđa", tags:["Mihael Stošić","Sinovi Domovine","Buzin","Domovinski rat","sjećanje","obitelj","branitelji","baština"], place:"Buzin, Zagreb", period:"2000-e–danas", type:"Čuvar nasljeđa",
@@ -75,7 +75,7 @@ window.PatriaSoulContent = {
 ,
     thompson: {
       title:"Marko Perković Thompson: između Čavoglava, vjere, obitelji, domovine i pjesme",
-      kicker:"ČUVARI NASLJEĐA #002 · VELIKA PRIČA",
+      kicker:"ČUVARI NASLJEĐA · VELIKA PRIČA",
       deck:"Od ratnih Čavoglava i prve pjesme do velikih pozornica, obiteljskog života, vjere i humanitarnih koncerata: priča o Marku Perkoviću Thompsonu nije samo priča o glazbeniku, nego o čovjeku čiji je javni put desetljećima isprepleten s hrvatskim društvom.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Čavoglave · 18 min čitanja", url:"clanak-marko-perkovic-thompson.html",
       category:"Čuvari nasljeđa", subcategory:"Domovina · Vjera · Obitelj", rubric:"Čuvari nasljeđa", tags:["Marko Perković Thompson","Thompson","Čavoglave","Domovinski rat","vjera","obitelj","domovina","humanitarni rad","glazba"], place:"Čavoglave", period:"1966.–danas", type:"Čuvar nasljeđa",
