@@ -140,9 +140,10 @@ background-size:cover;background-position:center center;background-attachment:fi
 /* PatriaSoul logo — jedinstveni identitet navigacije i footera */
 :root{--patriasoul-logo:url("https://raw.githubusercontent.com/Patriasoul/patriasoul/main/images/file_0000000082ec81f4a6fc17bdbd959622_114540.png")}
 .brand-mark{width:48px;height:48px;flex:0 0 48px;display:block;font-size:0;background-image:var(--patriasoul-logo);background-repeat:no-repeat;background-position:center;background-size:contain}
-.site-footer strong{display:flex;align-items:center;gap:12px;min-height:48px;font-size:18px;line-height:1.2}
-.site-footer strong:before{content:"";width:48px;height:48px;flex:0 0 48px;display:block;background-image:var(--patriasoul-logo);background-repeat:no-repeat;background-position:center;background-size:contain}
-@media(max-width:560px){.brand-mark{width:42px;height:42px;flex-basis:42px}.site-footer strong:before{width:42px;height:42px;flex-basis:42px}}
+.site-footer strong{display:block;font-family:"Libre Baskerville",serif;font-size:18px;line-height:1.2}
+.site-footer .footer-brand{display:flex;align-items:center;gap:12px;min-height:48px}
+.site-footer .footer-brand:before{content:"";width:48px;height:48px;flex:0 0 48px;display:block;background-image:var(--patriasoul-logo);background-repeat:no-repeat;background-position:center;background-size:contain}
+@media(max-width:560px){.brand-mark{width:42px;height:42px;flex-basis:42px}.site-footer .footer-brand:before{width:42px;height:42px;flex-basis:42px}}
 /* Gornja traka · datum i TikTok */
 .utility-inner{align-items:center}
 .utility-date{display:inline-flex!important;align-items:center;color:#fff;font-weight:700;letter-spacing:.01em;white-space:nowrap}
