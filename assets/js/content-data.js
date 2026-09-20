@@ -47,7 +47,7 @@ window.PatriaSoulContent = {
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Hrvatska · 7 min čitanja", url:"clanak-vjera-obitelj.html",
       category:"Vjera", subcategory:"Vjera i život", rubric:"Vjera i život", tags:["Vjera","obitelj","Vjera i život","Crkva","hrvatska baština","svjedočanstvo"], place:"Hrvatska", period:"20. i 21. stoljeće", type:"Vjerska priča",
       image:"https://upload.wikimedia.org/wikipedia/commons/6/6b/Aljmas_Church.jpg", imageAlt:"Svetište Gospe od Utočišta u Aljmašu", imageCaption:"Crkvena baština i svetišta."
-    }
+    },
     ruderBoskovic: {
       title:"Ruđer Bošković: čovjek koji je znanje nosio preko granica",
       kicker:"ŽIVOTNE PRIČE · LJUDI",
@@ -65,6 +65,13 @@ window.PatriaSoulContent = {
       image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Rudjer_Boskovic.jpg",
       imageAlt:"Portret Ruđera Boškovića",
       imageCaption:"Portret Ruđera Boškovića, djelo R. Edgea Pinea iz 1760."
+    },
+    penkala: {
+      title:"Slavoljub Penkala: kada je izum postao dio svakodnevice", kicker:"HRVATSKA STVARA · ZNANOST I IZUMI",
+      deck:"U Zagrebu je početkom 20. stoljeća nastao niz izuma koji nisu ostali samo na papiru. Među njima je bila automatska mehanička olovka Slavoljuba Eduarda Penkale, ali njegova priča govori i o tome kako znanje, proizvodnja i poduzetništvo mogu pretvoriti zamisao u predmet koji ulazi u svakodnevni život.",
+      date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Zagreb · 8 min čitanja", url:"clanak-penkala.html",
+      category:"Hrvatska stvara", subcategory:"Znanost i izumi", rubric:"Hrvatska stvara", tags:["Slavoljub Penkala","Penkala","izumi","inovacije","Zagreb","mehanička olovka","zrakoplov"], place:"Zagreb", period:"1871.–1922.", type:"Priča o stvaranju",
+      image:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Slavoljub_Eduard_Penkala.jpg", imageAlt:"Portret Slavoljuba Eduarda Penkale", imageCaption:"Slavoljub Eduard Penkala. Fotografija je u javnoj domeni."
     },
   }
 };
