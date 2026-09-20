@@ -23,11 +23,9 @@
 
   <section class="container lead-layout">
     <article class="lead-story">
-      <div class="story-image image-placeholder"><span>PROSTOR ZA GLAVNU FOTOGRAFIJU</span></div>
-      <div class="story-meta"><span class="section-label">ISTAKNUTA PRIČA</span><span>Predložak portala</span></div>
-      <h1>Priče o Hrvatskoj koje vrijedi istražiti, provjeriti i sačuvati</h1>
-      <p class="lead">Ovdje će biti objavljivane stvarne priče, dokumentirani događaji, svjedočanstva i istraživački tekstovi. Bez izmišljenih vijesti i bez neprovjerenih činjenica.</p>
-      <a class="read-more" href="clanak.html">Otvori predložak članka →</a>
+      <div id="home-lead-image" class="story-image image-placeholder"><span>FOTOGRAFIJA</span></div>
+      <div class="story-meta"><span class="section-label" id="home-lead-label">ISTAKNUTA PRIČA</span><span id="home-lead-meta"></span></div>
+      <h1 id="home-lead-title"></h1><p class="lead" id="home-lead-deck"></p><a class="read-more" id="home-lead-link" href="#">Pročitaj priču →</a>
     </article>
     <aside class="top-stories">
       <div class="module-title"><h2>Najnovije</h2><a href="najnovije.html">Više →</a></div>
@@ -73,6 +71,9 @@
   <section class="container portal-section editorial"><div><span class="kicker">PATRIASOUL STANDARD</span><h2>Činjenica prije atraktivnosti.</h2><p>Ne želimo samo zapisati što se dogodilo. Želimo razumjeti, provjeriti i ispričati zašto je ta priča važna.</p><a class="read-more" href="urednicki-standard.html">Pročitaj Urednički standard →</a></div><blockquote>„Bolje jedna istinita, provjerena i dobro ispričana priča nego deset brzih tekstova napisanih samo da bi stranica bila puna.”</blockquote></section>
 </main>
 <footer class="site-footer"><div class="container footer-grid"><div><strong>PatriaSoul</strong><p>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></div><div><strong>Portal</strong><a href="domovina.html">Domovina</a><a href="povijest.html">Povijest</a><a href="dijaspora.html">Dijaspora</a><a href="cuvari-nasljeda.html">Čuvari nasljeđa</a></div><div><strong>O nama</strong><a href="o-nama.html">O PatriaSoul</a><a href="urednicki-standard.html">Urednički standard</a><a href="kontakt.html">Kontakt</a><a href="pretraga.html">Pretraga</a></div><small>PatriaSoul · Čuvari nasljeđa</small></div></footer>
-<script src="assets/js/portal.js"></script>
+<script src="assets/js/content-data.js?v=3"></script><script>
+(function(){var d=window.PatriaSoulContent&&window.PatriaSoulContent.articles||{},a=Object.keys(d).map(function(k){return d[k]}).sort(function(x,y){return (y.date||"").localeCompare(x.date||"")})[0];if(!a)return;
+document.getElementById("home-lead-title").textContent=a.title;document.getElementById("home-lead-deck").textContent=a.deck;document.getElementById("home-lead-meta").textContent=a.meta;document.getElementById("home-lead-label").textContent=a.rubric+" · "+a.category;document.getElementById("home-lead-link").href=a.url;var im=document.getElementById("home-lead-image");im.style.backgroundImage="url('"+a.image+"')";im.style.backgroundSize="cover";im.style.backgroundPosition="center";im.querySelector("span").textContent=a.place+" · "+a.period;})();
+</script><script src="assets/js/portal.js"></script>
 </body>
 </html>
