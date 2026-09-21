@@ -3,7 +3,6 @@
   const seoPages = {
     'index.html': {title: 'PatriaSoul — Hrvatska, povijest, znanje i identitet', description: 'PatriaSoul donosi hrvatske priče, povijest, baštinu, vjeru, obitelj, domovinu i provjerene izvore.'},
     'vjera.html': {title: 'Vjera — PatriaSoul', description: 'Vjera, hrvatska kršćanska baština, svetišta, svjedočanstva i život vjere na PatriaSoul portalu.'},
-    'ljudi.html': {title: 'Ljudi — PatriaSoul', description: 'Ljudi i životne priče povezane s hrvatskim identitetom i nasljeđem.'},
     'obitelj.html': {title: 'Obitelj — PatriaSoul', description: 'Obitelj, međugeneracijske priče, sjećanja i vrijednosti koje se prenose dalje.'},
     'branitelji-hrvatska.html': {title: 'Branitelji Hrvatske — PatriaSoul', description: 'Dokumentirane priče o hrvatskim braniteljima, mjestima, događajima i svjedočanstvima.'},
     'hrvatska-danas.html': {title: 'Hrvatska danas — PatriaSoul', description: 'Najnovije objavljene priče PatriaSoula i aktualni vremenski podaci za hrvatske gradove.'},
@@ -24,7 +23,26 @@
     'svetista.html': {title: 'Svetišta — PatriaSoul', description: 'Hrvatska svetišta, hodočašća i mjesta kršćanske baštine.'},
     'svjedocanstva.html': {title: 'Svjedočanstva — PatriaSoul', description: 'Svjedočanstva, osobna sjećanja i životne priče povezane s vjerom i nasljeđem.'},
     'vjera-hrvatska-bastina.html': {title: 'Vjera i hrvatska baština — PatriaSoul', description: 'Povezanost vjere, hrvatske povijesti i kulturne baštine.'},
-    'vjera-zivot.html': {title: 'Vjera i život — PatriaSoul', description: 'Vjera u svakodnevnom životu, obitelji i zajednici.'}
+    'vjera-zivot.html': {title: 'Vjera i život — PatriaSoul', description: 'Vjera u svakodnevnom životu, obitelji i zajednici.'},
+    'pravne-informacije.html': {title: 'Pravne informacije — PatriaSoul', description: 'Pravne informacije, autorska prava, izvori i pravila korištenja sadržaja portala PatriaSoul.'},
+    'privatnost.html': {title: 'Privatnost — PatriaSoul', description: 'Informacije o privatnosti i obradi podataka na portalu PatriaSoul.'},
+    'clanak-australski-hrvati.html': {title: 'Kad hrvatska riječ živi tisućama kilometara od domovine — PatriaSoul', description: 'Priča o Hrvatima izvan Hrvatske i očuvanju jezika, identiteta i povezanosti s domovinom.'},
+    'clanak-blago-zadro.html': {title: 'Blago Zadro — PatriaSoul', description: 'Priča o Blagi Zadri, Vukovaru i obrani Trpinjske ceste tijekom Domovinskog rata.'},
+    'clanak-krbavska-bitka.html': {title: 'Krbavska bitka 1493. — PatriaSoul', description: 'Povijesni pregled Krbavske bitke 1493. i njezina mjesta u hrvatskom povijesnom sjećanju.'},
+    'clanak-marko-babic.html': {title: 'Marko Babić — PatriaSoul', description: 'Priča o Marku Babiću, Trpinjskoj cesti i protuoklopnoj borbi u obrani Vukovara.'},
+    'clanak-marko-perkovic-thompson.html': {title: 'Marko Perković Thompson — PatriaSoul', description: 'Biografski pregled javno dostupnih podataka o Marku Perkoviću Thompsonu i njegovoj karijeri.'},
+    'clanak-mihael-stosic.html': {title: 'Mihael Stošić — PatriaSoul', description: 'Priča o Mihaelu Stošiću, obiteljskom sjećanju i očuvanju uspomena.'},
+    'clanak-penkala.html': {title: 'Eduard Slavoljub Penkala — PatriaSoul', description: 'Priča o Eduardu Slavoljubu Penkali, izumitelju i stvaralaštvu povezanom s Hrvatskom.'},
+    'clanak-ruder-boskovic.html': {title: 'Ruđer Bošković — PatriaSoul', description: 'Život i djelo Ruđera Boškovića, Dubrovčanina i znanstvenika europskog značaja.'},
+    'clanak-thompson-cavoglave.html': {title: 'Čavoglave i javni nastupi Marka Perkovića Thompsona — PatriaSoul', description: 'Dokumentirani pregled pjesme Čavoglave i njezina mjesta u javnom i glazbenom kontekstu.'},
+    'clanak-thompson-glazba.html': {title: 'Marko Perković Thompson i glazba — PatriaSoul', description: 'Pregled glazbenog rada Marka Perkovića Thompsona i javno dostupnih podataka o njegovoj karijeri.'},
+    'clanak-thompson-humanitarni-rad.html': {title: 'Marko Perković Thompson i humanitarni rad — PatriaSoul', description: 'Dokumentirani primjeri humanitarnog rada povezanog s Markom Perkovićem Thompsonom.'},
+    'clanak-thompson-kontroverze.html': {title: 'Marko Perković Thompson — javne kontroverze i izvori — PatriaSoul', description: 'Pregled javno dokumentiranih kontroverzi povezanih s Markom Perkovićem Thompsonom uz navođenje izvora.'},
+    'clanak-thompson-vjera-obitelj.html': {title: 'Marko Perković Thompson: vjera i obitelj — PatriaSoul', description: 'Javno dostupni podaci o vjeri, obitelji i životu Marka Perkovića Thompsona, uz odvajanje privatnog i javnog.'},
+    'clanak-trpinjska-cesta.html': {title: 'Trpinjska cesta — PatriaSoul', description: 'Priča o Trpinjskoj cesti i ljudima koji su sudjelovali u obrani Vukovara tijekom Domovinskog rata.'},
+    'clanak-vjera-obitelj.html': {title: 'Vjera koja se prenosi — PatriaSoul', description: 'Kako se vjera, običaji i sjećanja prenose kroz obiteljski život i svakodnevicu.'},
+    'clanak-vlatko-gribl.html': {title: 'Vlatko Gribl i obiteljski zanat — PatriaSoul', description: 'Priča o Vlatku Griblu, obiteljskom zanatu i znanju koje se prenosilo generacijama.'},
+    'clanak.html': {title: 'Priča — PatriaSoul', description: 'PatriaSoul priča o Hrvatskoj kroz povijest, ljude, mjesta, baštinu i provjerene izvore.'}
   };
   const seo = seoPages[currentPage] || {title: document.title || 'PatriaSoul — Čuvari nasljeđa', description: 'PatriaSoul — hrvatske priče, povijest, znanje, baština i identitet.'};
   document.title = seo.title;
@@ -33,7 +51,12 @@
     if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
     el.setAttribute('content', content);
   };
-  upsertMeta('description', seo.description);
+  const staticDescription = document.head.querySelector('meta[name="description"]');
+  if (staticDescription && !seoPages[currentPage]) {
+    // Preserve page-specific static descriptions on pages without a dedicated SEO entry.
+  } else {
+    upsertMeta('description', seo.description);
+  }
   upsertMeta('og:type', 'website', 'property');
   upsertMeta('og:site_name', 'PatriaSoul', 'property');
   upsertMeta('og:locale', 'hr_HR', 'property');
