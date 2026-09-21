@@ -362,3 +362,50 @@ background-size:cover;background-position:center center;background-attachment:fi
   .home-section-footer{justify-content:stretch;margin-top:15px;padding-top:13px}
   .home-section-more{width:100%;min-height:42px}
 }
+
+
+/* Naslovnica · stabilne slike i hero */
+.lead-story>.story-image{
+  height:390px;
+  background-color:#dfe2e4;
+  background-repeat:no-repeat;
+  display:flex;
+  align-items:flex-end;
+  padding:18px 24px;
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+.lead-story>.story-image:after{
+  content:"";
+  position:absolute;
+  inset:45% 0 0;
+  background:linear-gradient(transparent,rgba(0,0,0,.48));
+}
+.lead-story>.story-image span{
+  position:relative;
+  z-index:1;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  text-shadow:0 1px 3px rgba(0,0,0,.5);
+}
+.card-image{display:block;height:190px;overflow:hidden;background:#e5e7e9}
+.card-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .2s ease}
+.feature-card:hover .card-image img,.large-card:hover .card-image img{transform:scale(1.025)}
+.feature-card h3,.large-card h3{line-height:1.22}
+.feature-card p,.large-card p{margin-top:8px;margin-bottom:0}
+.guardian-layout .read-more{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 16px;background:transparent;border:1px solid rgba(255,255,255,.65);border-radius:4px;color:#fff!important;text-decoration:none!important;font-weight:800}
+.guardian-layout .read-more:hover{background:#fff;color:var(--blue)!important;border-color:#fff}
+@media(max-width:850px){
+  .lead-story>.story-image{height:300px}
+  .guardian-layout{grid-template-columns:86px 1fr;padding:24px;gap:18px}
+  .guardian-mark{font-size:52px}
+}
+@media(max-width:560px){
+  .lead-story>.story-image{height:220px;padding:14px 18px}
+  .lead-story>.story-image span{font-size:9px}
+  .guardian-layout{grid-template-columns:1fr;padding:22px 18px}
+  .guardian-mark{justify-content:flex-start;font-size:42px}
+}
