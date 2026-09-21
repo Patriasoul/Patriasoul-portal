@@ -182,3 +182,71 @@ background-size:cover;background-position:center center;background-attachment:fi
 @media(prefers-reduced-motion:reduce){
   #breaking-ticker-track{animation:none}
 }
+
+
+/* PatriaSoul · ujednačena dugmad i akcijske poveznice */
+.read-more,
+.pillar-intro-link,
+.module-title>a,
+.search-box button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:40px;
+  padding:9px 15px;
+  border:1px solid var(--red);
+  border-radius:4px;
+  background:var(--red);
+  color:#fff;
+  font:800 12px/1.2 Inter,system-ui,sans-serif;
+  letter-spacing:.01em;
+  text-decoration:none;
+  transition:background .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+.read-more:hover,
+.pillar-intro-link:hover,
+.module-title>a:hover,
+.search-box button:hover{
+  background:#a91d25;
+  border-color:#a91d25;
+  color:#fff;
+  transform:translateY(-1px);
+  box-shadow:0 5px 14px rgba(197,34,43,.18);
+}
+.read-more:focus-visible,
+.pillar-intro-link:focus-visible,
+.module-title>a:focus-visible,
+.search-box button:focus-visible{
+  outline:3px solid rgba(197,34,43,.22);
+  outline-offset:2px;
+}
+.pillar-intro-link{white-space:nowrap}
+.module-title>a{min-height:36px;padding:8px 12px}
+.search-box button{cursor:pointer}
+.guardian-layout .read-more{
+  background:#fff;
+  border-color:#fff;
+  color:var(--blue);
+}
+.guardian-layout .read-more:hover{
+  background:#f5f5f3;
+  border-color:#f5f5f3;
+  color:var(--blue);
+}
+.article-related-card em{
+  display:inline-flex;
+  align-items:center;
+  align-self:flex-start;
+  min-height:32px;
+  padding:7px 10px;
+  border:1px solid var(--red);
+  border-radius:4px;
+  background:var(--red);
+  color:#fff;
+}
+@media(max-width:560px){
+  .read-more,
+  .pillar-intro-link,
+  .module-title>a,
+  .search-box button{min-height:38px;padding:8px 12px}
+}
