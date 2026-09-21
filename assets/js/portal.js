@@ -3,7 +3,10 @@
   const seoPages = {
     'index.html': {title: 'PatriaSoul — Hrvatska, povijest, znanje i identitet', description: 'PatriaSoul donosi hrvatske priče, povijest, baštinu, vjeru, obitelj, domovinu i provjerene izvore.'},
     'vjera.html': {title: 'Vjera — PatriaSoul', description: 'Vjera, hrvatska kršćanska baština, svetišta, svjedočanstva i život vjere na PatriaSoul portalu.'},
-    'ljudi.html': {title: 'Obitelj i ljudi — PatriaSoul', description: 'Ljudi, obitelj, vjera i priče koje oblikuju hrvatski identitet i nasljeđe.'},
+    'ljudi.html': {title: 'Ljudi — PatriaSoul', description: 'Ljudi i životne priče povezane s hrvatskim identitetom i nasljeđem.'},
+    'obitelj.html': {title: 'Obitelj — PatriaSoul', description: 'Obitelj, međugeneracijske priče, sjećanja i vrijednosti koje se prenose dalje.'},
+    'branitelji-hrvatska.html': {title: 'Branitelji Hrvatske — PatriaSoul', description: 'Dokumentirane priče o hrvatskim braniteljima, mjestima, događajima i svjedočanstvima.'},
+    'hrvatska-danas.html': {title: 'Hrvatska danas — PatriaSoul', description: 'Najnovije objavljene priče PatriaSoula i aktualni vremenski podaci za hrvatske gradove.'},
     'domovina.html': {title: 'Domovina — PatriaSoul', description: 'Hrvatska kroz ljude, mjesta, sjećanja i priče o Domovini.'},
     'cuvari-nasljeda.html': {title: 'Čuvari nasljeđa — PatriaSoul', description: 'Priče o ljudima i zajednicama koje čuvaju hrvatsku baštinu, sjećanje i nasljeđe.'},
     'o-nama.html': {title: 'O PatriaSoul — Čuvari nasljeđa', description: 'Saznajte što je PatriaSoul, kako radimo i zašto su provjera izvora i očuvanje nasljeđa važni.'},
@@ -53,7 +56,7 @@
   const navItems = [
     ['index.html', '🏠 Naslovnica'],
     ['vjera.html', '✝️ Vjera'],
-    ['ljudi.html', '❤️ Obitelj'],
+    ['obitelj.html', '❤️ Obitelj'],
     ['domovina.html', '🇭🇷 Domovina'],
     ['cuvari-nasljeda.html', '🛡️ Čuvari nasljeđa'],
     ['o-nama.html', '🇭🇷 O PatriaSoul'],
@@ -127,6 +130,6 @@
 
   const footer = document.querySelector('.site-footer');
   if (footer) {
-    footer.innerHTML = '<div class="container footer-grid"><div><strong class="footer-brand">PatriaSoul · Čuvari nasljeđa</strong><p>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></div><div><strong>Temelji</strong><a href="vjera.html">✝️ Vjera</a><a href="ljudi.html">❤️ Obitelj</a><a href="domovina.html">🇭🇷 Domovina</a><a href="povijest.html">📚 Povijest</a><a href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa</a></div><div><strong>Istraži</strong><a href="dijaspora.html">🌍 Dijaspora</a><a href="hrvatska-stvara.html">🔧 Hrvatska stvara</a><a href="svjedocanstva.html">✝️ Svjedočanstva</a><a href="crkvena-bastina.html">⛪ Crkvena baština</a><a href="svetista.html">🕯️ Svetišta</a></div><div><strong>O nama</strong><a href="o-nama.html">O PatriaSoul</a><a href="urednicki-standard.html">Urednički standard</a><a href="pravne-informacije.html">Pravne informacije</a><a href="privatnost.html">Privatnost</a><a href="kontakt.html">Kontakt</a><a href="pretraga.html">Pretraga</a></div><small>PatriaSoul · Čuvari nasljeđa</small></div>';
+    footer.innerHTML = '<div class="container footer-grid"><div><strong class="footer-brand">PatriaSoul · Čuvari nasljeđa</strong><p>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></div><div><strong>Temelji</strong><a href="vjera.html">✝️ Vjera</a><a href="obitelj.html">❤️ Obitelj</a><a href="domovina.html">🇭🇷 Domovina</a><a href="branitelji-hrvatska.html">🪖 Branitelji Hrvatske</a><a href="povijest.html">📚 Povijest</a><a href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa</a></div><div><strong>Istraži</strong><a href="hrvatska-danas.html">📰 Hrvatska danas</a><a href="dijaspora.html">🌍 Dijaspora</a><a href="hrvatska-stvara.html">🔧 Hrvatska stvara</a><a href="svjedocanstva.html">✝️ Svjedočanstva</a><a href="crkvena-bastina.html">⛪ Crkvena baština</a><a href="svetista.html">🕯️ Svetišta</a></div><div><strong>O nama</strong><a href="o-nama.html">O PatriaSoul</a><a href="urednicki-standard.html">Urednički standard</a><a href="pravne-informacije.html">Pravne informacije</a><a href="privatnost.html">Privatnost</a><a href="kontakt.html">Kontakt</a><a href="pretraga.html">Pretraga</a></div><small>PatriaSoul · Čuvari nasljeđa</small></div>';
   }
 })();
