@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="hr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hrvatska danas — PatriaSoul</title><link rel="stylesheet" href="assets/css/portal.css"></head>
+<body>
+<header class="site-header"></header>
+<main class="container">
+<section class="page-head"><span class="kicker">HRVATSKA DANAS</span><h1>Hrvatska danas</h1><p>Najnovije objavljene priče PatriaSoula na jednom mjestu, uz aktualne vremenske podatke za odabrane hrvatske gradove.</p></section>
+<section class="news-grid">
+<div class="news-list" id="today-list"></div>
+<aside class="weather-module">
+<div class="module-title"><h2>Vrijeme u Hrvatskoj</h2></div>
+<p class="muted">Trenutna temperatura prema Open-Meteo podacima. Podaci se dohvaćaju pri učitavanju stranice.</p>
+<div class="weather-cities" id="today-weather"><span>Zagreb <b>…</b></span><span>Split <b>…</b></span><span>Rijeka <b>…</b></span><span>Osijek <b>…</b></span><span>Pula <b>…</b></span><span>Zadar <b>…</b></span></div>
+</aside>
+</section>
+<section class="editorial">
+<div><span class="kicker">NAPOMENA</span><h2>Aktualno nije isto što i nepogrešivo.</h2><p>PatriaSoul objavljene sadržaje nastoji graditi na provjerljivim izvorima. Ako uočite pogrešku ili imate pouzdan izvor za dopunu, pošaljite nam ispravak.</p><a class="read-more" href="kontakt.html">Pošalji ispravak →</a></div>
+<blockquote>„Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.”</blockquote>
+</section>
+</main>
+<footer class="site-footer"></footer>
+<script src="assets/js/content-data.js?v=6"></script>
+<script>
+(function(){
+var d=window.PatriaSoulContent&&window.PatriaSoulContent.articles||{},list=document.getElementById("today-list");
+Object.keys(d).map(function(k){return d[k]}).sort(function(a,b){return (b.date||"").localeCompare(a.date||"")}).forEach(function(a){
+var x=document.createElement("article");x.className="news-row";
+x.innerHTML='<a class="thumb thumb-link" href="'+a.url+'"><img src="'+a.image+'" alt="'+(a.imageAlt||a.title).replace(/"/g,"&quot;")+'" loading="lazy"></a><div><span class="section-label">'+(a.rubric||"PRIČA")+' · '+(a.category||"")+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p><small>'+a.meta+'</small></div>';
+list.appendChild(x);
+});
+if(!list.children.length)list.innerHTML="<p>Nema objavljenih priča.</p>";
+var cities=[["Zagreb",45.815,15.982],["Split",43.508,16.440],["Rijeka",45.327,14.442],["Osijek",45.555,18.695],["Pula",44.867,13.849],["Zadar",44.119,15.232]],box=document.getElementById("today-weather");
+Promise.all(cities.map(function(c){return fetch("https://api.open-meteo.com/v1/forecast?latitude="+c[1]+"&longitude="+c[2]+"&current=temperature_2m&timezone=Europe%2FZagreb").then(function(r){if(!r.ok)throw new Error("weather");return r.json()}).then(function(j){return [c[0],Math.round(j.current.temperature_2m)]}).catch(function(){return [c[0],null]})})).then(function(rows){box.innerHTML="";rows.forEach(function(r){var s=document.createElement("span"),b=document.createElement("b");b.textContent=r[1]===null?"—":r[1]+" °C";s.append(r[0]+" ",b);box.appendChild(s)})});
+})();
+</script>
+<script src="assets/js/portal.js"></script>
+</body></html>
