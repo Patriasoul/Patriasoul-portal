@@ -103,6 +103,20 @@
     if(status)status.textContent="Aktualno stanje · podaci se učitavaju za svaki grad";
   }
 
+  var ticker=document.getElementById("breaking-ticker-track");
+  if(ticker){
+    var tickerItems=articles.slice(0,8).map(function(a){
+      return '<a href="'+a.url+'">'+(a.category||"PRIČA")+' · '+a.title+'</a>';
+    });
+    if(tickerItems.length){
+      var tickerHtml=tickerItems.concat(tickerItems).join('<span class="breaking-sep">•</span>');
+      ticker.innerHTML=tickerHtml;
+      ticker.setAttribute("data-ready","true");
+    } else {
+      ticker.innerHTML='<span>PatriaSoul · nove priče uskoro</span>';
+    }
+  }
+
   if(!articles.length)return;
 
   var lead=articles[0];
