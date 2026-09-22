@@ -30,6 +30,17 @@
     <aside class="top-stories" id="home-top-stories"></aside>
   </section>
 
+  <section class="container portal-section editorial-home">
+    <div class="home-section-heading">
+      <div>
+        <span class="kicker">PATRIASOUL · IZ SVIH KUTOVA</span>
+        <h2>Jedna naslovnica. Više hrvatskih priča.</h2>
+        <p>Svaka tematska cjelina PatriaSoula dobiva svoje mjesto na naslovnici — kao na dobrom portalu, ali s ritmom i čitljivošću bloga.</p>
+      </div>
+    </div>
+    <div class="editorial-story-grid" id="home-editorial-grid"></div>
+  </section>
+
   <section class="container portal-section">
     <div class="module-title"><div><span class="kicker">HRVATSKA DANAS</span><h2>Najnovije vijesti i vrijeme</h2></div><a href="najnovije.html">Sve najnovije →</a></div>
     <div class="news-grid">
@@ -137,6 +148,29 @@
     return '<article class="side-story"><span class="section-label">'+(a.category||"PRIČA")+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p></article>';
   }).join("");
   document.getElementById("home-top-stories").innerHTML=top;
+
+  var editorialSections=[
+    {label:"VJERA",icon:"✝️",url:"vjera.html",story:"clanak-vjera-obitelj.html",fallback:"vjera-zivot.html"},
+    {label:"OBITELJ",icon:"❤️",url:"obitelj.html",story:"clanak-vjera-obitelj.html",fallback:"obitelj.html"},
+    {label:"POVIJEST",icon:"📚",url:"povijest.html",story:"clanak-krbavska-bitka.html",fallback:"clanak-ruder-boskovic.html"},
+    {label:"BRANITELJI",icon:"🪖",url:"branitelji-hrvatska.html",story:"clanak-blago-zadro.html",fallback:"clanak-marko-babic.html"},
+    {label:"DOMOVINA",icon:"🇭🇷",url:"domovina.html",story:"clanak-trpinjska-cesta.html",fallback:"clanak-blago-zadro.html"},
+    {label:"ČUVARI NASLJEĐA",icon:"🛡️",url:"cuvari-nasljeda.html",story:"clanak-mihael-stosic.html",fallback:"clanak-vlatko-gribl.html"},
+    {label:"DIJASPORA",icon:"🌍",url:"dijaspora.html",story:"clanak-australski-hrvati.html",fallback:"clanak-australski-hrvati.html"},
+    {label:"HRVATSKA STVARA",icon:"🔧",url:"hrvatska-stvara.html",story:"clanak-penkala.html",fallback:"clanak-ruder-boskovic.html"}
+  ];
+  var editorialGrid=document.getElementById("home-editorial-grid");
+  if(editorialGrid){
+    editorialGrid.innerHTML=editorialSections.map(function(section){
+      var a=articles.find(function(x){return x.url===section.story;})||articles.find(function(x){return x.url===section.fallback;});
+      if(!a)return "";
+      return '<article class="editorial-story-card">'+
+        '<a class="editorial-story-image" href="'+a.url+'"><img src="'+a.image+'" alt="'+(a.imageAlt||a.title)+'" loading="lazy"></a>'+
+        '<div class="editorial-story-copy"><div class="editorial-story-top"><span class="editorial-icon">'+section.icon+'</span><span class="section-label">'+section.label+'</span><a href="'+section.url+'">Istraži →</a></div>'+
+        '<h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p><a class="read-more" href="'+a.url+'">Pročitaj priču →</a></div>'+
+      '</article>';
+    }).join("");
+  }
 
   var news=articles.slice(0,2).map(function(a){
     return '<article class="news-row"><a class="thumb" href="'+a.url+'"><img src="'+a.image+'" alt="'+(a.imageAlt||a.title)+'" loading="lazy"></a><div><span class="section-label">'+(a.category||"PRIČA")+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p><small>'+a.meta+'</small></div></article>';
