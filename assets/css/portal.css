@@ -553,3 +553,11 @@ background-size:cover;background-position:center center;background-attachment:fi
   .article-related-card{grid-template-columns:1fr}
   .article-related-card img{height:190px;min-height:0}
 }
+
+/* Navigacija · Pretraga odvojena desno */
+@media(min-width:851px){
+  .main-nav a.nav-search{margin-left:auto}
+}
+@media(max-width:850px){
+  .main-nav a.nav-search{margin-left:0}
+}
