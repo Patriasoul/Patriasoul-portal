@@ -83,8 +83,9 @@
     ['domovina.html', '🇭🇷 Domovina'],
     ['cuvari-nasljeda.html', '🛡️ Čuvari nasljeđa'],
     ['o-nama.html', '🇭🇷 O PatriaSoul'],
-    ['pretraga.html', '🔎 Pretraga'],
-    ['kontakt.html', '✉️ Kontakt']
+    ['kontakt.html', '✉️ Kontakt'],
+    ['https://patriasoul.github.io/kviz/', '🎮 Kviz prostor'],
+    ['pretraga.html', '🔎 Pretraga']
   ];
 
 
