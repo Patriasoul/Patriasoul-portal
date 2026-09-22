@@ -125,6 +125,7 @@
       const link = document.createElement('a');
       link.href = href;
       link.textContent = label;
+      if (href === 'pretraga.html') link.classList.add('nav-search');
       if (currentPage === href.toLowerCase()) {
         link.classList.add('active');
         link.setAttribute('aria-current', 'page');
