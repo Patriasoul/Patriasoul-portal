@@ -77,15 +77,45 @@
   upsertMeta('theme-color', '#8b0000');
 
   const navItems = [
-    ['index.html', '🏠 Naslovnica'],
-    ['vjera.html', '✝️ Vjera'],
-    ['obitelj.html', '❤️ Obitelj'],
-    ['domovina.html', '🇭🇷 Domovina'],
-    ['cuvari-nasljeda.html', '🛡️ Čuvari nasljeđa'],
-    ['o-nama.html', '🇭🇷 O PatriaSoul'],
-    ['kontakt.html', '✉️ Kontakt'],
-    ['https://patriasoul.github.io/kviz/', '🎮 Kviz PatriaSoul'],
-    ['pretraga.html', '🔎 Pretraga']
+    {href:'index.html', label:'🏠 Naslovnica'},
+    {href:'vjera.html', label:'✝️ Vjera', children:[
+      ['vjera-zivot.html','Vjera i život'],
+      ['biblija.html','Biblija'],
+      ['svetista.html','Svetišta'],
+      ['crkvena-bastina.html','Crkvena baština'],
+      ['povijest-crkve.html','Povijest Crkve'],
+      ['ljudi-vjere.html','Ljudi vjere'],
+      ['svjedocanstva.html','Svjedočanstva'],
+      ['vjera-hrvatska-bastina.html','Vjera i hrvatska baština']
+    ]},
+    {href:'obitelj.html', label:'❤️ Obitelj', children:[
+      ['clanak-vjera-obitelj.html','Vjera i obitelj']
+    ]},
+    {href:'domovina.html', label:'🇭🇷 Domovina', children:[
+      ['povijest.html','Povijest'],
+      ['branitelji-hrvatska.html','Branitelji Hrvatske'],
+      ['hrvatska-danas.html','Hrvatska danas'],
+      ['najnovije.html','Najnovije'],
+      ['dijaspora.html','Dijaspora'],
+      ['hrvatska-stvara.html','Hrvatska stvara']
+    ]},
+    {href:'cuvari-nasljeda.html', label:'🛡️ Čuvari nasljeđa', children:[
+      ['cuvari-nasljeda.html','Pregled nasljeđa'],
+      ['crkvena-bastina.html','Crkvena baština'],
+      ['vjera-hrvatska-bastina.html','Vjera i hrvatska baština'],
+      ['povijest.html','Povijest'],
+      ['dijaspora.html','Hrvatska dijaspora']
+    ]},
+    {href:'o-nama.html', label:'🇭🇷 O PatriaSoul', children:[
+      ['o-nama.html','O PatriaSoul'],
+      ['urednicki-standard.html','Urednički standard'],
+      ['pravne-informacije.html','Pravne informacije'],
+      ['privatnost.html','Privatnost'],
+      ['kontakt.html','Kontakt']
+    ]},
+    {href:'kontakt.html', label:'✉️ Kontakt'},
+    {href:'https://patriasoul.github.io/kviz/', label:'🎮 Kviz PatriaSoul'},
+    {href:'pretraga.html', label:'🔎 Pretraga'}
   ];
 
 
@@ -122,16 +152,55 @@
     utility.replaceChildren(date, social);
 
     const nav = header.querySelector('#main-nav');
-    navItems.forEach(([href, label]) => {
+    navItems.forEach(item => {
+      const wrap = document.createElement('div');
+      wrap.className = 'nav-item' + (item.children ? ' has-submenu' : '');
+
       const link = document.createElement('a');
-      link.href = href;
-      link.textContent = label;
-      if (href === 'pretraga.html') link.classList.add('nav-search');
-      if (currentPage === href.toLowerCase()) {
+      link.href = item.href;
+      link.textContent = item.label;
+      if (item.href === 'pretraga.html') link.classList.add('nav-search');
+      if (currentPage === item.href.toLowerCase()) {
         link.classList.add('active');
         link.setAttribute('aria-current', 'page');
       }
-      nav.appendChild(link);
+      wrap.appendChild(link);
+
+      if (item.children && item.children.length) {
+        const submenu = document.createElement('div');
+        submenu.className = 'nav-submenu';
+        submenu.setAttribute('role','menu');
+
+        item.children.forEach(([href,label]) => {
+          const sub = document.createElement('a');
+          sub.href = href;
+          sub.textContent = label;
+          sub.setAttribute('role','menuitem');
+          if (currentPage === href.toLowerCase()) {
+            sub.classList.add('active');
+            sub.setAttribute('aria-current','page');
+            wrap.classList.add('has-active-submenu');
+          }
+          submenu.appendChild(sub);
+        });
+
+        const arrow = document.createElement('button');
+        arrow.type = 'button';
+        arrow.className = 'submenu-toggle';
+        arrow.setAttribute('aria-label', 'Otvori podizbornik');
+        arrow.setAttribute('aria-expanded', 'false');
+        arrow.innerHTML = '⌄';
+        arrow.addEventListener('click', event => {
+          event.preventDefault();
+          event.stopPropagation();
+          const open = wrap.classList.toggle('submenu-open');
+          arrow.setAttribute('aria-expanded', String(open));
+        });
+        wrap.appendChild(arrow);
+        wrap.appendChild(submenu);
+      }
+
+      nav.appendChild(wrap);
     });
 
     const toggle = header.querySelector('.menu-toggle');
@@ -149,7 +218,11 @@
 
     nav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
     document.addEventListener('keydown', event => {
-      if (event.key === 'Escape') closeMenu();
+      if (event.key === 'Escape') {
+        nav.querySelectorAll('.submenu-open').forEach(item => item.classList.remove('submenu-open'));
+        nav.querySelectorAll('.submenu-toggle').forEach(btn => btn.setAttribute('aria-expanded','false'));
+        closeMenu();
+      }
     });
   }
 
