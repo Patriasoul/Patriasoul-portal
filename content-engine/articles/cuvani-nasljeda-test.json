@@ -1,0 +1,13 @@
+{
+  "slug":"cuvani-nasljeda-test",
+  "title":"Čuvari nasljeđa — testni zapis",
+  "category":"ČUVARI NASLJEĐA",
+  "date":"2026-09-28",
+  "deck":"Testni zapis za provjeru pravila rubrike.",
+  "content":["Ovo je osobno svjedočanstvo u testnoj strukturi."],
+  "sources":[{"title":"PatriaSoul — testni izvor","url":"https://github.com/Patriasoul/Patriasoul-portal"}],
+  "tags":["test","cuvari-nasljeda"],
+  "author":"Čuvari nasljeđa",
+  "contentType":"svjedočanstvo",
+  "editorial":{"verificationStatus":"needs-review","processedAt":"2026-09-28","reviewRequired":true}
+}
