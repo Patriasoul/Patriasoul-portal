@@ -1,0 +1,171 @@
+/* PatriaSoul 2.0 · naslovnica modernizacija */
+:root{
+  --ps-ink:#14202b;
+  --ps-blue:#102f50;
+  --ps-red:#b51624;
+  --ps-gold:#b7924a;
+  --ps-paper:#f4f2ed;
+  --ps-line:#dfe3e6;
+  --ps-shadow:0 14px 40px rgba(20,32,43,.09);
+}
+body{
+  background-color:var(--ps-paper);
+  background-image:linear-gradient(rgba(244,242,237,.94),rgba(244,242,237,.94)),
+    url("https://raw.githubusercontent.com/Patriasoul/patriasoul/main/images/gallery/Zastava.png");
+}
+.site-header{box-shadow:0 4px 24px rgba(20,32,43,.08);border-bottom:0}
+.utility-bar{background:linear-gradient(90deg,#0d2b49 0%,#17395f 55%,#0d2b49 100%);border-top:3px solid var(--ps-red)}
+.topbar{min-height:86px}
+.brand strong{font-size:27px;letter-spacing:-.025em}
+.main-nav{border-top:1px solid #edf0f2;background:#fff}
+.main-nav a{padding:14px 13px 12px;transition:color .18s ease,background .18s ease}
+.main-nav a:hover,.main-nav a.active{background:#faf7f2}
+.breaking-strip{box-shadow:0 3px 12px rgba(20,32,43,.035)}
+.breaking-inner{min-height:46px}
+.breaking-inner strong{border-radius:2px;background:var(--ps-red);box-shadow:0 3px 10px rgba(181,22,36,.2)}
+.pillar-intro{
+  margin-top:30px;
+  padding:30px 32px;
+  border:1px solid var(--ps-line);
+  border-top:4px solid var(--ps-red);
+  border-radius:2px;
+  box-shadow:0 8px 28px rgba(20,32,43,.055);
+  background:rgba(255,255,255,.97);
+}
+.pillar-intro h1{font-size:clamp(27px,3.2vw,42px)}
+.pillar-intro-link{
+  background:var(--ps-blue);
+  border-radius:2px;
+  padding:14px 19px;
+  box-shadow:0 6px 18px rgba(16,47,80,.18);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.pillar-intro-link:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(16,47,80,.23)}
+.lead-layout{gap:22px;padding-top:26px}
+.lead-story{
+  border:0;
+  border-radius:3px;
+  overflow:hidden;
+  box-shadow:var(--ps-shadow);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.lead-story:hover{transform:translateY(-3px);box-shadow:0 18px 45px rgba(20,32,43,.13)}
+.lead-story #home-lead-image{
+  min-height:430px;
+  position:relative;
+  background-color:#d9dce0;
+}
+.lead-story #home-lead-image:after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.02) 35%,rgba(0,0,0,.62) 100%);
+  pointer-events:none;
+}
+.lead-story #home-lead-image span{
+  position:absolute;z-index:1;left:22px;bottom:18px;
+  color:#fff;font-size:11px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;text-shadow:0 1px 4px rgba(0,0,0,.5)
+}
+.story-meta{padding:20px 26px 0}
+.lead-story h1{font-size:clamp(32px,4vw,54px);margin:10px 26px}
+.lead{font-size:16px;line-height:1.7;margin:0 26px 18px}
+.read-more{
+  position:relative;
+  padding:10px 15px;
+  margin:0 26px 24px;
+  border:1px solid #d4d9dd;
+  border-radius:2px;
+  background:#fff;
+  box-shadow:0 4px 12px rgba(20,32,43,.06);
+  transition:.18s ease;
+}
+.read-more:hover{color:var(--ps-red);border-color:#bfc7cd;transform:translateY(-1px)}
+.top-stories{
+  border:0;
+  border-top:4px solid var(--ps-blue);
+  border-radius:3px;
+  box-shadow:var(--ps-shadow);
+  padding:23px 24px;
+}
+.side-story{padding:20px 0}
+.side-story h3{font-size:19px;line-height:1.35}
+.side-story h3 a:hover,.news-row h3 a:hover,.feature-card h3 a:hover{color:var(--ps-red)}
+.portal-section{padding-top:54px}
+.home-section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px}
+.home-section-heading h2{font-family:"Libre Baskerville",serif;font-size:clamp(25px,3vw,34px);line-height:1.15;margin:5px 0}
+.home-section-heading p{max-width:760px;color:var(--muted);margin:7px 0 0}
+.editorial-story-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.editorial-story-card{
+  display:grid;grid-template-columns:190px 1fr;
+  background:#fff;border:1px solid var(--ps-line);overflow:hidden;
+  box-shadow:0 5px 20px rgba(20,32,43,.045);
+  transition:.2s ease
+}
+.editorial-story-card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(20,32,43,.1)}
+.editorial-story-image{min-height:210px;overflow:hidden}
+.editorial-story-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.editorial-story-card:hover img{transform:scale(1.035)}
+.editorial-story-copy{padding:18px 19px}
+.editorial-story-top{display:flex;align-items:center;gap:8px}
+.editorial-story-top>a{margin-left:auto;color:var(--ps-red);font-size:11px;font-weight:800}
+.editorial-icon{font-size:18px}
+.editorial-story-copy h3{font-family:"Libre Baskerville",serif;font-size:19px;line-height:1.3;margin:9px 0}
+.editorial-story-copy p{font-size:13px;color:var(--muted);margin:0 0 8px}
+.editorial-story-copy .read-more{margin:8px 0 0;border:0;padding:0;box-shadow:none;background:none}
+.news-grid{gap:28px}
+.news-row{background:#fff;border:1px solid var(--ps-line);padding:0;margin-bottom:12px;grid-template-columns:200px 1fr;min-height:145px}
+.news-row>div{padding:17px 18px}
+.news-row .thumb{height:100%;min-height:145px}
+.news-row h3{font-size:19px;line-height:1.3}
+.weather-module{border:0;border-top:4px solid var(--ps-blue);box-shadow:var(--ps-shadow);border-radius:2px}
+.weather-cities span{padding:12px 3px}
+.feature-grid{gap:20px}
+.feature-card,.large-card{
+  border:1px solid var(--ps-line);
+  border-radius:2px;
+  overflow:hidden;
+  box-shadow:0 5px 20px rgba(20,32,43,.045);
+}
+.feature-card:hover,.large-card:hover{box-shadow:0 14px 34px rgba(20,32,43,.1)}
+.feature-card .card-image,.large-card .card-image{overflow:hidden}
+.feature-card .card-image img,.large-card .card-image img{transition:transform .4s ease}
+.feature-card:hover .card-image img,.large-card:hover .card-image img{transform:scale(1.03)}
+.special-series{margin-top:54px;border-top:0;padding-top:0}
+.special-series .module-title{border-bottom:0;margin-bottom:14px}
+.guardian-layout{
+  border-radius:3px;
+  padding:34px;
+  box-shadow:var(--ps-shadow);
+  background:linear-gradient(120deg,#102f50,#17395f);
+}
+.guardian-mark{font-size:64px}
+.editorial{padding-top:62px;padding-bottom:65px}
+.editorial blockquote{box-shadow:0 8px 25px rgba(20,32,43,.05);border-left-width:4px}
+.home-related-grid{gap:20px}
+.home-related-card{box-shadow:0 5px 20px rgba(20,32,43,.045);transition:.2s ease}
+.home-related-card:hover{box-shadow:0 14px 34px rgba(20,32,43,.1);transform:translateY(-3px)}
+.site-footer{margin-top:15px;background:linear-gradient(135deg,#111d28,#172f47)}
+.site-footer a:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:850px){
+  .topbar{min-height:74px}
+  .editorial-story-grid{grid-template-columns:1fr}
+  .editorial-story-card{grid-template-columns:170px 1fr}
+  .lead-story #home-lead-image{min-height:330px}
+}
+@media(max-width:560px){
+  .pillar-intro{margin-top:20px}
+  .lead-layout{padding-top:20px}
+  .lead-story #home-lead-image{min-height:250px}
+  .editorial-story-card{grid-template-columns:120px 1fr}
+  .editorial-story-image{min-height:170px}
+  .editorial-story-copy{padding:15px}
+  .editorial-story-copy h3{font-size:17px}
+  .editorial-story-copy p{font-size:12px}
+  .home-section-heading h2{font-size:25px}
+  .news-row{grid-template-columns:105px 1fr}
+  .news-row .thumb{min-height:115px}
+  .news-row>div{padding:13px}
+}
+@media(prefers-reduced-motion:reduce){
+  .lead-story,.editorial-story-card,.feature-card,.large-card,.home-related-card,.read-more{transition:none}
+}
