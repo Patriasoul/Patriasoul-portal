@@ -1,0 +1,22 @@
+name: PatriaSoul · AI napiši članak
+
+on:
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "Tema članka"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  handoff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upute za pokretanje generatora
+        run: |
+          echo "AI generator se izvršava na sigurnoj grani content-engine-v1."
+          echo "Tema: ${{ inputs.topic }}"
+          echo "Za stvarno generiranje pokrenite workflow na grani content-engine-v1."
