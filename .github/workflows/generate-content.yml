@@ -5,6 +5,7 @@ permissions:
   contents: write
 jobs:
   generate:
+    if: github.ref == 'refs/heads/content-engine-v1'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
