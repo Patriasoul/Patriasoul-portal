@@ -13,23 +13,11 @@
       "status": "ZA PROVJERU",
       "author": "PatriaSoul",
       "body": [
-        {
-          "type": "h2",
-          "text": "Zašto ovaj test postoji?"
-        },
-        {
-          "type": "p",
-          "text": "Sustav priprema strukturu članka, ali članak ostaje izvan javne objave dok ga urednik ne provjeri."
-        },
-        {
-          "type": "note",
-          "label": "UREDNIČKA NAPOMENA",
-          "text": "Ovaj tekst je test automatizacije i nije stvarna povijesna tvrdnja."
-        }
+        {"type":"h2","text":"Zašto ovaj test postoji?"},
+        {"type":"p","text":"Sustav priprema strukturu članka, ali članak ostaje izvan javne objave dok ga urednik ne provjeri."},
+        {"type":"note","label":"UREDNIČKA NAPOMENA","text":"Ovaj kratki zapis je iznimka samo zato što služi za testiranje samog sustava. Pravi članci za uredničku provjeru moraju biti sveobuhvatni i imati najmanje 1.500 riječi."}
       ],
-      "sources": [
-        "TESTNI ZAPIS — služi samo za provjeru generatora."
-      ]
+      "sources": ["TESTNI ZAPIS — služi samo za provjeru generatora."]
     }
   ]
 }
