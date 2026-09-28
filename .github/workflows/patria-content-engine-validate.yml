@@ -1,0 +1,28 @@
+name: PatriaSoul Content Engine — validate
+
+on:
+  push:
+    branches:
+      - main
+      - patriasoul-content-engine-v1
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate existing content
+        run: node content-engine/validate-content.js
+      - name: Check engine files
+        run: |
+          test -f content-engine/schema/article.schema.json
+          test -f content-engine/README.md
+          echo "Content Engine v1 struktura je prisutna."
