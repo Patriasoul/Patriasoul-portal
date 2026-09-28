@@ -1,0 +1,21 @@
+{
+  "slug": "primjer-clanka",
+  "title": "Primjer članka — PatriaSoul Content Engine",
+  "category": "TEST",
+  "date": "2026-09-28",
+  "deck": "Ovo je testni sadržaj generatora i nije namijenjen objavi na javnom portalu.",
+  "content": [
+    "PatriaSoul Content Engine v2 može iz strukturiranog zapisa izraditi zasebnu HTML stranicu.",
+    "Ovaj primjer služi samo za provjeru procesa prije bilo kakvog povezivanja s postojećim portalom."
+  ],
+  "sources": [
+    {
+      "title": "PatriaSoul — testni izvor",
+      "url": "https://github.com/Patriasoul/Patriasoul-portal"
+    }
+  ],
+  "tags": [
+    "test",
+    "content-engine"
+  ]
+}
