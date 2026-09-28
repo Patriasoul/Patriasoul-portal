@@ -1,0 +1,13 @@
+<!doctype html><html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Urednički pregled · PatriaSoul</title><link rel="stylesheet" href="../assets/css/portal.css"><style>body{background:#f5f5f5}.editor-wrap{max-width:1100px;margin:40px auto;padding:0 20px}.editor-head{background:#111;color:#fff;border-radius:16px;padding:28px}.editor-head h1{margin:0 0 8px}.editor-head p{margin:0;color:#ddd}.card{background:#fff;border-radius:16px;padding:24px;margin-top:20px;box-shadow:0 8px 30px rgba(0,0,0,.08)}.status{display:inline-block;background:#f1b900;color:#111;padding:6px 10px;border-radius:999px;font-weight:800;font-size:.8rem}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}.btn{display:inline-block;padding:12px 18px;border-radius:10px;text-decoration:none;font-weight:800}.btn-view{background:#111;color:#fff}.btn-publish{background:#b40000;color:#fff}.hint{font-size:.92rem;color:#666;margin-top:16px}.empty{padding:25px;text-align:center;color:#666}</style></head><body><div class="editor-wrap"><section class="editor-head"><h1>PatriaSoul · Urednički pregled</h1><p>Automatski pripremljeni članci čekaju uredničko odobrenje.</p></section><div id="articles"></div></div><script>
+(async function(){
+const root='generated/',box=document.getElementById('articles');
+try{
+const r=await fetch(root+'manifest.json',{cache:'no-store'}); if(!r.ok) throw new Error();
+const data=await r.json();
+if(!data.articles||!data.articles.length){box.innerHTML='<div class="card empty">Nema članaka za provjeru.</div>';return;}
+box.innerHTML=data.articles.map(function(a){
+return '<article class="card"><span class="status">'+a.status+'</span><h2>'+a.title+'</h2><p><strong>Autor:</strong> PatriaSoul</p><div class="actions"><a class="btn btn-view" href="'+root+encodeURIComponent(a.slug)+'.html">Pregledaj članak</a><a class="btn btn-publish" href="https://github.com/Patriasoul/Patriasoul-portal/actions/workflows/publish-approved.yml" target="_blank" rel="noopener">ODОBRI I OBJAVI</a></div><p class="hint">Sigurna objava izvršava se kroz GitHub Actions; pristupni token nije spremljen u portal.</p></article>';
+}).join('');
+}catch(e){box.innerHTML='<div class="card empty">Manifest nije dostupan. Prvo pokreni generator.</div>';}
+})();
+</script></body></html>
