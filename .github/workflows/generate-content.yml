@@ -1,0 +1,20 @@
+name: PatriaSoul · Generiraj testne članke
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generiraj članke
+        run: node content-engine/generate-article.js content-engine/content-queue.json content-engine/generated
+      - name: Spremi generirane testne članke
+        run: |
+          git config user.name "PatriaSoul Content Engine"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content-engine/generated
+          git diff --cached --quiet && exit 0
+          git commit -m "content-engine: generiraj članke za uredničku provjeru"
+          git push
