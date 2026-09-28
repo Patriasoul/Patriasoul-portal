@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 const fs = require("fs");
 
-const API_KEY = process.env.GEMINI_API_KEY;
+const API_KEY = process.env.OPENROUTER_API_KEY;
 const TOPIC = String(process.env.TOPIC || "").trim();
-const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
+const MODEL = process.env.OPENROUTER_MODEL || "openrouter/free";
 const OUTPUT = process.env.OUTPUT || "content-engine/ai-article.json";
-if (!API_KEY) throw new Error("Nedostaje GEMINI_API_KEY.");
+
+if (!API_KEY) throw new Error("Nedostaje OPENROUTER_API_KEY.");
 if (!TOPIC) throw new Error("Nedostaje tema članka.");
 
 const prompt = "Ti si urednički AI sustav portala PatriaSoul.\n\nTEMATIKA:\n" + TOPIC + `
@@ -49,40 +50,65 @@ VRATI ISKLJUČIVO VALJANI JSON, bez markdown oznaka, u ovom obliku:
   ]
 }
 
-U JSON-u navedi 3–6 kandidata za izvore samo ako možeš dati vjerodostojan naslov i URL. Generator ih označava kao KANDIDAT ZA UREDNIČKU PROVJERU. `
+U JSON-u navedi 3–6 kandidata za izvore samo ako možeš dati vjerodostojan naslov i URL. Generator ih označava kao KANDIDAT ZA UREDNIČKU PROVJERU. Ne predstavljaj ih kao već provjerene izvore.`;
 
-async function callGemini(extra = "") {
+async function callOpenRouter(extra = "") {
   const body = {
-    contents: [{ parts: [{ text: prompt + "\n\nDodatna urednička uputa:\n" + extra }] }],
-    generationConfig: { responseMimeType: "application/json" }
+    model: MODEL,
+    messages: [
+      { role: "system", content: "Ti si urednički AI sustav PatriaSoul. Odgovaraj na hrvatskom i poštuj sva navedena urednička pravila." },
+      { role: "user", content: prompt + "\n\nDodatna urednička uputa:\n" + extra }
+    ],
+    response_format: { type: "json_object" },
+    temperature: 0.4
   };
-  const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(MODEL) + ":generateContent", {
+
+  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
-    headers: { "Content-Type": "application/json", "x-goog-api-key": API_KEY },
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + API_KEY,
+      "HTTP-Referer": "https://patriasoul.github.io/Patriasoul-portal/",
+      "X-Title": "PatriaSoul Content Engine"
+    },
     body: JSON.stringify(body)
   });
+
   const text = await res.text();
-  if (!res.ok) throw new Error("Gemini API " + res.status + ": " + text.slice(0, 2000));
+  if (!res.ok) throw new Error("OpenRouter API " + res.status + ": " + text.slice(0, 2000));
+
   const data = JSON.parse(text);
-  const raw = data?.candidates?.[0]?.content?.parts?.map(p => p.text || "").join("") || "";
-  if (!raw) throw new Error("Gemini nije vratio tekst.");
+  const raw = data?.choices?.[0]?.message?.content || "";
+  if (!raw) throw new Error("OpenRouter nije vratio tekst.");
+
   let article;
   try { article = JSON.parse(raw); } catch {
     const start = raw.indexOf("{"), end = raw.lastIndexOf("}");
     if (start < 0 || end <= start) throw new Error("Odgovor nije valjani JSON.");
     article = JSON.parse(raw.slice(start, end + 1));
   }
+
   const sources = Array.isArray(article.sourceCandidates)
-    ? article.sourceCandidates.filter(x => x && x.url && /^https?:\\/\\//i.test(x.url)).map(x => ({ title: x.title || x.url, url: x.url })).filter((x,i,a) => a.findIndex(y => y.url === x.url) === i)
+    ? article.sourceCandidates
+        .filter(x => x && x.url && /^https?:\/\//i.test(x.url))
+        .map(x => ({ title: x.title || x.url, url: x.url }))
+        .filter((x,i,a) => a.findIndex(y => y.url === x.url) === i)
     : [];
-  return { article, sources, groundingQueries: [] };
+
+  return { article, sources };
 }
+
 function countWords(article) {
-  const text = Array.isArray(article.body) ? article.body.map(x => x.text || "").join(" ") : String(article.body || "");
+  const text = Array.isArray(article.body)
+    ? article.body.map(x => x.text || "").join(" ")
+    : String(article.body || "");
   return text.trim().split(/\s+/).filter(Boolean).length;
 }
+
 function validate(article, sources) {
-  for (const k of ["title","kicker","deck","date","category","type","body"]) if (!article[k]) throw new Error("AI odgovor nema obavezno polje: " + k);
+  for (const k of ["title","kicker","deck","date","category","type","body"]) {
+    if (!article[k]) throw new Error("AI odgovor nema obavezno polje: " + k);
+  }
   if (article.author !== "PatriaSoul") throw new Error("Autor nije PatriaSoul.");
   if (article.status !== "ZA PROVJERU") throw new Error("Status nije ZA PROVJERU.");
   if (/čuvari nasljeđa/i.test(article.author)) throw new Error("Neispravan autor.");
@@ -91,21 +117,33 @@ function validate(article, sources) {
   if (sources.length < 1) throw new Error("AI nije dao nijedan kandidat-izvor s valjanim URL-om.");
   return words;
 }
+
 (async () => {
-  let result = await callGemini();
+  let result = await callOpenRouter();
   let words = countWords(result.article);
+
   if (words < 1500) {
-    result = await callGemini("Prethodni nacrt je bio prekratak. Proširi ga na najmanje 1.800 riječi, dodajući samo provjerljive činjenice, kontekst i objašnjenja. Ne ponavljaj iste misli.");
+    result = await callOpenRouter(
+      "Prethodni nacrt je bio prekratak. Proširi ga na najmanje 1.800 riječi, dodajući samo provjerljive činjenice, kontekst i objašnjenja. Ne ponavljaj iste misli."
+    );
     words = countWords(result.article);
   }
+
   validate(result.article, result.sources);
+
   result.article.author = "PatriaSoul";
   result.article.status = "ZA PROVJERU";
   result.article.format = "Čuvari nasljeđa";
-  result.article.sources = result.sources.map(s => "KANDIDAT ZA UREDNIČKU PROVJERU: " + s.title + " — " + s.url);
+  result.article.sources = result.sources.map(
+    s => "KANDIDAT ZA UREDNIČKU PROVJERU: " + s.title + " — " + s.url
+  );
   result.article.wordCount = words;
-  result.article.groundingQueries = result.groundingQueries;
+  result.article.aiProvider = "OpenRouter";
+  result.article.aiModel = MODEL;
+
   fs.writeFileSync(OUTPUT, JSON.stringify(result.article, null, 2), "utf8");
   console.log("AI članak pripremljen:", result.article.title);
+  console.log("Provider: OpenRouter");
+  console.log("Model:", MODEL);
   console.log("Riječi:", words, "Izvora:", result.sources.length);
 })();
