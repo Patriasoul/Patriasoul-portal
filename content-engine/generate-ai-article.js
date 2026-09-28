@@ -43,15 +43,17 @@ VRATI ISKLJUČIVO VALJANI JSON, bez markdown oznaka, u ovom obliku:
     {"type":"h2","text":"..."},
     {"type":"p","text":"..."},
     {"type":"note","label":"DOKUMENTIRANO","text":"..."}
+  ],
+  "sourceCandidates": [
+    {"title":"...","url":"https://..."}
   ]
 }
 
-Ne navodi izvor koji nisi stvarno pronašao. `
+U JSON-u navedi 3–6 kandidata za izvore samo ako možeš dati vjerodostojan naslov i URL. Generator ih označava kao KANDIDAT ZA UREDNIČKU PROVJERU. `
 
 async function callGemini(extra = "") {
   const body = {
     contents: [{ parts: [{ text: prompt + "\n\nDodatna urednička uputa:\n" + extra }] }],
-    tools: [{ google_search: {} }],
     generationConfig: { responseMimeType: "application/json" }
   };
   const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(MODEL) + ":generateContent", {
@@ -70,10 +72,10 @@ async function callGemini(extra = "") {
     if (start < 0 || end <= start) throw new Error("Odgovor nije valjani JSON.");
     article = JSON.parse(raw.slice(start, end + 1));
   }
-  const grounding = data?.candidates?.[0]?.groundingMetadata || {};
-  const chunks = Array.isArray(grounding.groundingChunks) ? grounding.groundingChunks : [];
-  const sources = chunks.map(c => c.web).filter(x => x && x.uri).map(x => ({ title: x.title || x.uri, url: x.uri })).filter((x,i,a) => a.findIndex(y => y.url === x.url) === i);
-  return { article, sources, groundingQueries: grounding.webSearchQueries || [] };
+  const sources = Array.isArray(article.sourceCandidates)
+    ? article.sourceCandidates.filter(x => x && x.url && /^https?:\\/\\//i.test(x.url)).map(x => ({ title: x.title || x.url, url: x.url })).filter((x,i,a) => a.findIndex(y => y.url === x.url) === i)
+    : [];
+  return { article, sources, groundingQueries: [] };
 }
 function countWords(article) {
   const text = Array.isArray(article.body) ? article.body.map(x => x.text || "").join(" ") : String(article.body || "");
@@ -86,7 +88,7 @@ function validate(article, sources) {
   if (/čuvari nasljeđa/i.test(article.author)) throw new Error("Neispravan autor.");
   const words = countWords(article);
   if (words < 1500) throw new Error("Članak ima samo " + words + " riječi; potrebno je najmanje 1500.");
-  if (sources.length < 1) throw new Error("Nije pronađen nijedan provjerljivi web izvor.");
+  if (sources.length < 1) throw new Error("AI nije dao nijedan kandidat-izvor s valjanim URL-om.");
   return words;
 }
 (async () => {
@@ -100,7 +102,7 @@ function validate(article, sources) {
   result.article.author = "PatriaSoul";
   result.article.status = "ZA PROVJERU";
   result.article.format = "Čuvari nasljeđa";
-  result.article.sources = result.sources.map(s => s.title + " — " + s.url);
+  result.article.sources = result.sources.map(s => "KANDIDAT ZA UREDNIČKU PROVJERU: " + s.title + " — " + s.url);
   result.article.wordCount = words;
   result.article.groundingQueries = result.groundingQueries;
   fs.writeFileSync(OUTPUT, JSON.stringify(result.article, null, 2), "utf8");
