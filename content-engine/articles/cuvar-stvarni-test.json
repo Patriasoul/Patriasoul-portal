@@ -1,0 +1,25 @@
+{
+  "slug":"cuvar-stvarni-test",
+  "title":"Čuvari nasljeđa — jedno sjećanje koje vrijedi sačuvati",
+  "category":"ČUVARI NASLJEĐA",
+  "date":"2026-09-28",
+  "deck":"Primjer kako osobno sjećanje može biti sačuvano uz jasno razlikovanje svjedočanstva i provjerljivih činjenica.",
+  "contentType":"svjedočanstvo",
+  "author":"Čuvari nasljeđa",
+  "content":[
+    "Ovo je primjer osobnog svjedočanstva. Tekst govori iz perspektive osobe koja se prisjeća događaja i zato se osobna sjećanja ne predstavljaju kao samostalno potvrđene povijesne činjenice.",
+    "Podaci koji se mogu neovisno provjeriti trebaju biti potkrijepljeni zasebnim izvorima. Urednička obrada čuva smisao izvornog svjedočanstva i jasno razlikuje osobno iskustvo od dokumentirane činjenice."
+  ],
+  "sources":[
+    {
+      "title":"PatriaSoul — urednički standard",
+      "url":"https://github.com/Patriasoul/Patriasoul-portal"
+    }
+  ],
+  "tags":["cuvari-nasljeda","svjedocanstvo","urednicki-standard"],
+  "editorial":{
+    "verificationStatus":"needs-review",
+    "processedAt":"2026-09-28",
+    "reviewRequired":true
+  }
+}

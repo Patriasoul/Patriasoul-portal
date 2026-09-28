@@ -1,0 +1,29 @@
+{
+  "version":"1.0",
+  "principle":"PatriaSoul ne nabraja Hrvatsku. PatriaSoul istražuje, provjerava i pripovijeda njezine priče.",
+  "rules":[
+    {"id":"sources-required","severity":"error","rule":"Svaki javni članak mora imati najmanje jedan izvor."},
+    {"id":"no-fabrication","severity":"error","rule":"Ne izmišljati činjenice, citate, osobe, događaje, datume ili izvore."},
+    {"id":"source-trace","severity":"warning","rule":"Izvori moraju biti dovoljno jasni za uredsku provjeru."},
+    {"id":"content-distinction","severity":"warning","rule":"Razlikovati povijesnu činjenicu, interpretaciju, svjedočanstvo i tradiciju."},
+    {"id":"faith-distinction","severity":"warning","rule":"Kod vjerskih sadržaja razlikovati biblijski tekst, crkveni nauk, povijesnu činjenicu, pobožnu predaju i osobno svjedočanstvo."},
+    {"id":"guardians","severity":"warning","rule":"Sadržaj Čuvara nasljeđa jasno označiti kao osobno svjedočanstvo ili sjećanje kada je to njegov karakter."},
+    {"id":"living-persons","severity":"warning","rule":"Nedokumentirane tvrdnje o živim osobama označiti za ručnu provjeru."},
+    {"id":"images","severity":"warning","rule":"Slike trebaju imati izvor, autora ili licencu kada su podaci dostupni."},
+    {"id":"headline","severity":"warning","rule":"Naslov i sažetak ne smiju tvrditi više nego što izvori podupiru."},
+    {"id":"five-w","severity":"warning","rule":"Gdje je primjenjivo obraditi tko, što, kada, gdje, zašto i kako."},
+    {"id":"duplicates","severity":"error","rule":"Ne dopustiti duplikate naslova ili URL-a."},
+    {"id":"uncertain","severity":"warning","rule":"Nedovoljno potvrđene podatke označiti za ručnu provjeru; ne popunjavati praznine pretpostavkama."},
+    {"id":"no-clickbait","severity":"warning","rule":"Bez senzacionalizma koji mijenja činjenično značenje."},
+    {"id":"editorial-trace","severity":"error","rule":"Svaki članak mora imati status provjere, datum obrade i izvore."}
+  ],
+  "author_rules":{
+    "guardians_of_heritage":{
+      "displayName":"Čuvari nasljeđa",
+      "defaultAuthor":"Čuvari nasljeđa",
+      "description":"Osobna sjećanja, svjedočanstva i priče ljudi koji čuvaju hrvatsko nasljeđe.",
+      "distinguishTestimonyFromFact":true,
+      "anonymousAllowed":true
+    }
+  }
+}

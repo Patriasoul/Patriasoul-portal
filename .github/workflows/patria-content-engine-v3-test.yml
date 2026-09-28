@@ -1,0 +1,26 @@
+name: PatriaSoul Content Engine — v3 test
+
+on:
+  push:
+    branches:
+      - patriasoul-content-engine-v1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build generated content
+        run: node content-engine/build-content.js content-engine/articles /tmp/patriasoul-generated/generated-content.js
+
+      - name: Verify generated data
+        run: |
+          test -f /tmp/patriasoul-generated/generated-content.js
+          grep -q 'Primjer članka' /tmp/patriasoul-generated/generated-content.js
+          grep -q 'PatriaSoulGeneratedContent' /tmp/patriasoul-generated/generated-content.js

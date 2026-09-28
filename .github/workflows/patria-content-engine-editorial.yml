@@ -1,0 +1,21 @@
+name: PatriaSoul Content Engine — editorial validation
+
+on:
+  push:
+    branches: ["patriasoul-content-engine-v1"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  editorial:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Čuvari nasljeđa fixture
+        run: node content-engine/validate-article.js content-engine/articles/cuvani-nasljeda-test.json
+
+      - name: Validate editorial rules
+        run: node -e "const r=require('./content-engine/editorial-rules.json'); if(!r.author_rules.guardians_of_heritage || r.author_rules.guardians_of_heritage.defaultAuthor !== 'Čuvari nasljeđa') process.exit(1); console.log('Editorial rules OK')"
