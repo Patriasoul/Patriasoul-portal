@@ -1,0 +1,35 @@
+{
+  "articles": [
+    {
+      "slug": "test-automatski-clanak-001",
+      "title": "Test automatskog članka 001",
+      "kicker": "ČUVARI NASLJEĐA · TEST",
+      "deck": "Kontrolni zapis za provjeru automatskog popunjavanja PatriaSoul portala.",
+      "date": "28. rujna 2026.",
+      "place": "Hrvatska",
+      "readingTime": 5,
+      "category": "Čuvari nasljeđa",
+      "type": "Testni članak",
+      "status": "ZA PROVJERU",
+      "author": "PatriaSoul",
+      "body": [
+        {
+          "type": "h2",
+          "text": "Zašto ovaj test postoji?"
+        },
+        {
+          "type": "p",
+          "text": "Sustav priprema strukturu članka, ali članak ostaje izvan javne objave dok ga urednik ne provjeri."
+        },
+        {
+          "type": "note",
+          "label": "UREDNIČKA NAPOMENA",
+          "text": "Ovaj tekst je test automatizacije i nije stvarna povijesna tvrdnja."
+        }
+      ],
+      "sources": [
+        "TESTNI ZAPIS — služi samo za provjeru generatora."
+      ]
+    }
+  ]
+}
