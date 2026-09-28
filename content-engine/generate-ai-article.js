@@ -60,6 +60,7 @@ async function callOpenRouter(extra = "") {
       { role: "user", content: prompt + "\n\nDodatna urednička uputa:\n" + extra }
     ],
     response_format: { type: "json_object" },
+    max_tokens: 7000,
     temperature: 0.4
   };
 
@@ -78,14 +79,21 @@ async function callOpenRouter(extra = "") {
   if (!res.ok) throw new Error("OpenRouter API " + res.status + ": " + text.slice(0, 2000));
 
   const data = JSON.parse(text);
-  const raw = data?.choices?.[0]?.message?.content || "";
+  let raw = data?.choices?.[0]?.message?.content || "";
+  if (Array.isArray(raw)) raw = raw.map(x => typeof x === "string" ? x : (x?.text || "")).join("");
+  if (typeof raw !== "string") raw = JSON.stringify(raw);
   if (!raw) throw new Error("OpenRouter nije vratio tekst.");
 
   let article;
   try { article = JSON.parse(raw); } catch {
-    const start = raw.indexOf("{"), end = raw.lastIndexOf("}");
-    if (start < 0 || end <= start) throw new Error("Odgovor nije valjani JSON.");
-    article = JSON.parse(raw.slice(start, end + 1));
+    const cleaned = raw.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+    const start = cleaned.indexOf("{"), end = cleaned.lastIndexOf("}");
+    if (start < 0 || end <= start) throw new Error("OpenRouter je vratio neispravan JSON. Početak odgovora: " + cleaned.slice(0, 500));
+    try {
+      article = JSON.parse(cleaned.slice(start, end + 1));
+    } catch (e) {
+      throw new Error("OpenRouter je vratio neispravan/nepotpun JSON. Kraj odgovora: " + cleaned.slice(-1000));
+    }
   }
 
   const sources = Array.isArray(article.sourceCandidates)
