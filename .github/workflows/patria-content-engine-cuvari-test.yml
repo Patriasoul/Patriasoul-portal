@@ -1,0 +1,26 @@
+name: PatriaSoul Content Engine — Čuvari nasljeđa test
+
+on:
+  push:
+    branches: ["patriasoul-content-engine-v1"]
+  workflow_dispatch:
+
+jobs:
+  validate-cuvari:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate realistic Čuvari nasljeđa article
+        run: node content-engine/validate-article.js content-engine/articles/cuvar-stvarni-test.json
+
+      - name: Verify author standard
+        run: |
+          node - <<'NODE'
+          const a = require('./content-engine/articles/cuvar-stvarni-test.json');
+          if (a.author !== 'Čuvari nasljeđa') throw new Error('Wrong author');
+          if (a.contentType !== 'svjedočanstvo') throw new Error('Wrong content type');
+          if (a.editorial.reviewRequired !== true) throw new Error('Manual review must be required');
+          console.log('Čuvari nasljeđa standard OK');
+          NODE
