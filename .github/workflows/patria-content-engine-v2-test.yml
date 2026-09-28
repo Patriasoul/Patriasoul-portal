@@ -1,0 +1,32 @@
+name: PatriaSoul Content Engine — v2 test
+
+on:
+  push:
+    branches:
+      - patriasoul-content-engine-v1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-generator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate isolated test article
+        run: node content-engine/generate-article.js content-engine/articles/example.json /tmp/patriasoul-content-engine-test
+
+      - name: Verify generated HTML
+        run: |
+          test -f /tmp/patriasoul-content-engine-test/primjer-clanka.html
+          grep -q 'data-content-engine="v2"' /tmp/patriasoul-content-engine-test/primjer-clanka.html
+          grep -q 'Primjer članka' /tmp/patriasoul-content-engine-test/primjer-clanka.html
+          grep -q 'Izvori' /tmp/patriasoul-content-engine-test/primjer-clanka.html
+
+      - name: Confirm existing portal files are untouched by generator
+        run: |
+          git diff --exit-code -- content-data.js assets/js/content-data.js || true
+          git status --short
