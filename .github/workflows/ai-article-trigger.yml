@@ -20,17 +20,21 @@ jobs:
         with:
           ref: content-engine-v1
           fetch-depth: 0
-      - name: Provjeri Gemini ključ
+
+      - name: Provjeri OpenRouter ključ
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: test -n "$GEMINI_API_KEY"
-      - name: Generiraj članak
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          test -n "$OPENROUTER_API_KEY" || (echo "OPENROUTER_API_KEY nije postavljen u GitHub Secrets." && exit 1)
+
+      - name: Generiraj članak uz OpenRouter
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           TOPIC: ${{ inputs.topic }}
-          GEMINI_MODEL: gemini-3.8-flash
+          OPENROUTER_MODEL: openrouter/free
           OUTPUT: content-engine/ai-article.json
         run: node content-engine/generate-ai-article.js
+
       - name: Dodaj članak u red za provjeru
         run: |
           node - <<'NODE'
@@ -45,13 +49,15 @@ jobs:
           q.articles.push(ai);
           fs.writeFileSync(p,JSON.stringify(q,null,2)+'\n');
           NODE
+
       - name: Generiraj pregledni HTML
         run: node content-engine/generate-article.js content-engine/content-queue.json content-engine/generated
+
       - name: Spremi na sigurnu granu
         run: |
           git config user.name "PatriaSoul Content Engine"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add content-engine/content-queue.json content-engine/generated content-engine/ai-article.json
           git diff --cached --quiet && exit 0
-          git commit -m "content-engine: AI pripremio članak za uredničku provjeru"
+          git commit -m "content-engine: OpenRouter pripremio članak za uredničku provjeru"
           git push origin HEAD:content-engine-v1
