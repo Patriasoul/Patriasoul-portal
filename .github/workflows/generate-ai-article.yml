@@ -16,17 +16,17 @@ jobs:
     if: github.ref == 'refs/heads/content-engine-v1'
     runs-on: ubuntu-latest
     env:
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       TOPIC: ${{ inputs.topic }}
-      GEMINI_MODEL: gemini-2.5-flash
+      OPENROUTER_MODEL: openrouter/free
       OUTPUT: content-engine/ai-article.json
     steps:
       - name: Preuzmi portal
         uses: actions/checkout@v4
-      - name: Provjeri tajnu
+      - name: Provjeri OpenRouter ključ
         run: |
-          test -n "$GEMINI_API_KEY" || (echo "GEMINI_API_KEY nije postavljen u GitHub Secrets." && exit 1)
-      - name: Generiraj članak uz Gemini + Google Search
+          test -n "$OPENROUTER_API_KEY" || (echo "OPENROUTER_API_KEY nije postavljen u GitHub Secrets." && exit 1)
+      - name: Generiraj članak uz OpenRouter
         run: node content-engine/generate-ai-article.js
       - name: Učitaj AI članak u red za uredničku provjeru
         run: |
@@ -50,5 +50,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add content-engine/content-queue.json content-engine/generated content-engine/ai-article.json
           git diff --cached --quiet && exit 0
-          git commit -m "content-engine: AI pripremio članak za uredničku provjeru"
+          git commit -m "content-engine: OpenRouter pripremio članak za uredničku provjeru"
           git push
