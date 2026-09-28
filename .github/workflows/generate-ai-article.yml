@@ -35,9 +35,10 @@ jobs:
           const ai = JSON.parse(fs.readFileSync('content-engine/ai-article.json','utf8'));
           const queuePath = 'content-engine/content-queue.json';
           const queue = JSON.parse(fs.readFileSync(queuePath,'utf8'));
-          queue.articles = (queue.articles || []).filter(a => a.status === 'TEST');
+          queue.articles = queue.articles || [];
           const slug = ai.title.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80);
           ai.slug = slug || 'ai-clanak-' + Date.now();
+          queue.articles = queue.articles.filter(a => a.slug !== ai.slug);
           queue.articles.push(ai);
           fs.writeFileSync(queuePath, JSON.stringify(queue, null, 2) + '\n');
           NODE
