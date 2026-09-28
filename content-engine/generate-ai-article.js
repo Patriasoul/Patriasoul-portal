@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const API_KEY = process.env.GEMINI_API_KEY;
 const TOPIC = String(process.env.TOPIC || "").trim();
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
 const OUTPUT = process.env.OUTPUT || "content-engine/ai-article.json";
 if (!API_KEY) throw new Error("Nedostaje GEMINI_API_KEY.");
 if (!TOPIC) throw new Error("Nedostaje tema članka.");
@@ -52,7 +52,7 @@ async function callGemini(extra = "") {
   const body = {
     contents: [{ parts: [{ text: prompt + "\n\nDodatna urednička uputa:\n" + extra }] }],
     tools: [{ google_search: {} }],
-    generationConfig: { temperature: 0.25, responseMimeType: "application/json" }
+    generationConfig: { responseMimeType: "application/json" }
   };
   const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(MODEL) + ":generateContent", {
     method: "POST",
