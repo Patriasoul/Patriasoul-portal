@@ -28,7 +28,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TOPIC: ${{ inputs.topic }}
-          GEMINI_MODEL: gemini-2.5-flash
+          GEMINI_MODEL: gemini-3.8-flash
           OUTPUT: content-engine/ai-article.json
         run: node content-engine/generate-ai-article.js
       - name: Dodaj članak u red za provjeru
