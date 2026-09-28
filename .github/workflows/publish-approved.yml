@@ -1,0 +1,45 @@
+name: PatriaSoul · Odobri i objavi
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Slug članka koji je urednik odobrio"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/content-engine-v1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Provjeri članak
+        env:
+          SLUG: ${{ inputs.slug }}
+        run: test -f "content-engine/generated/$SLUG.html"
+      - name: Objavi odobreni članak
+        env:
+          SLUG: ${{ inputs.slug }}
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const slug=process.env.SLUG;
+          const file=`content-engine/generated/${slug}.html`;
+          if(!fs.existsSync(file)) throw new Error('Članak ne postoji: '+slug);
+          let html=fs.readFileSync(file,'utf8');
+          html=html.replace(/AUTOMATSKI PRIPREMLJENO · [^·]+ · NIJE JAVNA OBJAVA/g,'OBJAVLJENO · UREDNIČKI ODOBRENO');
+          html=html.replace(/Članak čeka uredničku provjeru\./g,'Članak je urednički pregledan i odobren za objavu.');
+          html=html.replace(/UREDNIČKI STATUS: [^<]+/g,'UREDNIČKI STATUS: OBJAVLJENO');
+          fs.writeFileSync(file,html);
+          NODE
+      - name: Spremi objavu
+        run: |
+          git config user.name "PatriaSoul Content Engine"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "content-engine/generated/${{ inputs.slug }}.html"
+          git commit -m "content-engine: objavi odobreni članak ${{ inputs.slug }}"
+          git push
