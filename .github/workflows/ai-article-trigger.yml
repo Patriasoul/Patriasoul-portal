@@ -9,14 +9,49 @@ on:
         type: string
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  handoff:
+  generate:
     runs-on: ubuntu-latest
     steps:
-      - name: Upute za pokretanje generatora
+      - name: Preuzmi sigurnu granu
+        uses: actions/checkout@v4
+        with:
+          ref: content-engine-v1
+          fetch-depth: 0
+      - name: Provjeri Gemini ključ
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: test -n "$GEMINI_API_KEY"
+      - name: Generiraj članak
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TOPIC: ${{ inputs.topic }}
+          GEMINI_MODEL: gemini-2.5-flash
+          OUTPUT: content-engine/ai-article.json
+        run: node content-engine/generate-ai-article.js
+      - name: Dodaj članak u red za provjeru
         run: |
-          echo "AI generator se izvršava na sigurnoj grani content-engine-v1."
-          echo "Tema: ${{ inputs.topic }}"
-          echo "Za stvarno generiranje pokrenite workflow na grani content-engine-v1."
+          node - <<'NODE'
+          const fs=require('fs');
+          const ai=JSON.parse(fs.readFileSync('content-engine/ai-article.json','utf8'));
+          const p='content-engine/content-queue.json';
+          const q=JSON.parse(fs.readFileSync(p,'utf8'));
+          q.articles=q.articles||[];
+          const slug=ai.title.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)||'ai-clanak-'+Date.now();
+          ai.slug=slug;
+          q.articles=q.articles.filter(a=>a.slug!==slug);
+          q.articles.push(ai);
+          fs.writeFileSync(p,JSON.stringify(q,null,2)+'\n');
+          NODE
+      - name: Generiraj pregledni HTML
+        run: node content-engine/generate-article.js content-engine/content-queue.json content-engine/generated
+      - name: Spremi na sigurnu granu
+        run: |
+          git config user.name "PatriaSoul Content Engine"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content-engine/content-queue.json content-engine/generated content-engine/ai-article.json
+          git diff --cached --quiet && exit 0
+          git commit -m "content-engine: AI pripremio članak za uredničku provjeru"
+          git push origin HEAD:content-engine-v1
