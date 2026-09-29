@@ -171,7 +171,14 @@ function countWords(article) {
 function cleanSources(article) {
   const sources = Array.isArray(article.sourceCandidates)
     ? article.sourceCandidates
-        .filter(x => {\n          try {\n            const u = new URL(x.url);\n            return x.title && (u.protocol === "http:" || u.protocol === "https:");\n          } catch {\n            return false;\n          }\n        })
+        .filter(x => {
+          try {
+            const u = new URL(x.url);
+            return x.title && (u.protocol === "http:" || u.protocol === "https:");
+          } catch {
+            return false;
+          }
+        })
         .map(x => ({
           title: String(x.title).trim(),
           url: String(x.url).trim()
