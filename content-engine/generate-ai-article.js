@@ -1,157 +1,274 @@
 #!/usr/bin/env node
+
 const fs = require("fs");
 
-const API_KEY = process.env.OPENROUTER_API_KEY;
+const API_KEY = process.env.OPEN_AI_API_KEY;
 const TOPIC = String(process.env.TOPIC || "").trim();
-const MODEL = process.env.OPENROUTER_MODEL || "openrouter/free";
+const MODEL = process.env.OPENAI_MODEL || "gpt-5";
 const OUTPUT = process.env.OUTPUT || "content-engine/ai-article.json";
 
-if (!API_KEY) throw new Error("Nedostaje OPENROUTER_API_KEY.");
+if (!API_KEY) throw new Error("Nedostaje OPEN_AI_API_KEY.");
 if (!TOPIC) throw new Error("Nedostaje tema članka.");
 
-const prompt = "Ti si urednički AI sustav portala PatriaSoul.\n\nTEMATIKA:\n" + TOPIC + `
+const today = new Intl.DateTimeFormat("hr-HR", {
+  timeZone: "Europe/Zagreb",
+  day: "numeric",
+  month: "long",
+  year: "numeric"
+}).format(new Date());
 
-Napiši ozbiljan, sveobuhvatan hrvatski članak za PatriaSoul. Članak mora imati NAJMANJE 1.800 riječi, ciljaj 2.000–2.500 riječi. Ne popunjavaj tekst praznim frazama samo radi duljine.
+const systemPrompt = `
+Ti si urednički AI sustav portala PatriaSoul.
+
+PatriaSoul ne nabraja Hrvatsku. PatriaSoul istražuje, provjerava i pripovijeda njezine priče.
 
 OBAVEZNA UREDNIČKA PRAVILA:
 - Autor je uvijek i isključivo "PatriaSoul".
 - "Čuvari nasljeđa" je format/kategorija, nikada autor.
 - Ne izmišljaj činjenice, osobe, datume, citate, događaje, izvore ni poveznice.
+- Koristi web pretragu za provjeru povijesnih i činjeničnih tvrdnji kada je dostupna.
+- U izvore stavi samo stvarne i relevantne URL-ove koje možeš identificirati iz rezultata pretrage ili službenih/poznatih izvora.
 - Jasno razlikuj dokumentiranu činjenicu, svjedočanstvo, tradiciju i uredničko tumačenje.
-- Prednost daj službenim institucijama, arhivima, muzejima, enciklopedijama, znanstvenoj literaturi i drugim provjerljivim izvorima.
+- Prednost imaju arhivi, muzeji, državne institucije, enciklopedije, znanstvene ustanove i druga provjerljiva literatura.
 - Ne kopiraj tuđe članke. Piši originalnim riječima.
-- Nemoj izmišljati fotografiju. U ovom prvom stupnju nemoj dodavati image URL.
-- Struktura: snažan uvod, 5–8 smislenih tematskih cjelina, kontekst, ključni događaji/osobe gdje je primjenjivo, značenje teme i zaključak.
-- Članak mora biti informativan i čitljiv, bez političkog agitiranja ili propagande.
+- Članak mora biti na hrvatskom jeziku.
 - Status mora biti "ZA PROVJERU".
-- Datum neka bude današnji datum u hrvatskom formatu.
-- Kategorija neka bude jedna od: Povijest, Domovina, Vjera, Obitelj, Baština, Čuvari nasljeđa.
+- Datum mora biti: ${today}
+- Autor mora biti: PatriaSoul
+- Kategorija mora biti jedna od: Povijest, Domovina, Vjera, Obitelj, Baština, Čuvari nasljeđa.
 - Type neka bude konkretan opis vrste članka.
+- Napiši najmanje 1.800 riječi. Ciljaj 2.000–2.500 riječi. Ne produžuj tekst praznim frazama.
+- Struktura treba imati snažan uvod, 5–8 smislenih tematskih cjelina, kontekst, ključne događaje/osobe gdje je primjenjivo, značenje teme i zaključak.
+- Ne dodaj image URL u ovoj fazi.
+- Članak ide samo na uredničku provjeru; nije javna objava.
+`;
 
-VRATI ISKLJUČIVO VALJANI JSON, bez markdown oznaka, u ovom obliku:
-{
-  "title": "...",
-  "kicker": "...",
-  "deck": "...",
-  "date": "...",
-  "place": "...",
-  "readingTime": 10,
-  "category": "...",
-  "type": "...",
-  "status": "ZA PROVJERU",
-  "author": "PatriaSoul",
-  "body": [
-    {"type":"h2","text":"..."},
-    {"type":"p","text":"..."},
-    {"type":"note","label":"DOKUMENTIRANO","text":"..."}
-  ],
-  "sourceCandidates": [
-    {"title":"...","url":"https://..."}
+const schema = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    slug: { type: "string" },
+    title: { type: "string" },
+    kicker: { type: "string" },
+    deck: { type: "string" },
+    date: { type: "string" },
+    place: { type: "string" },
+    readingTime: { type: "integer" },
+    category: { type: "string" },
+    type: { type: "string" },
+    status: { type: "string" },
+    author: { type: "string" },
+    body: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          type: { type: "string" },
+          text: { type: "string" },
+          label: { type: "string" }
+        },
+        required: ["type", "text", "label"]
+      }
+    },
+    sourceCandidates: {
+      type: "array",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          title: { type: "string" },
+          url: { type: "string" }
+        },
+        required: ["title", "url"]
+      }
+    }
+  },
+  required: [
+    "slug","title","kicker","deck","date","place","readingTime",
+    "category","type","status","author","body","sourceCandidates"
   ]
-}
+};
 
-U JSON-u navedi 3–6 kandidata za izvore samo ako možeš dati vjerodostojan naslov i URL. Generator ih označava kao KANDIDAT ZA UREDNIČKU PROVJERU. Ne predstavljaj ih kao već provjerene izvore.`;
-
-async function callOpenRouter(extra = "") {
-  const body = {
-    model: MODEL,
-    messages: [
-      { role: "system", content: "Ti si urednički AI sustav PatriaSoul. Odgovaraj na hrvatskom i poštuj sva navedena urednička pravila." },
-      { role: "user", content: prompt + "\n\nDodatna urednička uputa:\n" + extra }
-    ],
-    response_format: { type: "json_object" },
-    max_tokens: 7000,
-    temperature: 0.4
-  };
-
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+async function callOpenAI(extra = "") {
+  const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + API_KEY,
-      "HTTP-Referer": "https://patriasoul.github.io/Patriasoul-portal/",
-      "X-Title": "PatriaSoul Content Engine"
+      "Authorization": "Bearer " + API_KEY
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify({
+      model: MODEL,
+      store: false,
+      tools: [{ type: "web_search" }],
+      instructions: systemPrompt,
+      input: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "input_text",
+              text:
+                "Napiši članak na temu: " + TOPIC +
+                "\n\n" + extra +
+                "\n\nVrati samo podatke prema zadanoj JSON shemi."
+            }
+          ]
+        }
+      ],
+      text: {
+        format: {
+          type: "json_schema",
+          name: "patriasoul_article",
+          strict: true,
+          schema
+        }
+      },
+      max_output_tokens: 8000
+    })
   });
 
-  const text = await res.text();
-  if (!res.ok) throw new Error("OpenRouter API " + res.status + ": " + text.slice(0, 2000));
+  const rawResponse = await response.text();
 
-  const data = JSON.parse(text);
-  let raw = data?.choices?.[0]?.message?.content || "";
-  if (Array.isArray(raw)) raw = raw.map(x => typeof x === "string" ? x : (x?.text || "")).join("");
-  if (typeof raw !== "string") raw = JSON.stringify(raw);
-  if (!raw) throw new Error("OpenRouter nije vratio tekst.");
-
-  let article;
-  try { article = JSON.parse(raw); } catch {
-    const cleaned = raw.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
-    const start = cleaned.indexOf("{"), end = cleaned.lastIndexOf("}");
-    if (start < 0 || end <= start) throw new Error("OpenRouter je vratio neispravan JSON. Početak odgovora: " + cleaned.slice(0, 500));
-    try {
-      article = JSON.parse(cleaned.slice(start, end + 1));
-    } catch (e) {
-      throw new Error("OpenRouter je vratio neispravan/nepotpun JSON. Kraj odgovora: " + cleaned.slice(-1000));
-    }
+  if (!response.ok) {
+    throw new Error(
+      "OpenAI API " + response.status + ": " +
+      rawResponse.slice(0, 2000)
+    );
   }
 
-  const sources = Array.isArray(article.sourceCandidates)
-    ? article.sourceCandidates
-        .filter(x => x && x.url && /^https?:\/\//i.test(x.url))
-        .map(x => ({ title: x.title || x.url, url: x.url }))
-        .filter((x,i,a) => a.findIndex(y => y.url === x.url) === i)
-    : [];
+  const data = JSON.parse(rawResponse);
+  const raw = data.output_text;
 
-  return { article, sources };
+  if (!raw) {
+    throw new Error("OpenAI nije vratio output_text.");
+  }
+
+  let article;
+  try {
+    article = JSON.parse(raw);
+  } catch (error) {
+    throw new Error(
+      "OpenAI nije vratio valjani JSON: " + error.message
+    );
+  }
+
+  return article;
 }
 
 function countWords(article) {
   const text = Array.isArray(article.body)
     ? article.body.map(x => x.text || "").join(" ")
     : String(article.body || "");
-  return text.trim().split(/\s+/).filter(Boolean).length;
+
+  return text
+    .trim()
+    .split(/\\s+/)
+    .filter(Boolean)
+    .length;
 }
 
-function validate(article, sources) {
-  for (const k of ["title","kicker","deck","date","category","type","body"]) {
-    if (!article[k]) throw new Error("AI odgovor nema obavezno polje: " + k);
+function cleanSources(article) {
+  const sources = Array.isArray(article.sourceCandidates)
+    ? article.sourceCandidates
+        .filter(x => x && x.title && /^https?:\\/\\//i.test(x.url))
+        .map(x => ({
+          title: String(x.title).trim(),
+          url: String(x.url).trim()
+        }))
+        .filter((x, i, a) =>
+          a.findIndex(y => y.url === x.url) === i
+        )
+    : [];
+
+  return sources;
+}
+
+function validate(article) {
+  for (const key of [
+    "title","kicker","deck","date","category",
+    "type","body","sourceCandidates"
+  ]) {
+    if (
+      article[key] === undefined ||
+      article[key] === null ||
+      (typeof article[key] === "string" && !article[key].trim())
+    ) {
+      throw new Error("AI odgovor nema obavezno polje: " + key);
+    }
   }
-  if (article.author !== "PatriaSoul") throw new Error("Autor nije PatriaSoul.");
-  if (article.status !== "ZA PROVJERU") throw new Error("Status nije ZA PROVJERU.");
-  if (/čuvari nasljeđa/i.test(article.author)) throw new Error("Neispravan autor.");
+
+  if (article.author !== "PatriaSoul") {
+    throw new Error("Autor nije PatriaSoul.");
+  }
+
+  if (article.status !== "ZA PROVJERU") {
+    throw new Error("Status nije ZA PROVJERU.");
+  }
+
   const words = countWords(article);
-  if (words < 1500) throw new Error("Članak ima samo " + words + " riječi; potrebno je najmanje 1500.");
-  if (sources.length < 1) throw new Error("AI nije dao nijedan kandidat-izvor s valjanim URL-om.");
-  return words;
+
+  if (words < 1500) {
+    throw new Error(
+      "Članak ima samo " + words +
+      " riječi; potrebno je najmanje 1500."
+    );
+  }
+
+  const sources = cleanSources(article);
+
+  if (sources.length < 1) {
+    throw new Error(
+      "AI nije dao nijedan kandidat-izvor s valjanim URL-om."
+    );
+  }
+
+  return { words, sources };
 }
 
 (async () => {
-  let result = await callOpenRouter();
-  let words = countWords(result.article);
+  let article = await callOpenAI();
 
-  if (words < 1500) {
-    result = await callOpenRouter(
-      "Prethodni nacrt je bio prekratak. Proširi ga na najmanje 1.800 riječi, dodajući samo provjerljive činjenice, kontekst i objašnjenja. Ne ponavljaj iste misli."
+  if (countWords(article) < 1500) {
+    article = await callOpenAI(
+      "Prethodni nacrt je bio prekratak. Proširi ga na najmanje 1.800 riječi. Dodaj samo provjerljiv kontekst i činjenice. Ne ponavljaj iste misli."
     );
-    words = countWords(result.article);
   }
 
-  validate(result.article, result.sources);
+  const { words, sources } = validate(article);
 
-  result.article.author = "PatriaSoul";
-  result.article.status = "ZA PROVJERU";
-  result.article.format = "Čuvari nasljeđa";
-  result.article.sources = result.sources.map(
-    s => "KANDIDAT ZA UREDNIČKU PROVJERU: " + s.title + " — " + s.url
+  article.slug =
+    String(article.slug || article.title)
+      .normalize("NFD")
+      .replace(/[\\u0300-\\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 80);
+
+  article.author = "PatriaSoul";
+  article.status = "ZA PROVJERU";
+  article.format = "Čuvari nasljeđa";
+  article.sources = sources.map(
+    s =>
+      "KANDIDAT ZA UREDNIČKU PROVJERU: " +
+      s.title + " — " + s.url
   );
-  result.article.wordCount = words;
-  result.article.aiProvider = "OpenRouter";
-  result.article.aiModel = MODEL;
+  article.wordCount = words;
+  article.aiProvider = "OpenAI";
+  article.aiModel = MODEL;
 
-  fs.writeFileSync(OUTPUT, JSON.stringify(result.article, null, 2), "utf8");
-  console.log("AI članak pripremljen:", result.article.title);
-  console.log("Provider: OpenRouter");
-  console.log("Model:", MODEL);
-  console.log("Riječi:", words, "Izvora:", result.sources.length);
+  delete article.sourceCandidates;
+
+  fs.writeFileSync(
+    OUTPUT,
+    JSON.stringify(article, null, 2) + "\n",
+    "utf8"
+  );
+
+  console.log("✓ članak generiran:", article.title);
+  console.log("✓ izvori prisutni:", sources.length);
+  console.log("✓ riječi:", words);
+  console.log("✓ provider: OpenAI");
+  console.log("✓ model:", MODEL);
 })();
