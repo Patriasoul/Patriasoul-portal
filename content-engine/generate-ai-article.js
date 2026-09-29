@@ -163,7 +163,7 @@ function countWords(article) {
 
   return text
     .trim()
-    .split(/\\s+/)
+    .split(/\s+/)
     .filter(Boolean)
     .length;
 }
@@ -171,7 +171,7 @@ function countWords(article) {
 function cleanSources(article) {
   const sources = Array.isArray(article.sourceCandidates)
     ? article.sourceCandidates
-        .filter(x => x && x.title && /^https?:\\/\\//i.test(x.url))
+        .filter(x => {\n          try {\n            const u = new URL(x.url);\n            return x.title && (u.protocol === "http:" || u.protocol === "https:");\n          } catch {\n            return false;\n          }\n        })
         .map(x => ({
           title: String(x.title).trim(),
           url: String(x.url).trim()
@@ -240,7 +240,7 @@ function validate(article) {
   article.slug =
     String(article.slug || article.title)
       .normalize("NFD")
-      .replace(/[\\u0300-\\u036f]/g, "")
+      .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "")
