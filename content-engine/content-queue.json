@@ -10,7 +10,7 @@
       "readingTime": 5,
       "category": "Čuvari nasljeđa",
       "type": "Testni članak",
-      "status": "ZA PROVJERU",
+      "status": "TEST",
       "author": "PatriaSoul",
       "body": [
         {"type":"h2","text":"Zašto ovaj test postoji?"},
