@@ -493,13 +493,63 @@ function validate(article) {
   return { words, sources };
 }
 
+function hasUsableBody(article) {
+  return Array.isArray(article?.body) &&
+    article.body.some(item =>
+      item &&
+      typeof item.text === "string" &&
+      item.text.trim().length > 0
+    );
+}
+
+async function regenerateUntilBody(initialArticle) {
+  let article = normalizeArticle(initialArticle);
+  const maxAttempts = 3;
+
+  if (hasUsableBody(article)) {
+    return article;
+  }
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    console.log(
+      "⚠ AI odgovor nema stvarni body — tražim kompletan članak (" +
+      attempt + "/" + maxAttempts + ")..."
+    );
+
+    article = normalizeArticle(await callOpenRouterSafe(
+      "PRETHODNI ODGOVOR NIJE IMAO STVARAN SADRŽAJ U POLJU body. " +
+      "OVAJ PUT OBAVEZNO VRATI CIJELI ČLANAK. " +
+      "Polje body mora biti niz od najmanje 8 smislenih objekata, " +
+      "a svaki objekt mora imati stvaran hrvatski tekst u polju text. " +
+      "Članak mora imati najmanje 1.500 riječi, ciljaj 1.700 riječi. " +
+      "Ne vraćaj samo naslov, metadata ili izvore. " +
+      "Ne koristi prazne nizove, [...], ... ili placeholder vrijednosti. " +
+      "Vrati sva obavezna polja prema JSON shemi."
+    ));
+
+    if (hasUsableBody(article) && countWords(article) >= 1500) {
+      return article;
+    }
+  }
+
+  const finalWords = countWords(article);
+  throw new Error(
+    "OpenRouter nije uspio vratiti kompletan članak s body sadržajem nakon " +
+    maxAttempts + " pokušaja. Trenutni broj riječi: " + finalWords + "."
+  );
+}
+
 async function generateMinimumLengthArticle(initialArticle) {
   let article = normalizeArticle(initialArticle);
   const minimumWords = 1500;
   const targetWords = 1700;
   const maxExpansionAttempts = 3;
 
-  for (let attempt = 0; attempt <= maxExpansionAttempts; attempt++) {
+  if (!hasUsableBody(article)) {
+    return regenerateUntilBody(article);
+  }
+
+  for (let attempt = 1; attempt <= maxExpansionAttempts; attempt++) {
     const words = countWords(article);
 
     if (words >= minimumWords) {
@@ -514,7 +564,7 @@ async function generateMinimumLengthArticle(initialArticle) {
     console.log(
       "⚠ Članak ima " + words +
       " riječi — tražim proširenje (" +
-      (attempt + 1) + "/" + maxExpansionAttempts +
+      attempt + "/" + maxExpansionAttempts +
       "), cilj " + target + " riječi..."
     );
 
@@ -528,6 +578,10 @@ async function generateMinimumLengthArticle(initialArticle) {
       "Ne ponavljaj iste misli. Ne izmišljaj činjenice. " +
       "Vrati sva obavezna metadata polja i potpuno polje body prema JSON shemi."
     ));
+
+    if (!hasUsableBody(article)) {
+      article = await regenerateUntilBody(article);
+    }
   }
 
   const finalWords = countWords(article);
@@ -545,15 +599,6 @@ async function generateMinimumLengthArticle(initialArticle) {
 
 (async () => {
   let article = normalizeArticle(await callOpenRouterSafe());
-
-  if (!Array.isArray(article.body) || article.body.length === 0) {
-    console.log("⚠ AI odgovor nema body — tražim puni članak ponovno...");
-    article = normalizeArticle(await callOpenRouterSafe(
-      "PRETHODNI ODGOVOR JE BIO NEPOTPUN. Obavezno vrati cijelo polje body kao niz odlomaka. " +
-      "Ne vraćaj samo metadata polja. Vrati kompletan članak od najmanje 1.500 riječi, " +
-      "zajedno sa svim obaveznim poljima prema JSON shemi."
-    ));
-  }
 
   article = await generateMinimumLengthArticle(article);
 
