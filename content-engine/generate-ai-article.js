@@ -37,7 +37,7 @@ OBAVEZNA UREDNIČKA PRAVILA:
 - Autor mora biti: PatriaSoul
 - Kategorija mora biti jedna od: Povijest, Domovina, Vjera, Obitelj, Baština, Čuvari nasljeđa.
 - Type neka bude konkretan opis vrste članka.
-- Napiši 1.500–1.800 riječi. Budi sadržajan i ne produžuj tekst praznim frazama.
+- Ciljaj 1.650–1.800 riječi. Minimum je 1.500 riječi. Budi sadržajan i ne produžuj tekst praznim frazama.
 - Struktura treba imati snažan uvod, 5–8 smislenih tematskih cjelina, kontekst, ključne događaje/osobe gdje je primjenjivo, značenje teme i zaključak.
 - Ne dodaj image URL u ovoj fazi.
 - Članak ide samo na uredničku provjeru; nije javna objava.
@@ -347,8 +347,10 @@ function validate(article) {
   let article = normalizeArticle(await callOpenRouter());
 
   if (countWords(article) < 1500) {
+    const currentWords = countWords(article);
+    const expansionTarget = Math.max(1650, Math.ceil(currentWords + (1500 - currentWords) * 1.8));
     article = normalizeArticle(await callOpenRouter(
-      "Prethodni nacrt je bio prekratak. Proširi ga na najmanje 1.500 riječi. Dodaj samo provjerljiv kontekst i činjenice. Ne ponavljaj iste misli."
+      "VAŽNO: prethodni nacrt imao je samo " + currentWords + " riječi i bio je prekratak. Sada ga OBAVEZNO proširi na najmanje 1.500, a ciljaj oko " + expansionTarget + " riječi. Zadrži postojeći naslov, činjenice, izvore i glavnu strukturu. Dodaj nove tematske odlomke s provjerljivim kontekstom, uzroke i posljedice, povijesnu pozadinu, ključne osobe/događaje gdje je primjenjivo i zaključak. Ne ponavljaj iste misli i ne izmišljaj činjenice. Vrati cijeli prošireni članak prema JSON shemi."
     ));
   }
 
