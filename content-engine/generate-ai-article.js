@@ -148,13 +148,34 @@ async function callOpenRouter(extra = "") {
       clearTimeout(timeout);
     }
 
-    const retryable = [429, 502, 503, 504].includes(response.status);
-    if (!retryable || attempt === 4) break;
+    let upstreamError = "";
+    try {
+      const preview = JSON.parse(rawResponse);
+      upstreamError = preview.error?.message || "";
+    } catch (_) {
+      // Obrada JSON-a slijedi nakon retry logike.
+    }
 
-    const waitMs = attempt * 5000;
+    const retryableStatus = [429, 502, 503, 504].includes(response.status);
+    const retryableUpstream = /temporarily overloaded|overloaded|rate limit|capacity/i.test(upstreamError);
+    const retryable = retryableStatus || retryableUpstream;
+
+    if (!retryable || attempt === 4) {
+      if (retryableUpstream && attempt === 4) {
+        throw new Error(
+          "OpenRouter nije uspio nakon 4 pokušaja: " + upstreamError
+        );
+      }
+      break;
+    }
+
+    const waitMs = attempt * 7000;
     console.log(
-      "OpenRouter " + response.status +
-      " — ponovni pokušaj za " +
+      "OpenRouter " +
+      (response.status || "upstream") +
+      " — " +
+      (upstreamError || "privremena greška") +
+      ". Ponovni pokušaj za " +
       (waitMs / 1000) + " s..."
     );
     await new Promise(resolve => setTimeout(resolve, waitMs));
