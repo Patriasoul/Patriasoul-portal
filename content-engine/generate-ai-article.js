@@ -208,13 +208,33 @@ async function callOpenRouter(extra = "") {
     );
   }
 
+  function repairJsonPlaceholders(value) {
+    return value
+      .replace(/("readingTime"\\s*:\\s*)number\\b/gi, "$11")
+      .replace(/("readingTime"\\s*:\\s*)integer\\b/gi, "$11")
+      .replace(/("readingTime"\\s*:\\s*)string\\b/gi, "$11")
+      .replace(/("readingTime"\\s*:\\s*)null\\b/gi, "$11")
+      .replace(/("place"\\s*:\\s*)null\\b/gi, "$1\\\"Hrvatska\\\"")
+      .replace(/("kicker"\\s*:\\s*)null\\b/gi, "$1\\\"PatriaSoul · Hrvatska\\\"")
+      .replace(/("deck"\\s*:\\s*)null\\b/gi, "$1\\\"\\\"")
+      .replace(/("date"\\s*:\\s*)null\\b/gi, "$1\\\""+today+"\\\"")
+      .replace(/("status"\\s*:\\s*)null\\b/gi, "$1\\\"ZA PROVJERU\\\"")
+      .replace(/("author"\\s*:\\s*)null\\b/gi, "$1\\\"PatriaSoul\\\"");
+  }
+
   let article;
   try {
     article = JSON.parse(raw);
   } catch (error) {
-    throw new Error(
-      "OpenRouter nije vratio valjani JSON članka: " + error.message
-    );
+    const repaired = repairJsonPlaceholders(raw);
+    try {
+      article = JSON.parse(repaired);
+      console.log("✓ popravljena je tehnička JSON placeholder vrijednost");
+    } catch (repairError) {
+      throw new Error(
+        "OpenRouter nije vratio valjani JSON članka: " + error.message
+      );
+    }
   }
 
   return article;
