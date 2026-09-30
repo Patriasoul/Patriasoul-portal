@@ -183,8 +183,6 @@ function parseArticleJson(value) {
   try {
     return JSON.parse(raw);
   } catch (firstError) {
-    // Neki modeli povremeno vrate doslovne kontrolne znakove unutar stringova.
-    // Ne mijenjamo sadržaj osim minimalnog uklanjanja ilegalnih JSON kontrolnih znakova.
     const sanitized = raw.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "");
 
     try {
@@ -265,9 +263,7 @@ async function callOpenRouter(extra = "") {
     try {
       const preview = JSON.parse(rawResponse);
       upstreamError = preview.error?.message || "";
-    } catch (_) {
-      // Parsiranje API odgovora slijedi ispod.
-    }
+    } catch (_) {}
 
     const retryableStatus = [408, 409, 429, 500, 502, 503, 504].includes(response.status);
     const retryableUpstream =
@@ -497,6 +493,56 @@ function validate(article) {
   return { words, sources };
 }
 
+async function generateMinimumLengthArticle(initialArticle) {
+  let article = normalizeArticle(initialArticle);
+  const minimumWords = 1500;
+  const targetWords = 1700;
+  const maxExpansionAttempts = 3;
+
+  for (let attempt = 0; attempt <= maxExpansionAttempts; attempt++) {
+    const words = countWords(article);
+
+    if (words >= minimumWords) {
+      return article;
+    }
+
+    const target = Math.max(
+      targetWords,
+      Math.ceil(words + (minimumWords - words) * 1.6)
+    );
+
+    console.log(
+      "⚠ Članak ima " + words +
+      " riječi — tražim proširenje (" +
+      (attempt + 1) + "/" + maxExpansionAttempts +
+      "), cilj " + target + " riječi..."
+    );
+
+    article = normalizeArticle(await callOpenRouterSafe(
+      "PRETHODNI NACRT IMA " + words + " RIJEČI I NE ISPUNJAVA MINIMUM. " +
+      "Moraš vratiti CIJELI članak ponovno, ne samo dodatne odlomke. " +
+      "Ciljaj najmanje " + target + " riječi, a nikako manje od 1.500 riječi. " +
+      "Zadrži naslov, temu, glavne provjerljive činjenice i postojeće izvore. " +
+      "Proširi članak novim smislenim tematskim cjelinama, povijesnim kontekstom, " +
+      "uzrocima i posljedicama, ključnim osobama/događajima gdje je primjenjivo i zaključkom. " +
+      "Ne ponavljaj iste misli. Ne izmišljaj činjenice. " +
+      "Vrati sva obavezna metadata polja i potpuno polje body prema JSON shemi."
+    ));
+  }
+
+  const finalWords = countWords(article);
+  if (finalWords < minimumWords) {
+    throw new Error(
+      "Članak ima samo " + finalWords +
+      " riječi nakon " + maxExpansionAttempts +
+      " pokušaja proširenja; potrebno je najmanje " +
+      minimumWords + "."
+    );
+  }
+
+  return article;
+}
+
 (async () => {
   let article = normalizeArticle(await callOpenRouterSafe());
 
@@ -509,23 +555,7 @@ function validate(article) {
     ));
   }
 
-  if (countWords(article) < 1500) {
-    const currentWords = countWords(article);
-    const expansionTarget = Math.max(
-      1650,
-      Math.ceil(currentWords + (1500 - currentWords) * 1.8)
-    );
-
-    article = normalizeArticle(await callOpenRouterSafe(
-      "VAŽNO: prethodni nacrt imao je samo " + currentWords +
-      " riječi i bio je prekratak. Sada ga OBAVEZNO proširi na najmanje 1.500, a ciljaj oko " +
-      expansionTarget +
-      " riječi. Zadrži postojeći naslov, činjenice, izvore i glavnu strukturu. " +
-      "Dodaj nove tematske odlomke s provjerljivim kontekstom, uzroke i posljedice, " +
-      "povijesnu pozadinu, ključne osobe/događaje gdje je primjenjivo i zaključak. " +
-      "Ne ponavljaj iste misli i ne izmišljaj činjenice. Vrati cijeli prošireni članak prema JSON shemi."
-    ));
-  }
+  article = await generateMinimumLengthArticle(article);
 
   const { words, sources } = validate(article);
 
