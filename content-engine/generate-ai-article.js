@@ -2,12 +2,12 @@
 
 const fs = require("fs");
 
-const API_KEY = process.env.OPEN_AI_API_KEY;
+const API_KEY = process.env.OPENROUTER_API_KEY;
 const TOPIC = String(process.env.TOPIC || "").trim();
-const MODEL = process.env.OPENAI_MODEL || "gpt-5";
+const MODEL = process.env.OPENROUTER_MODEL || "openrouter/free";
 const OUTPUT = process.env.OUTPUT || "content-engine/ai-article.json";
 
-if (!API_KEY) throw new Error("Nedostaje OPEN_AI_API_KEY.");
+if (!API_KEY) throw new Error("Nedostaje OPENROUTER_API_KEY.");
 if (!TOPIC) throw new Error("Nedostaje tema članka.");
 
 const today = new Intl.DateTimeFormat("hr-HR", {
@@ -91,11 +91,13 @@ const schema = {
 };
 
 async function callOpenAI(extra = "") {
-  const response = await fetch("https://api.openai.com/v1/responses", {
+  const response = await fetch("https://openrouter.ai/api/v1/responses", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + API_KEY
+      "Authorization": "Bearer " + API_KEY,
+      "HTTP-Referer": "https://patriasoul.github.io/Patriasoul-portal/",
+      "X-Title": "PatriaSoul Content Engine"
     },
     body: JSON.stringify({
       model: MODEL,
@@ -132,7 +134,7 @@ async function callOpenAI(extra = "") {
 
   if (!response.ok) {
     throw new Error(
-      "OpenAI API " + response.status + ": " +
+      "OpenRouter API " + response.status + ": " +
       rawResponse.slice(0, 2000)
     );
   }
@@ -262,7 +264,7 @@ function validate(article) {
       s.title + " — " + s.url
   );
   article.wordCount = words;
-  article.aiProvider = "OpenAI";
+  article.aiProvider = "OpenRouter";
   article.aiModel = MODEL;
 
   delete article.sourceCandidates;
@@ -276,6 +278,6 @@ function validate(article) {
   console.log("✓ članak generiran:", article.title);
   console.log("✓ izvori prisutni:", sources.length);
   console.log("✓ riječi:", words);
-  console.log("✓ provider: OpenAI");
+  console.log("✓ provider: OpenRouter");
   console.log("✓ model:", MODEL);
 })();
