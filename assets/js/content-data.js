@@ -116,5 +116,13 @@ window.PatriaSoulContent = {
       category:"Čuvari nasljeđa", subcategory:"Dokumentirano", rubric:"Kontekst", tags:["Marko Perković Thompson","kontroverze","Za dom spremni","ustaški režim","Domovinski rat","javne kritike"], place:"Hrvatska", period:"1990-e–danas", type:"Dokumentirani kontekst",
       image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Perkovi%C4%87%20Thompson%202025%20Zagreb%20Hipodrom%20concert.jpg", imageAlt:"Ilustrativna fotografija", imageCaption:"Marko Perković Thompson na koncertu u Zagrebu, 5. srpnja 2025. / Wikimedia Commons, autor Croateditor, CC BY-SA 3.0."
     }
+    nikolaTesla: {
+      title:"Nikola Tesla i Smiljan: mjesto iz kojeg je krenula jedna velika znanstvena priča",
+      kicker:"HRVATSKA STVARA · LJUDI I MJESTA",
+      deck:"Nikola Tesla rođen je 10. srpnja 1856. u Smiljanu. Priča o rodnom mjestu, školovanju, znanstvenom radu i Memorijalnom centru povezuje biografiju, znanje i mjesto sjećanja.",
+      date:"2026-09-30", meta:"Piše: PatriaSoul · 30. rujna 2026. · Smiljan · 9 min čitanja", url:"clanak-nikola-tesla-smiljan.html",
+      category:"Hrvatska stvara", subcategory:"Ljudi i mjesta", rubric:"Ljudi koji stvaraju", tags:["Nikola Tesla","Smiljan","Lika","znanost","elektrotehnika","Memorijalni centar Nikola Tesla"], place:"Smiljan", period:"1856.–1943.", type:"Biografska priča",
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Rodna%20ku%C4%87a%20Nikole%20Tesle%20u%20Smiljanu%20s%20muzejskim%20multimedijalnim%20postavom.JPG", imageAlt:"Rodna kuća Nikole Tesle u Smiljanu", imageCaption:"Rodna kuća Nikole Tesle u Memorijalnom centru Nikola Tesla u Smiljanu. Foto: Silverije / Wikimedia Commons, CC BY-SA 4.0."
+    },
   }
 };
