@@ -91,44 +91,55 @@ const schema = {
 };
 
 async function callOpenAI(extra = "") {
-  const response = await fetch("https://openrouter.ai/api/v1/responses", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + API_KEY,
-      "HTTP-Referer": "https://patriasoul.github.io/Patriasoul-portal/",
-      "X-Title": "PatriaSoul Content Engine"
-    },
-    body: JSON.stringify({
-      model: MODEL,
-      store: false,
-      tools: [{ type: "web_search" }],
-      instructions: systemPrompt,
-      input: [
-        {
-          role: "user",
-          content: [
-            {
-              type: "input_text",
-              text:
-                "Napiši članak na temu: " + TOPIC +
-                "\n\n" + extra +
-                "\n\nVrati samo podatke prema zadanoj JSON shemi."
-            }
-          ]
-        }
-      ],
-      text: {
-        format: {
-          type: "json_schema",
-          name: "patriasoul_article",
-          strict: true,
-          schema
-        }
+  let response;
+  let rawResponse = "";
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    response = await fetch("https://openrouter.ai/api/v1/responses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + API_KEY,
+        "HTTP-Referer": "https://patriasoul.github.io/Patriasoul-portal/",
+        "X-Title": "PatriaSoul Content Engine"
       },
-      max_output_tokens: 8000
-    })
-  });
+      body: JSON.stringify({
+        model: MODEL,
+        store: false,
+        tools: [{ type: "web_search" }],
+        instructions: systemPrompt,
+        input: [
+          {
+            role: "user",
+            content: [
+              {
+                type: "input_text",
+                text:
+                  "Napiši članak na temu: " + TOPIC +
+                  "\n\n" + extra +
+                  "\n\nVrati samo podatke prema zadanoj JSON shemi."
+              }
+            ]
+          }
+        ],
+        text: {
+          format: {
+            type: "json_schema",
+            name: "patriasoul_article",
+            strict: true,
+            schema
+          }
+        },
+        max_output_tokens: 8000
+      })
+    });
+
+    rawResponse = await response.text();
+    if (response.status !== 429 || attempt === 4) break;
+
+    const waitMs = attempt * 5000;
+    console.log("OpenRouter 429 — ponovni pokušaj za " + (waitMs / 1000) + " s...");
+    await new Promise(resolve => setTimeout(resolve, waitMs));
+  }
 
   const rawResponse = await response.text();
 
