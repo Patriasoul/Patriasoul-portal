@@ -115,7 +115,7 @@ window.PatriaSoulContent = {
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Hrvatska · 12 min čitanja", url:"clanak-thompson-kontroverze.html",
       category:"Čuvari nasljeđa", subcategory:"Dokumentirano", rubric:"Kontekst", tags:["Marko Perković Thompson","kontroverze","Za dom spremni","ustaški režim","Domovinski rat","javne kritike"], place:"Hrvatska", period:"1990-e–danas", type:"Dokumentirani kontekst",
       image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Perkovi%C4%87%20Thompson%202025%20Zagreb%20Hipodrom%20concert.jpg", imageAlt:"Ilustrativna fotografija", imageCaption:"Marko Perković Thompson na koncertu u Zagrebu, 5. srpnja 2025. / Wikimedia Commons, autor Croateditor, CC BY-SA 3.0."
-    }
+    },
     nikolaTesla: {
       title:"Nikola Tesla i Smiljan: mjesto iz kojeg je krenula jedna velika znanstvena priča",
       kicker:"HRVATSKA STVARA · LJUDI I MJESTA",
