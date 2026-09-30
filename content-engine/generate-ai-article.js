@@ -223,7 +223,7 @@ async function callOpenRouter(extra = "") {
       // Neki free modeli ubace pomoćno polje s placeholderom "..."
       // koje nije valjani JSON. To polje ionako računamo sami.
       .replace(/,?\\s*"brojRijeci"\\s*:\\s*\\.\\.\\.\\s*(?=,|})/gi, "")
-      .replace(/,?\\s*"wordCount"\\s*:\\s*\\.\\.\\.\\s*(?=,|})/gi, "");
+      .replace(/,?\\s*"wordCount"\\s*:\\s*\\.\\.\\.\\s*(?=,|})/gi, "")\n      // Ponekad model doda pomoćna polja poput "outline": [...],\n      // iako nisu dio naše sheme. Uklanjamo samo doslovne placeholder-e.\n      .replace(/,?\\s*"[^"]+"\\s*:\\s*\\[\\.\\.\\.\\]\\s*(?=,|})/g, "")\n      .replace(/,?\\s*"[^"]+"\\s*:\\s*\\.\\.\\.\\s*(?=,|})/g, "");
   }
 
   let article;
