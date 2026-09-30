@@ -94,7 +94,10 @@ async function callOpenAI(extra = "") {
   let response;
   let rawResponse = "";
   for (let attempt = 1; attempt <= 4; attempt++) {
-    response = await fetch("https://openrouter.ai/api/v1/responses", {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 180000);
+    try {
+      response = await fetch("https://openrouter.ai/api/v1/responses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -262,7 +265,7 @@ function validate(article) {
 
   if (countWords(article) < 1500) {
     article = await callOpenAI(
-      "Prethodni nacrt je bio prekratak. Proširi ga na najmanje 1.800 riječi. Dodaj samo provjerljiv kontekst i činjenice. Ne ponavljaj iste misli."
+      "Prethodni nacrt je bio prekratak. Proširi ga na najmanje 1.500 riječi. Dodaj samo provjerljiv kontekst i činjenice. Ne ponavljaj iste misli."
     );
   }
 
