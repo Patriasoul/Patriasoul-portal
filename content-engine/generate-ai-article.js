@@ -26,8 +26,8 @@ OBAVEZNA UREDNIČKA PRAVILA:
 - Autor je uvijek i isključivo "PatriaSoul".
 - "Čuvari nasljeđa" je format/kategorija, nikada autor.
 - Ne izmišljaj činjenice, osobe, datume, citate, događaje, izvore ni poveznice.
-- Koristi web pretragu za provjeru povijesnih i činjeničnih tvrdnji kada je dostupna.
-- U izvore stavi samo stvarne i relevantne URL-ove koje možeš identificirati iz rezultata pretrage ili službenih/poznatih izvora.
+- Ne oslanjaj se na nedostupne alate za web-pretragu; navedi samo izvore koje možeš pouzdano identificirati.
+- U izvore stavi samo stvarne i relevantne URL-ove koje možeš pouzdano identificirati iz službenih/poznatih izvora.
 - Jasno razlikuj dokumentiranu činjenicu, svjedočanstvo, tradiciju i uredničko tumačenje.
 - Prednost imaju arhivi, muzeji, državne institucije, enciklopedije, znanstvene ustanove i druga provjerljiva literatura.
 - Ne kopiraj tuđe članke. Piši originalnim riječima.
@@ -37,7 +37,7 @@ OBAVEZNA UREDNIČKA PRAVILA:
 - Autor mora biti: PatriaSoul
 - Kategorija mora biti jedna od: Povijest, Domovina, Vjera, Obitelj, Baština, Čuvari nasljeđa.
 - Type neka bude konkretan opis vrste članka.
-- Napiši najmanje 1.800 riječi. Ciljaj 2.000–2.500 riječi. Ne produžuj tekst praznim frazama.
+- Napiši 1.500–1.800 riječi. Budi sadržajan i ne produžuj tekst praznim frazama.
 - Struktura treba imati snažan uvod, 5–8 smislenih tematskih cjelina, kontekst, ključne događaje/osobe gdje je primjenjivo, značenje teme i zaključak.
 - Ne dodaj image URL u ovoj fazi.
 - Članak ide samo na uredničku provjeru; nije javna objava.
@@ -90,7 +90,7 @@ const schema = {
   ]
 };
 
-async function callOpenAI(extra = "") {
+async function callOpenRouter(extra = "") {
   let response;
   let rawResponse = "";
 
@@ -187,13 +187,11 @@ async function callOpenAI(extra = "") {
 
   raw = String(raw).trim();
 
-  // Neki OpenRouter modeli mogu vratiti JSON unutar markdown code fencea.
   raw = raw
-    .replace(/^\`\`\`(?:json)?\s*/i, "")
-    .replace(/\s*\`\`\`$/i, "")
+    .replace(/^\\`\\`\\`(?:json)?\\s*/i, "")
+    .replace(/\\s*\\`\\`\\`$/i, "")
     .trim();
 
-  // Ako model vrati uvodni tekst prije JSON-a, uzmi samo JSON objekt.
   const firstBrace = raw.indexOf("{");
   const lastBrace = raw.lastIndexOf("}");
   if (firstBrace > 0 && lastBrace > firstBrace) {
@@ -232,6 +230,52 @@ function countWords(article) {
     .split(/\s+/)
     .filter(Boolean)
     .length;
+}
+
+function normalizeArticle(article) {
+  if (!article || typeof article !== "object") {
+    throw new Error("AI odgovor nije objekt članka.");
+  }
+
+  // OpenRouter/free modeli ponekad ne ispoštuju sva metadata polja
+  // iz JSON sheme. Nadopunjujemo samo uredničku metadata-u iz već
+  // generiranog sadržaja; ne izmišljamo nove činjenice.
+  if (!article.kicker || !String(article.kicker).trim()) {
+    article.kicker = "PatriaSoul · " + (article.category || "Hrvatska");
+  }
+
+  if (!article.deck || !String(article.deck).trim()) {
+    const firstText = Array.isArray(article.body)
+      ? article.body
+          .map(x => String(x.text || "").trim())
+          .find(Boolean)
+      : "";
+    article.deck = firstText
+      ? firstText.replace(/\s+/g, " ").slice(0, 280).trim()
+      : String(article.title || TOPIC).trim();
+  }
+
+  if (!article.place || !String(article.place).trim()) {
+    article.place = "Hrvatska";
+  }
+
+  if (!Number.isInteger(article.readingTime) || article.readingTime < 1) {
+    article.readingTime = Math.max(1, Math.ceil(countWords(article) / 220));
+  }
+
+  if (!article.date || !String(article.date).trim()) {
+    article.date = today;
+  }
+
+  if (!article.status || !String(article.status).trim()) {
+    article.status = "ZA PROVJERU";
+  }
+
+  if (!article.author || !String(article.author).trim()) {
+    article.author = "PatriaSoul";
+  }
+
+  return article;
 }
 
 function cleanSources(article) {
@@ -300,12 +344,12 @@ function validate(article) {
 }
 
 (async () => {
-  let article = await callOpenAI();
+  let article = normalizeArticle(await callOpenRouter());
 
   if (countWords(article) < 1500) {
-    article = await callOpenAI(
+    article = normalizeArticle(await callOpenRouter(
       "Prethodni nacrt je bio prekratak. Proširi ga na najmanje 1.500 riječi. Dodaj samo provjerljiv kontekst i činjenice. Ne ponavljaj iste misli."
-    );
+    ));
   }
 
   const { words, sources } = validate(article);
