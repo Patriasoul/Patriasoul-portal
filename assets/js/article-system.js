@@ -106,6 +106,8 @@
     img.decoding = 'async';
     if (!img.width) img.width = 1200;
     if (!img.height) img.height = 800;
+    img.setAttribute('width', String(img.width));
+    img.setAttribute('height', String(img.height));
     if (!img.alt) img.alt = current ? current.title : 'PatriaSoul';
   });
 
