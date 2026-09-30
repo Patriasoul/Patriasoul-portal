@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="hr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Rubrike PatriaSoul — pregled hrvatskih priča, povijesti, vjere, domovine, baštine i ljudi.">
+<title>Rubrike · PatriaSoul</title><link rel="stylesheet" href="assets/css/portal.css"><link rel="stylesheet" href="assets/css/portal-core.css"></head>
+<body><header class="site-header"></header>
+<main class="container"><section class="category-hero"><span class="kicker">PATRIASOUL · ISTRAŽI</span><h1>Rubrike i priče</h1><p>Jedno mjesto za pregled objavljenih priča. Odaberi rubriku, temu ili oznaku i nastavi istraživati.</p><div id="category-pills" class="category-pills"></div></section>
+<div class="portal-core-toolbar"><input id="rubrike-q" type="search" placeholder="Pretraži naslove i teme…" aria-label="Pretraži rubrike"><select id="rubrike-category" aria-label="Odaberi rubriku"><option value="">Sve rubrike</option></select><span id="rubrike-count" class="portal-core-count"></span></div>
+<section id="rubrike-grid" class="core-card-grid" aria-live="polite"></section></main>
+<footer class="site-footer"></footer>
+<script src="assets/js/content-data.js?v=7"></script><script src="assets/js/article-system.js?v=1"></script><script src="assets/js/portal.js?v=core1"></script>
+<script>
+(()=>{const p=window.PatriaSoulPortal;if(!p)return;const q=document.getElementById('rubrike-q'),sel=document.getElementById('rubrike-category'),grid=document.getElementById('rubrike-grid'),count=document.getElementById('rubrike-count');
+const esc=v=>String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+p.categories.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o)});
+const pills=document.getElementById('category-pills');p.categories.forEach(c=>{const a=document.createElement('a');a.className='category-pill';a.href='#'+encodeURIComponent(c);a.textContent=c;pills.appendChild(a)});
+function render(){let list=p.find(q.value).filter(a=>!sel.value||a.category===sel.value);count.textContent=list.length+' priča';grid.innerHTML=list.map(a=>'<a class="core-card" href="'+esc(a.url)+'"><img src="'+esc(a.image||'')+'" alt="'+esc(a.imageAlt||a.title)+'" loading="lazy" width="800" height="530"><span class="core-card-body"><span class="core-card-label">'+esc(a.rubric||a.category)+'</span><h3>'+esc(a.title)+'</h3><p>'+esc(a.deck)+'</p><small class="core-card-meta">'+esc(a.meta||a.date||'')+'</small></span></a>').join('')||'<p>Nema pronađenih priča.</p>'}
+q.addEventListener('input',render);sel.addEventListener('change',render);render()})();
+</script></body></html>
