@@ -219,7 +219,11 @@ async function callOpenRouter(extra = "") {
       .replace(/("deck"\\s*:\\s*)null\\b/gi, "$1\\\"\\\"")
       .replace(/("date"\\s*:\\s*)null\\b/gi, "$1\\\""+today+"\\\"")
       .replace(/("status"\\s*:\\s*)null\\b/gi, "$1\\\"ZA PROVJERU\\\"")
-      .replace(/("author"\\s*:\\s*)null\\b/gi, "$1\\\"PatriaSoul\\\"");
+      .replace(/("author"\\s*:\\s*)null\\b/gi, "$1\\\"PatriaSoul\\\"")
+      // Neki free modeli ubace pomoćno polje s placeholderom "..."
+      // koje nije valjani JSON. To polje ionako računamo sami.
+      .replace(/,?\\s*"brojRijeci"\\s*:\\s*\\.\\.\\.\\s*(?=,|})/gi, "")
+      .replace(/,?\\s*"wordCount"\\s*:\\s*\\.\\.\\.\\s*(?=,|})/gi, "");
   }
 
   let article;
