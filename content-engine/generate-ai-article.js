@@ -424,6 +424,17 @@ function validate(article) {
 (async () => {
   let article = normalizeArticle(await callOpenRouter());
 
+  // Free modeli ponekad vrate metadata bez tijela članka unatoč JSON shemi.
+  // U tom slučaju ne izmišljamo sadržaj nego tražimo cijeli članak ponovno.
+  if (!Array.isArray(article.body) || article.body.length === 0) {
+    console.log("⚠ AI odgovor nema body — tražim puni članak ponovno...");
+    article = normalizeArticle(await callOpenRouter(
+      "PRETHODNI ODGOVOR JE BIO NEPOTPUN. Obavezno vrati cijelo polje body kao niz odlomaka. " +
+      "Ne vraćaj samo metadata polja. Vrati kompletan članak od najmanje 1.500 riječi, " +
+      "zajedno sa svim obaveznim poljima prema JSON shemi."
+    ));
+  }
+
   if (countWords(article) < 1500) {
     const currentWords = countWords(article);
     const expansionTarget = Math.max(1650, Math.ceil(currentWords + (1500 - currentWords) * 1.8));
