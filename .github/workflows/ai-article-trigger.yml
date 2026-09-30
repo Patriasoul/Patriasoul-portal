@@ -13,45 +13,57 @@ permissions:
 
 jobs:
   generate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Preuzmi sigurnu granu
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: content-engine-v1
           fetch-depth: 0
 
-      - name: Provjeri OpenRouter ključ
+      - name: Provjeri OpenAI ključ
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPEN_AI_API_KEY: ${{ secrets.OPEN_AI_API_KEY }}
         run: |
-          test -n "$OPENROUTER_API_KEY" || (echo "OPENROUTER_API_KEY nije postavljen u GitHub Secrets." && exit 1)
+          test -n "$OPEN_AI_API_KEY" || (echo "OPEN_AI_API_KEY nije postavljen u GitHub Secrets." && exit 1)
+          echo "✓ OPEN_AI_API_KEY pronađen"
 
-      - name: Generiraj članak uz OpenRouter
+      - name: Generiraj članak uz OpenAI
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPEN_AI_API_KEY: ${{ secrets.OPEN_AI_API_KEY }}
           TOPIC: ${{ inputs.topic }}
-          OPENROUTER_MODEL: openrouter/free
+          OPENAI_MODEL: gpt-5.6-luna
           OUTPUT: content-engine/ai-article.json
-        run: node content-engine/generate-ai-article.js
+        run: |
+          node content-engine/generate-ai-article.js
+          echo "✓ OpenAI poziv i generiranje uspješni"
 
       - name: Dodaj članak u red za provjeru
         run: |
           node - <<'NODE'
-          const fs=require('fs');
-          const ai=JSON.parse(fs.readFileSync('content-engine/ai-article.json','utf8'));
-          const p='content-engine/content-queue.json';
-          const q=JSON.parse(fs.readFileSync(p,'utf8'));
-          q.articles=q.articles||[];
-          const slug=ai.title.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)||'ai-clanak-'+Date.now();
-          ai.slug=slug;
-          q.articles=q.articles.filter(a=>a.slug!==slug);
+          const fs = require('fs');
+          const ai = JSON.parse(fs.readFileSync('content-engine/ai-article.json','utf8'));
+          const p = 'content-engine/content-queue.json';
+          const q = JSON.parse(fs.readFileSync(p,'utf8'));
+          q.articles = q.articles || [];
+          const slug = (ai.slug || ai.title)
+            .normalize('NFD')
+            .replace(/[\\u0300-\\u036f]/g,'')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g,'-')
+            .replace(/^-+|-+$/g,'')
+            .slice(0,80) || 'ai-clanak-' + Date.now();
+          ai.slug = slug;
+          q.articles = q.articles.filter(a => a.slug !== slug);
           q.articles.push(ai);
-          fs.writeFileSync(p,JSON.stringify(q,null,2)+'\n');
+          fs.writeFileSync(p, JSON.stringify(q,null,2) + '\\n');
+          console.log('✓ Članak stavljen u content-queue.json');
           NODE
 
       - name: Generiraj pregledni HTML
-        run: node content-engine/generate-article.js content-engine/content-queue.json content-engine/generated
+        run: |
+          node content-engine/generate-article.js content-engine/content-queue.json content-engine/generated
+          echo "✓ Validator i HTML prošli"
 
       - name: Spremi na sigurnu granu
         run: |
@@ -59,5 +71,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add content-engine/content-queue.json content-engine/generated content-engine/ai-article.json
           git diff --cached --quiet && exit 0
-          git commit -m "content-engine: OpenRouter pripremio članak za uredničku provjeru"
+          git commit -m "content-engine: OpenAI pripremio članak za uredničku provjeru"
           git push origin HEAD:content-engine-v1
