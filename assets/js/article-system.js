@@ -100,6 +100,15 @@
     body.appendChild(note);
   }
 
+  // Normalize article images without changing the existing markup.
+  document.querySelectorAll('.article-page img, .article-body img').forEach((img,index) => {
+    if (!img.hasAttribute('loading')) img.loading = index === 0 ? 'eager' : 'lazy';
+    img.decoding = 'async';
+    if (!img.width) img.width = 1200;
+    if (!img.height) img.height = 800;
+    if (!img.alt) img.alt = current ? current.title : 'PatriaSoul';
+  });
+
   renderRelated();
   addArticleStructuredData();
   addReadingMeta();
