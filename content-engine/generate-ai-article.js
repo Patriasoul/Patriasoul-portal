@@ -90,6 +90,117 @@ const schema = {
   ]
 };
 
+function decodeHtmlEntities(value) {
+  return String(value)
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => {
+      try { return String.fromCodePoint(parseInt(hex, 16)); } catch { return _; }
+    })
+    .replace(/&#([0-9]+);/g, (_, dec) => {
+      try { return String.fromCodePoint(parseInt(dec, 10)); } catch { return _; }
+    })
+    .replace(/&quot;/gi, '"')
+    .replace(/&apos;/gi, "'")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">");
+}
+
+function stripMarkdownFences(value) {
+  return String(value)
+    .replace(/^\s*\`\`\`(?:json)?\s*/i, "")
+    .replace(/\s*\`\`\`\s*$/i, "")
+    .trim();
+}
+
+function extractFirstJsonObject(value) {
+  const text = String(value);
+  const start = text.indexOf("{");
+  if (start < 0) return "";
+
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+
+  for (let i = start; i < text.length; i++) {
+    const ch = text[i];
+
+    if (inString) {
+      if (escaped) {
+        escaped = false;
+      } else if (ch === "\\") {
+        escaped = true;
+      } else if (ch === '"') {
+        inString = false;
+      }
+      continue;
+    }
+
+    if (ch === '"') {
+      inString = true;
+    } else if (ch === "{") {
+      depth++;
+    } else if (ch === "}") {
+      depth--;
+      if (depth === 0) return text.slice(start, i + 1);
+    }
+  }
+
+  return "";
+}
+
+function repairJsonPlaceholders(value) {
+  return String(value)
+    .replace(/(^|[,\[{]\s*)\.\.\.(?=\s*[,\]}])/g, "$1")
+    .replace(/,?\s*"brojRijeci"\s*:\s*\.\.\.\s*(?=,|})/gi, "")
+    .replace(/,?\s*"wordCount"\s*:\s*\.\.\.\s*(?=,|})/gi, "")
+    .replace(/,?\s*"[^"]+"\s*:\s*\[\.\.\.\]\s*(?=,|})/g, "")
+    .replace(/,?\s*"[^"]+"\s*:\s*\.\.\.\s*(?=,|})/g, "")
+    .replace(/("readingTime"\s*:\s*)(?:number|integer|string|null)\b/gi, "$11")
+    .replace(/("place"\s*:\s*)null\b/gi, '$1"Hrvatska"')
+    .replace(/("kicker"\s*:\s*)null\b/gi, '$1"PatriaSoul · Hrvatska"')
+    .replace(/("deck"\s*:\s*)null\b/gi, '$1""')
+    .replace(/("date"\s*:\s*)null\b/gi, '$1"' + today + '"')
+    .replace(/("status"\s*:\s*)null\b/gi, '$1"ZA PROVJERU"')
+    .replace(/("author"\s*:\s*)null\b/gi, '$1"PatriaSoul"');
+}
+
+function normalizeRawJson(value) {
+  let raw = String(value || "").trim();
+  raw = decodeHtmlEntities(raw);
+  raw = stripMarkdownFences(raw);
+  raw = extractFirstJsonObject(raw);
+  raw = repairJsonPlaceholders(raw);
+  return raw.trim();
+}
+
+function parseArticleJson(value) {
+  const raw = normalizeRawJson(value);
+
+  if (!raw) {
+    throw new Error("OpenRouter nije vratio JSON objekt članka.");
+  }
+
+  try {
+    return JSON.parse(raw);
+  } catch (firstError) {
+    // Neki modeli povremeno vrate doslovne kontrolne znakove unutar stringova.
+    // Ne mijenjamo sadržaj osim minimalnog uklanjanja ilegalnih JSON kontrolnih znakova.
+    const sanitized = raw.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "");
+
+    try {
+      return JSON.parse(sanitized);
+    } catch (secondError) {
+      const preview = raw.slice(0, 700).replace(/\s+/g, " ");
+      throw new Error(
+        "OpenRouter nije vratio valjani JSON članka: " +
+        firstError.message +
+        " | početak odgovora: " +
+        preview
+      );
+    }
+  }
+}
+
 async function callOpenRouter(extra = "") {
   let response;
   let rawResponse = "";
@@ -120,7 +231,9 @@ async function callOpenRouter(extra = "") {
                   text:
                     "Napiši članak na temu: " + TOPIC +
                     "\n\n" + extra +
-                    "\n\nVrati samo podatke prema zadanoj JSON shemi."
+                    "\n\nVRLO VAŽNO: vrati ISKLJUČIVO jedan potpuni JSON objekt prema zadanoj JSON shemi. " +
+                    "Ne koristi markdown, trostruke backticke, komentare, elipse (...) niti placeholder vrijednosti. " +
+                    "Ne skraćuj niz body niti koristi tekst poput [...]. Sve vrijednosti moraju biti stvarne i potpune."
                 }
               ]
             }
@@ -153,18 +266,17 @@ async function callOpenRouter(extra = "") {
       const preview = JSON.parse(rawResponse);
       upstreamError = preview.error?.message || "";
     } catch (_) {
-      // Obrada JSON-a slijedi nakon retry logike.
+      // Parsiranje API odgovora slijedi ispod.
     }
 
-    const retryableStatus = [429, 502, 503, 504].includes(response.status);
-    const retryableUpstream = /temporarily overloaded|overloaded|rate limit|capacity/i.test(upstreamError);
+    const retryableStatus = [408, 409, 429, 500, 502, 503, 504].includes(response.status);
+    const retryableUpstream =
+      /temporarily overloaded|overloaded|rate limit|capacity|timeout|temporar/i.test(upstreamError);
     const retryable = retryableStatus || retryableUpstream;
 
     if (!retryable || attempt === 4) {
       if (retryableUpstream && attempt === 4) {
-        throw new Error(
-          "OpenRouter nije uspio nakon 4 pokušaja: " + upstreamError
-        );
+        throw new Error("OpenRouter nije uspio nakon 4 pokušaja: " + upstreamError);
       }
       break;
     }
@@ -206,110 +318,42 @@ async function callOpenRouter(extra = "") {
       .join("\n");
   }
 
-  raw = String(raw).trim();
-
-  raw = raw
-    .replace(/^\\`\\`\\`(?:json)?\\s*/i, "")
-    .replace(/\\s*\\`\\`\\`$/i, "")
-    .trim();
-
-  function extractFirstJsonObject(value) {
-    const start = value.indexOf("{");
-    if (start < 0) return value;
-
-    let depth = 0;
-    let inString = false;
-    let escaped = false;
-
-    for (let i = start; i < value.length; i++) {
-      const ch = value[i];
-
-      if (inString) {
-        if (escaped) {
-          escaped = false;
-        } else if (ch === "\\") {
-          escaped = true;
-        } else if (ch === '"') {
-          inString = false;
-        }
-        continue;
-      }
-
-      if (ch === '"') {
-        inString = true;
-      } else if (ch === "{") {
-        depth++;
-      } else if (ch === "}") {
-        depth--;
-        if (depth === 0) {
-          return value.slice(start, i + 1);
-        }
-      }
-    }
-
-    return value.slice(start);
+  if (!raw && data.output && typeof data.output === "string") {
+    raw = data.output;
   }
 
-  raw = extractFirstJsonObject(raw).trim();
+  if (!raw && data.choices?.[0]?.message?.content) {
+    const content = data.choices[0].message.content;
+    raw = typeof content === "string"
+      ? content
+      : JSON.stringify(content);
+  }
 
-  if (!raw) {
+  if (!String(raw).trim()) {
     const detail =
       data.error?.message ||
       data.incomplete_details?.reason ||
       "prazan odgovor";
-    throw new Error(
-      "OpenRouter nije vratio tekstualni izlaz: " + detail
-    );
+    throw new Error("OpenRouter nije vratio tekstualni izlaz: " + detail);
   }
 
-  function repairJsonPlaceholders(value) {
-    return value
-      .replace(/("readingTime"\s*:\s*)number\b/gi, "$11")
-      .replace(/("readingTime"\s*:\s*)integer\b/gi, "$11")
-      .replace(/("readingTime"\s*:\s*)string\b/gi, "$11")
-      .replace(/("readingTime"\s*:\s*)null\b/gi, "$11")
-      .replace(/("place"\s*:\s*)null\b/gi, '$1"Hrvatska"')
-      .replace(/("kicker"\s*:\s*)null\b/gi, '$1"PatriaSoul · Hrvatska"')
-      .replace(/("deck"\s*:\s*)null\b/gi, '$1""')
-      .replace(/("date"\s*:\s*)null\b/gi, '$1"' + today + '"')
-      .replace(/("status"\s*:\s*)null\b/gi, '$1"ZA PROVJERU"')
-      .replace(/("author"\s*:\s*)null\b/gi, '$1"PatriaSoul"')
-      .replace(/,?\s*"brojRijeci"\s*:\s*\.\.\.\s*(?=,|})/gi, "")
-      .replace(/,?\s*"wordCount"\s*:\s*\.\.\.\s*(?=,|})/gi, "")
-      .replace(/,?\s*"[^"]+"\s*:\s*\[\.\.\.\]\s*(?=,|})/g, "")
-      .replace(/,?\s*"[^"]+"\s*:\s*\.\.\.\s*(?=,|})/g, "");
-  }
-
-  let article;
-  try {
-    article = JSON.parse(raw);
-  } catch (error) {
-    const repaired = repairJsonPlaceholders(raw);
-    try {
-      article = JSON.parse(repaired);
-      console.log("✓ popravljena je tehnička JSON placeholder vrijednost");
-    } catch (repairError) {
-      throw new Error(
-        "OpenRouter nije vratio valjani JSON članka: " + error.message
-      );
-    }
-  }
-
-  return article;
+  return parseArticleJson(raw);
 }
 
 async function callOpenRouterSafe(extra = "") {
   const jsonRepairInstruction =
-    "\n\nPRETHODNI ODGOVOR NIJE BIO VALJAN JSON. Sada vrati ISKLJUČIVO jedan valjani JSON objekt prema zadanoj shemi. " +
-    "Bez markdowna, bez komentara, bez teksta prije ili poslije JSON objekta. Sve JSON vrijednosti moraju biti pravilno navedene u dvostrukim navodnicima gdje je potrebno. " +
-    "Obavezno uključi potpuno polje body kao niz objekata.";
+    "PRETHODNI ODGOVOR NIJE BIO VALJAN JSON. Sada ga generiraj ponovno od početka. " +
+    "Vrati ISKLJUČIVO jedan valjani JSON objekt prema zadanoj shemi. " +
+    "Bez markdowna, bez komentara, bez teksta prije ili poslije objekta. " +
+    "Nikada ne koristi ..., [...], null za obavezna polja, komentare ili placeholder tekst. " +
+    "Obavezno uključi potpuno polje body kao niz objekata i potpuno polje sourceCandidates.";
 
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
       return await callOpenRouter(extra);
     } catch (error) {
       const message = String(error.message || error);
-      const malformedJson = /nije vratio valjani JSON članka/i.test(message);
+      const malformedJson = /nije vratio valjani JSON članka|nije vratio JSON objekt članka/i.test(message);
 
       if (!malformedJson || attempt === 3) {
         throw error;
@@ -321,6 +365,7 @@ async function callOpenRouterSafe(extra = "") {
         (waitMs / 1000) + " s..."
       );
       await new Promise(resolve => setTimeout(resolve, waitMs));
+
       extra =
         (extra ? extra + "\n\n" : "") +
         jsonRepairInstruction;
@@ -345,9 +390,6 @@ function normalizeArticle(article) {
     throw new Error("AI odgovor nije objekt članka.");
   }
 
-  // OpenRouter/free modeli ponekad ne ispoštuju sva metadata polja
-  // iz JSON sheme. Nadopunjujemo samo uredničku metadata-u iz već
-  // generiranog sadržaja; ne izmišljamo nove činjenice.
   if (!article.kicker || !String(article.kicker).trim()) {
     article.kicker = "PatriaSoul · " + (article.category || "Hrvatska");
   }
@@ -423,6 +465,10 @@ function validate(article) {
     }
   }
 
+  if (!Array.isArray(article.body)) {
+    throw new Error("AI odgovor nema valjani body niz.");
+  }
+
   if (article.author !== "PatriaSoul") {
     throw new Error("Autor nije PatriaSoul.");
   }
@@ -454,8 +500,6 @@ function validate(article) {
 (async () => {
   let article = normalizeArticle(await callOpenRouterSafe());
 
-  // Free modeli ponekad vrate metadata bez tijela članka unatoč JSON shemi.
-  // U tom slučaju ne izmišljamo sadržaj nego tražimo cijeli članak ponovno.
   if (!Array.isArray(article.body) || article.body.length === 0) {
     console.log("⚠ AI odgovor nema body — tražim puni članak ponovno...");
     article = normalizeArticle(await callOpenRouterSafe(
@@ -467,9 +511,19 @@ function validate(article) {
 
   if (countWords(article) < 1500) {
     const currentWords = countWords(article);
-    const expansionTarget = Math.max(1650, Math.ceil(currentWords + (1500 - currentWords) * 1.8));
+    const expansionTarget = Math.max(
+      1650,
+      Math.ceil(currentWords + (1500 - currentWords) * 1.8)
+    );
+
     article = normalizeArticle(await callOpenRouterSafe(
-      "VAŽNO: prethodni nacrt imao je samo " + currentWords + " riječi i bio je prekratak. Sada ga OBAVEZNO proširi na najmanje 1.500, a ciljaj oko " + expansionTarget + " riječi. Zadrži postojeći naslov, činjenice, izvore i glavnu strukturu. Dodaj nove tematske odlomke s provjerljivim kontekstom, uzroke i posljedice, povijesnu pozadinu, ključne osobe/događaje gdje je primjenjivo i zaključak. Ne ponavljaj iste misli i ne izmišljaj činjenice. Vrati cijeli prošireni članak prema JSON shemi."
+      "VAŽNO: prethodni nacrt imao je samo " + currentWords +
+      " riječi i bio je prekratak. Sada ga OBAVEZNO proširi na najmanje 1.500, a ciljaj oko " +
+      expansionTarget +
+      " riječi. Zadrži postojeći naslov, činjenice, izvore i glavnu strukturu. " +
+      "Dodaj nove tematske odlomke s provjerljivim kontekstom, uzroke i posljedice, " +
+      "povijesnu pozadinu, ključne osobe/događaje gdje je primjenjivo i zaključak. " +
+      "Ne ponavljaj iste misli i ne izmišljaj činjenice. Vrati cijeli prošireni članak prema JSON shemi."
     ));
   }
 
