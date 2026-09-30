@@ -208,23 +208,7 @@ async function callOpenRouter(extra = "") {
     );
   }
 
-  function repairJsonPlaceholders(value) {
-    return value
-      .replace(/("readingTime"\\s*:\\s*)number\\b/gi, "$11")
-      .replace(/("readingTime"\\s*:\\s*)integer\\b/gi, "$11")
-      .replace(/("readingTime"\\s*:\\s*)string\\b/gi, "$11")
-      .replace(/("readingTime"\\s*:\\s*)null\\b/gi, "$11")
-      .replace(/("place"\\s*:\\s*)null\\b/gi, "$1\\\"Hrvatska\\\"")
-      .replace(/("kicker"\\s*:\\s*)null\\b/gi, "$1\\\"PatriaSoul · Hrvatska\\\"")
-      .replace(/("deck"\\s*:\\s*)null\\b/gi, "$1\\\"\\\"")
-      .replace(/("date"\\s*:\\s*)null\\b/gi, "$1\\\""+today+"\\\"")
-      .replace(/("status"\\s*:\\s*)null\\b/gi, "$1\\\"ZA PROVJERU\\\"")
-      .replace(/("author"\\s*:\\s*)null\\b/gi, "$1\\\"PatriaSoul\\\"")
-      // Neki free modeli ubace pomoćno polje s placeholderom "..."
-      // koje nije valjani JSON. To polje ionako računamo sami.
-      .replace(/,?\\s*"brojRijeci"\\s*:\\s*\\.\\.\\.\\s*(?=,|})/gi, "")
-      .replace(/,?\\s*"wordCount"\\s*:\\s*\\.\\.\\.\\s*(?=,|})/gi, "")\n      // Ponekad model doda pomoćna polja poput "outline": [...],\n      // iako nisu dio naše sheme. Uklanjamo samo doslovne placeholder-e.\n      .replace(/,?\\s*"[^"]+"\\s*:\\s*\\[\\.\\.\\.\\]\\s*(?=,|})/g, "")\n      .replace(/,?\\s*"[^"]+"\\s*:\\s*\\.\\.\\.\\s*(?=,|})/g, "");
-  }
+  function repairJsonPlaceholders(value) {\n    return value\n      .replace(/("readingTime"\\s*:\\s*)number\\b/gi, "$11")\n      .replace(/("readingTime"\\s*:\\s*)integer\\b/gi, "$11")\n      .replace(/("readingTime"\\s*:\\s*)string\\b/gi, "$11")\n      .replace(/("readingTime"\\s*:\\s*)null\\b/gi, "$11")\n      .replace(/("place"\\s*:\\s*)null\\b/gi, "$1\\\"Hrvatska\\\"")\n      .replace(/("kicker"\\s*:\\s*)null\\b/gi, "$1\\\"PatriaSoul · Hrvatska\\\"")\n      .replace(/("deck"\\s*:\\s*)null\\b/gi, "$1\\\"\\\"")\n      .replace(/("date"\\s*:\\s*)null\\b/gi, "$1\\\""+today+"\\\"")\n      .replace(/("status"\\s*:\\s*)null\\b/gi, "$1\\\"ZA PROVJERU\\\"")\n      .replace(/("author"\\s*:\\s*)null\\b/gi, "$1\\\"PatriaSoul\\\"")\n      .replace(/,?\\s*"brojRijeci"\\s*:\\s*\\.\\.\\.\\s*(?=,|})/gi, "")\n      .replace(/,?\\s*"wordCount"\\s*:\\s*\\.\\.\\.\\s*(?=,|})/gi, "")\n      .replace(/,?\\s*"[^"]+"\\s*:\\s*\\[\\.\\.\\.\\]\\s*(?=,|})/g, "")\n      .replace(/,?\\s*"[^"]+"\\s*:\\s*\\.\\.\\.\\s*(?=,|})/g, "");\n  }
 
   let article;
   try {
