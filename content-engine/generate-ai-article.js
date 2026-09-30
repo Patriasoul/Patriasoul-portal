@@ -175,14 +175,29 @@ async function callOpenAI(extra = "") {
     );
   }
 
-  const raw = data.output_text ||
-    (Array.isArray(data.output)
-      ? data.output
-          .flatMap(item => Array.isArray(item.content) ? item.content : [])
-          .map(item => item.text || "")
-          .filter(Boolean)
-          .join("\n")
-      : "");
+  let raw = data.output_text || "";
+  if (!raw && Array.isArray(data.output)) {
+    raw = data.output
+      .flatMap(item => Array.isArray(item.content) ? item.content : [])
+      .map(item => item.text || item.output_text || "")
+      .filter(Boolean)
+      .join("\n");
+  }
+
+  raw = String(raw).trim();
+
+  // Neki OpenRouter modeli mogu vratiti JSON unutar markdown code fencea.
+  raw = raw
+    .replace(/^\`\`\`(?:json)?\s*/i, "")
+    .replace(/\s*\`\`\`$/i, "")
+    .trim();
+
+  // Ako model vrati uvodni tekst prije JSON-a, uzmi samo JSON objekt.
+  const firstBrace = raw.indexOf("{");
+  const lastBrace = raw.lastIndexOf("}");
+  if (firstBrace > 0 && lastBrace > firstBrace) {
+    raw = raw.slice(firstBrace, lastBrace + 1);
+  }
 
   if (!raw) {
     const detail =
