@@ -140,10 +140,21 @@ async function callOpenAI(extra = "") {
   }
 
   const data = JSON.parse(rawResponse);
-  const raw = data.output_text;
+
+  // OpenRouter Responses može vratiti tekst u output_text ili
+  // u output[].content[].text, ovisno o modelu/routeru.
+  const raw = data.output_text ||
+    (Array.isArray(data.output)
+      ? data.output
+          .flatMap(item => Array.isArray(item.content) ? item.content : [])
+          .map(item => item.text || "")
+          .filter(Boolean)
+          .join("\n")
+      : "");
 
   if (!raw) {
-    throw new Error("OpenAI nije vratio output_text.");
+    const detail = data.error?.message || data.incomplete_details?.reason || "prazan odgovor";
+    throw new Error("OpenRouter nije vratio tekstualni izlaz: " + detail);
   }
 
   let article;
@@ -151,7 +162,7 @@ async function callOpenAI(extra = "") {
     article = JSON.parse(raw);
   } catch (error) {
     throw new Error(
-      "OpenAI nije vratio valjani JSON: " + error.message
+      "OpenRouter nije vratio valjani JSON: " + error.message
     );
   }
 
