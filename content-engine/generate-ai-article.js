@@ -298,6 +298,36 @@ async function callOpenRouter(extra = "") {
   return article;
 }
 
+async function callOpenRouterSafe(extra = "") {
+  const jsonRepairInstruction =
+    "\n\nPRETHODNI ODGOVOR NIJE BIO VALJAN JSON. Sada vrati ISKLJUČIVO jedan valjani JSON objekt prema zadanoj shemi. " +
+    "Bez markdowna, bez komentara, bez teksta prije ili poslije JSON objekta. Sve JSON vrijednosti moraju biti pravilno navedene u dvostrukim navodnicima gdje je potrebno. " +
+    "Obavezno uključi potpuno polje body kao niz objekata.";
+
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      return await callOpenRouter(extra);
+    } catch (error) {
+      const message = String(error.message || error);
+      const malformedJson = /nije vratio valjani JSON članka/i.test(message);
+
+      if (!malformedJson || attempt === 3) {
+        throw error;
+      }
+
+      const waitMs = attempt * 3000;
+      console.log(
+        "⚠ OpenRouter je vratio neispravan JSON — ponovni pokušaj za " +
+        (waitMs / 1000) + " s..."
+      );
+      await new Promise(resolve => setTimeout(resolve, waitMs));
+      extra =
+        (extra ? extra + "\n\n" : "") +
+        jsonRepairInstruction;
+    }
+  }
+}
+
 function countWords(article) {
   const text = Array.isArray(article.body)
     ? article.body.map(x => x.text || "").join(" ")
@@ -422,13 +452,13 @@ function validate(article) {
 }
 
 (async () => {
-  let article = normalizeArticle(await callOpenRouter());
+  let article = normalizeArticle(await callOpenRouterSafe());
 
   // Free modeli ponekad vrate metadata bez tijela članka unatoč JSON shemi.
   // U tom slučaju ne izmišljamo sadržaj nego tražimo cijeli članak ponovno.
   if (!Array.isArray(article.body) || article.body.length === 0) {
     console.log("⚠ AI odgovor nema body — tražim puni članak ponovno...");
-    article = normalizeArticle(await callOpenRouter(
+    article = normalizeArticle(await callOpenRouterSafe(
       "PRETHODNI ODGOVOR JE BIO NEPOTPUN. Obavezno vrati cijelo polje body kao niz odlomaka. " +
       "Ne vraćaj samo metadata polja. Vrati kompletan članak od najmanje 1.500 riječi, " +
       "zajedno sa svim obaveznim poljima prema JSON shemi."
@@ -438,7 +468,7 @@ function validate(article) {
   if (countWords(article) < 1500) {
     const currentWords = countWords(article);
     const expansionTarget = Math.max(1650, Math.ceil(currentWords + (1500 - currentWords) * 1.8));
-    article = normalizeArticle(await callOpenRouter(
+    article = normalizeArticle(await callOpenRouterSafe(
       "VAŽNO: prethodni nacrt imao je samo " + currentWords + " riječi i bio je prekratak. Sada ga OBAVEZNO proširi na najmanje 1.500, a ciljaj oko " + expansionTarget + " riječi. Zadrži postojeći naslov, činjenice, izvore i glavnu strukturu. Dodaj nove tematske odlomke s provjerljivim kontekstom, uzroke i posljedice, povijesnu pozadinu, ključne osobe/događaje gdje je primjenjivo i zaključak. Ne ponavljaj iste misli i ne izmišljaj činjenice. Vrati cijeli prošireni članak prema JSON shemi."
     ));
   }
