@@ -149,11 +149,13 @@ async function callOpenAI(extra = "") {
       clearTimeout(timeout);
     }
 
-    if (response.status !== 429 || attempt === 4) break;
+    const retryable = [429, 502, 503, 504].includes(response.status);
+    if (!retryable || attempt === 4) break;
 
     const waitMs = attempt * 5000;
     console.log(
-      "OpenRouter 429 — ponovni pokušaj za " +
+      "OpenRouter " + response.status +
+      " — ponovni pokušaj za " +
       (waitMs / 1000) + " s..."
     );
     await new Promise(resolve => setTimeout(resolve, waitMs));
