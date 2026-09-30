@@ -10,6 +10,8 @@
     'cuvari-nasljeda.html': {title: 'Čuvari nasljeđa — PatriaSoul', description: 'Priče o ljudima i zajednicama koje čuvaju hrvatsku baštinu, sjećanje i nasljeđe.'},
     'o-nama.html': {title: 'O PatriaSoul — Čuvari nasljeđa', description: 'Saznajte što je PatriaSoul, kako radimo i zašto su provjera izvora i očuvanje nasljeđa važni.'},
     'pretraga.html': {title: 'Pretraga — PatriaSoul', description: 'Pretražite priče, povijest, baštinu i druge sadržaje portala PatriaSoul.'},
+    'rubrike.html': {title: 'Rubrike — PatriaSoul', description: 'Pregled objavljenih priča i rubrika PatriaSoula.'},
+    'cuvar-prijava.html': {title: 'Prijavi priču — Čuvari nasljeđa — PatriaSoul', description: 'Pošaljite PatriaSoulu prijedlog dokumentirane priče za format Čuvari nasljeđa.'},
     'kontakt.html': {title: 'Kontakt — PatriaSoul', description: 'Kontaktirajte PatriaSoul i pošaljite prijedlog priče, ispravak ili upit.'},
     'najnovije.html': {title: 'Najnovije — PatriaSoul', description: 'Najnovije objavljene priče PatriaSoula, uz aktualne vremenske podatke za hrvatske gradove.'},
     'povijest.html': {title: 'Povijest — PatriaSoul', description: 'Hrvatska povijest kroz provjerene priče, ljude, događaje i izvore.'},
@@ -103,7 +105,8 @@
       ['crkvena-bastina.html','Crkvena baština'],
       ['vjera-hrvatska-bastina.html','Vjera i hrvatska baština'],
       ['povijest.html','Povijest'],
-      ['dijaspora.html','Hrvatska dijaspora']
+      ['dijaspora.html','Hrvatska dijaspora'],
+      ['cuvar-prijava.html','Prijavi priču']
     ]},
     {href:'o-nama.html', label:'🇭🇷 O PatriaSoul', children:[
       ['o-nama.html','O PatriaSoul'],
