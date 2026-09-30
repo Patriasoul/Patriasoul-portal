@@ -110,7 +110,6 @@ async function callOpenAI(extra = "") {
         body: JSON.stringify({
           model: MODEL,
           store: false,
-          tools: [{ type: "web_search" }],
           instructions: systemPrompt,
           input: [
             {
