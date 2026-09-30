@@ -42,7 +42,6 @@
     'clanak-trpinjska-cesta.html': {title: 'Trpinjska cesta — PatriaSoul', description: 'Priča o Trpinjskoj cesti i ljudima koji su sudjelovali u obrani Vukovara tijekom Domovinskog rata.'},
     'clanak-vjera-obitelj.html': {title: 'Vjera koja se prenosi — PatriaSoul', description: 'Kako se vjera, običaji i sjećanja prenose kroz obiteljski život i svakodnevicu.'},
     'clanak-vlatko-gribl.html': {title: 'Vlatko Gribl i obiteljski zanat — PatriaSoul', description: 'Priča o Vlatku Griblu, obiteljskom zanatu i znanju koje se prenosilo generacijama.'},
-    'clanak.html': {title: 'Priča — PatriaSoul', description: 'PatriaSoul priča o Hrvatskoj kroz povijest, ljude, mjesta, baštinu i provjerene izvore.'}
   };
   const seo = seoPages[currentPage] || {title: document.title || 'PatriaSoul — Čuvari nasljeđa', description: 'PatriaSoul — hrvatske priče, povijest, znanje, baština i identitet.'};
   document.title = seo.title;
