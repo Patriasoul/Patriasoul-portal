@@ -36,7 +36,7 @@
     var featured={
       title:"Trpinjska cesta: ljudi iza jedne od najpoznatijih priča obrane Vukovara",
       deck:"U jesen 1991. godine Trpinjska cesta u Borovu Naselju postala je jedno od ključnih mjesta obrane Vukovara. Iza naziva koji je ostao zapisan u hrvatskom ratnom sjećanju stajali su konkretni ljudi, zapovjednici, policajci, vojnici i dragovoljci.",
-      meta:"Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 8 min čitanja",
+      meta:"Piše: PatriaSoul · 20. rujna 2026. · Vukovar · 8 min čitanja",
       url:"clanak-trpinjska-cesta.html",
       image:"https://commons.wikimedia.org/wiki/Special:FilePath/Croatian%20War%201991%20Vukovar%20street.jpg"
     };
