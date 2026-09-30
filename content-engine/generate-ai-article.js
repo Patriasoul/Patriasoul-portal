@@ -192,11 +192,44 @@ async function callOpenRouter(extra = "") {
     .replace(/\\s*\\`\\`\\`$/i, "")
     .trim();
 
-  const firstBrace = raw.indexOf("{");
-  const lastBrace = raw.lastIndexOf("}");
-  if (firstBrace > 0 && lastBrace > firstBrace) {
-    raw = raw.slice(firstBrace, lastBrace + 1);
+  function extractFirstJsonObject(value) {
+    const start = value.indexOf("{");
+    if (start < 0) return value;
+
+    let depth = 0;
+    let inString = false;
+    let escaped = false;
+
+    for (let i = start; i < value.length; i++) {
+      const ch = value[i];
+
+      if (inString) {
+        if (escaped) {
+          escaped = false;
+        } else if (ch === "\\") {
+          escaped = true;
+        } else if (ch === '"') {
+          inString = false;
+        }
+        continue;
+      }
+
+      if (ch === '"') {
+        inString = true;
+      } else if (ch === "{") {
+        depth++;
+      } else if (ch === "}") {
+        depth--;
+        if (depth === 0) {
+          return value.slice(start, i + 1);
+        }
+      }
+    }
+
+    return value.slice(start);
   }
+
+  raw = extractFirstJsonObject(raw).trim();
 
   if (!raw) {
     const detail =
