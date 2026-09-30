@@ -21,22 +21,22 @@ jobs:
           ref: content-engine-v1
           fetch-depth: 0
 
-      - name: Provjeri OpenAI ključ
+      - name: Provjeri OpenRouter ključ
         env:
-          OPEN_AI_API_KEY: ${{ secrets.OPEN_AI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
-          test -n "$OPEN_AI_API_KEY" || (echo "OPEN_AI_API_KEY nije postavljen u GitHub Secrets." && exit 1)
-          echo "✓ OPEN_AI_API_KEY pronađen"
+          test -n "$OPENROUTER_API_KEY" || (echo "OPENROUTER_API_KEY nije postavljen u GitHub Secrets." && exit 1)
+          echo "✓ OPENROUTER_API_KEY pronađen"
 
-      - name: Generiraj članak uz OpenAI
+      - name: Generiraj članak uz OpenRouter
         env:
-          OPEN_AI_API_KEY: ${{ secrets.OPEN_AI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           TOPIC: ${{ inputs.topic }}
-          OPENAI_MODEL: gpt-5.6-luna
+          OPENROUTER_MODEL: openrouter/free
           OUTPUT: content-engine/ai-article.json
         run: |
           node content-engine/generate-ai-article.js
-          echo "✓ OpenAI poziv i generiranje uspješni"
+          echo "✓ OpenRouter poziv i generiranje uspješni"
 
       - name: Dodaj članak u red za provjeru
         run: |
@@ -71,5 +71,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add content-engine/content-queue.json content-engine/generated content-engine/ai-article.json
           git diff --cached --quiet && exit 0
-          git commit -m "content-engine: OpenAI pripremio članak za uredničku provjeru"
+          git commit -m "content-engine: OpenRouter pripremio članak za uredničku provjeru"
           git push origin HEAD:content-engine-v1
