@@ -29,7 +29,7 @@
     {label:"DOMOVINA",icon:"🇭🇷",url:"domovina.html",story:"clanak-trpinjska-cesta.html",fallback:"clanak-blago-zadro.html"},
     {label:"ČUVARI NASLJEĐA",icon:"🛡️",url:"cuvari-nasljeda.html",story:"clanak-mihael-stosic.html",fallback:"clanak-vlatko-gribl.html"},
     {label:"DIJASPORA",icon:"🌍",url:"dijaspora.html",story:"clanak-australski-hrvati.html",fallback:"clanak-australski-hrvati.html"},
-    {label:"HRVATSKA STVARA",icon:"🔧",url:"hrvatska-stvara.html",story:"clanak-penkala.html",fallback:"clanak-ruder-boskovic.html"}
+    {label:"HRVATSKA STVARA",icon:"🔧",url:"hrvatska-stvara.html",story:"clanak-nikola-tesla-smiljan.html",fallback:"clanak-penkala.html"}
   ];
   var eg=document.getElementById("home-editorial-grid");
   if(eg)eg.innerHTML=sections.map(function(s){
