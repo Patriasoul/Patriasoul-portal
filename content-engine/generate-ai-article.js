@@ -93,58 +93,71 @@ const schema = {
 async function callOpenAI(extra = "") {
   let response;
   let rawResponse = "";
+
   for (let attempt = 1; attempt <= 4; attempt++) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 180000);
+
     try {
       response = await fetch("https://openrouter.ai/api/v1/responses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + API_KEY,
-        "HTTP-Referer": "https://patriasoul.github.io/Patriasoul-portal/",
-        "X-Title": "PatriaSoul Content Engine"
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        store: false,
-        tools: [{ type: "web_search" }],
-        instructions: systemPrompt,
-        input: [
-          {
-            role: "user",
-            content: [
-              {
-                type: "input_text",
-                text:
-                  "Napiši članak na temu: " + TOPIC +
-                  "\n\n" + extra +
-                  "\n\nVrati samo podatke prema zadanoj JSON shemi."
-              }
-            ]
-          }
-        ],
-        text: {
-          format: {
-            type: "json_schema",
-            name: "patriasoul_article",
-            strict: true,
-            schema
-          }
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + API_KEY,
+          "HTTP-Referer": "https://patriasoul.github.io/Patriasoul-portal/",
+          "X-Title": "PatriaSoul Content Engine"
         },
-        max_output_tokens: 8000
-      })
-    });
+        body: JSON.stringify({
+          model: MODEL,
+          store: false,
+          tools: [{ type: "web_search" }],
+          instructions: systemPrompt,
+          input: [
+            {
+              role: "user",
+              content: [
+                {
+                  type: "input_text",
+                  text:
+                    "Napiši članak na temu: " + TOPIC +
+                    "\n\n" + extra +
+                    "\n\nVrati samo podatke prema zadanoj JSON shemi."
+                }
+              ]
+            }
+          ],
+          text: {
+            format: {
+              type: "json_schema",
+              name: "patriasoul_article",
+              strict: true,
+              schema
+            }
+          },
+          max_output_tokens: 6500
+        }),
+        signal: controller.signal
+      });
 
-    rawResponse = await response.text();
+      rawResponse = await response.text();
+    } catch (error) {
+      if (error.name === "AbortError") {
+        throw new Error("OpenRouter zahtjev je istekao nakon 180 sekundi.");
+      }
+      throw error;
+    } finally {
+      clearTimeout(timeout);
+    }
+
     if (response.status !== 429 || attempt === 4) break;
 
     const waitMs = attempt * 5000;
-    console.log("OpenRouter 429 — ponovni pokušaj za " + (waitMs / 1000) + " s...");
+    console.log(
+      "OpenRouter 429 — ponovni pokušaj za " +
+      (waitMs / 1000) + " s..."
+    );
     await new Promise(resolve => setTimeout(resolve, waitMs));
   }
-
-  const rawResponse = await response.text();
 
   if (!response.ok) {
     throw new Error(
@@ -153,10 +166,15 @@ async function callOpenAI(extra = "") {
     );
   }
 
-  const data = JSON.parse(rawResponse);
+  let data;
+  try {
+    data = JSON.parse(rawResponse);
+  } catch (error) {
+    throw new Error(
+      "OpenRouter nije vratio valjani JSON odgovora: " + error.message
+    );
+  }
 
-  // OpenRouter Responses može vratiti tekst u output_text ili
-  // u output[].content[].text, ovisno o modelu/routeru.
   const raw = data.output_text ||
     (Array.isArray(data.output)
       ? data.output
@@ -167,8 +185,13 @@ async function callOpenAI(extra = "") {
       : "");
 
   if (!raw) {
-    const detail = data.error?.message || data.incomplete_details?.reason || "prazan odgovor";
-    throw new Error("OpenRouter nije vratio tekstualni izlaz: " + detail);
+    const detail =
+      data.error?.message ||
+      data.incomplete_details?.reason ||
+      "prazan odgovor";
+    throw new Error(
+      "OpenRouter nije vratio tekstualni izlaz: " + detail
+    );
   }
 
   let article;
@@ -176,7 +199,7 @@ async function callOpenAI(extra = "") {
     article = JSON.parse(raw);
   } catch (error) {
     throw new Error(
-      "OpenRouter nije vratio valjani JSON: " + error.message
+      "OpenRouter nije vratio valjani JSON članka: " + error.message
     );
   }
 
