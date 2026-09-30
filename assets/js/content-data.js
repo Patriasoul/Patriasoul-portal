@@ -4,21 +4,21 @@ window.PatriaSoulContent = {
       title: "Trpinjska cesta: ljudi iza jedne od najpoznatijih priča obrane Vukovara",
       kicker: "BRANITELJSKE PRIČE",
       deck: "U jesen 1991. godine Trpinjska cesta u Borovu Naselju postala je jedno od ključnih mjesta obrane Vukovara. Iza naziva koji je ostao zapisan u hrvatskom ratnom sjećanju stajali su konkretni ljudi, male skupine, zapovjednici, policajci, vojnici i dragovoljci.",
-      date: "2026-09-20", meta: "Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 8 min čitanja", url: "clanak-trpinjska-cesta.html",
+      date: "2026-09-20", meta: "Piše: PatriaSoul · 20. rujna 2026. · Vukovar · 8 min čitanja", url: "clanak-trpinjska-cesta.html",
       category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Braniteljske priče", tags:["Vukovar","Trpinjska cesta","Domovinski rat","branitelji","Vukovarska bitka","1991."], place:"Vukovar", period:"1991.", type:"Braniteljska priča",
       image:"https://commons.wikimedia.org/wiki/Special:FilePath/Croatian%20War%201991%20Vukovar%20street.jpg", imageAlt:"Vukovar, studeni 1991., ratna fotografija iz vremena Vukovarske bitke.", imageCaption:"Vukovar, 1991. Ilustrativna ratna fotografija / Wikimedia Commons, Peter Denton, CC BY-SA 2.0."
     },
     blagoZadro: {
       title:"Spomenik Blagi Zadri u Vukovaru: čovjek i zapovjednik iza imena koje je ostalo vezano uz Trpinjsku cestu", kicker:"LJUDI DOMOVINSKOG RATA",
       deck:"Rođen u Donjim Mamićima 1944., Spomenik Blagi Zadri u Vukovaru s obitelji je kao dijete doselio u Borovo Naselje. U jesen 1991. postao je zapovjednik obrane toga dijela Vukovara, a poginuo je 16. listopada na prvoj crti obrane.",
-      date:"2026-09-20", meta:"Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 9 min čitanja", url:"clanak-blago-zadro.html",
+      date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Vukovar · 9 min čitanja", url:"clanak-blago-zadro.html",
       category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Ljudi Domovinskog rata", tags:["Spomenik Blagi Zadri u Vukovaru","Vukovar","Borovo Naselje","Trpinjska cesta","Domovinski rat","1991."], place:"Vukovar", period:"1944.–1991.", type:"Povijesna priča",
       image:"https://commons.wikimedia.org/wiki/Special:FilePath/Blago%20Zadro%20Memorial%2C%20Vukovar%2C%20Croatia.JPG", imageAlt:"Spomenik Blagi Zadri u Vukovaru", imageCaption:"Spomenik Blagi Zadri u Vukovaru. Foto: Modzzak / Wikimedia Commons, javna domena."
     },
     markoBabic: {
       title:"Marko Babić: Trpinjska cesta, protuoklopna borba i život poslije Vukovara", kicker:"LJUDI DOMOVINSKOG RATA",
       deck:"Na Trpinjskoj cesti 1991. godine Marko Babić postao je jedno od prepoznatljivih imena obrane Borova Naselja. Bio je zamjenik Blage Zadre, sudjelovao u organiziranju protuoklopne obrane, a nakon Zadrine pogibije preuzeo je zapovijedanje 3. bojnom.",
-      date:"2026-09-20", meta:"Piše: Čuvari nasljeđa · 20. rujna 2026. · Vukovar · 9 min čitanja", url:"clanak-marko-babic.html",
+      date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Vukovar · 9 min čitanja", url:"clanak-marko-babic.html",
       category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Ljudi Domovinskog rata", tags:["Marko Babić","Vukovar","Trpinjska cesta","Domovinski rat","1991."], place:"Vukovar", period:"1965.–2007.", type:"Povijesna priča",
       image:"https://commons.wikimedia.org/wiki/Special:FilePath/Marko%20Babic%20%28Vukovar%29.JPG", imageAlt:"Marko Babić, fotografija na nadgrobnoj ploči u Vukovaru", imageCaption:"Marko Babić, fotografija na nadgrobnoj ploči u Vukovaru. Foto: Ex13 / Wikimedia Commons, CC BY-SA 3.0."
     },
