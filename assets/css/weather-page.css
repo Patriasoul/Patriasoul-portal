@@ -1,0 +1,51 @@
+/* PatriaSoul — Vrijeme Hrvatske */
+.weather-page{padding:42px 0 72px}
+.weather-hero{display:grid;grid-template-columns:1.4fr .6fr;gap:24px;align-items:stretch;margin-bottom:28px}
+.weather-hero-copy,.weather-source-card,.weather-panel,.weather-city-card,.weather-info-card{background:#fff;border:1px solid rgba(0,0,0,.09);box-shadow:0 12px 30px rgba(0,0,0,.06)}
+.weather-hero-copy{padding:34px}
+.weather-hero-copy h1{font-size:clamp(2rem,4vw,4rem);line-height:1.02;margin:8px 0 16px}
+.weather-hero-copy p{max-width:760px;font-size:1.05rem;line-height:1.7;color:#4a4a4a}
+.weather-eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.14em;color:#b5121b}
+.weather-source-card{padding:26px;display:flex;flex-direction:column;justify-content:center}
+.weather-source-card strong{font-size:1.05rem}
+.weather-source-card p{font-size:.92rem;line-height:1.55;color:#555}
+.weather-source-card a,.weather-page a{color:#123b72}
+.weather-status{display:flex;justify-content:space-between;gap:16px;align-items:center;margin:0 0 18px;padding:12px 16px;background:#f5f6f8;border-left:4px solid #123b72;font-size:.9rem}
+.weather-actions{display:flex;gap:10px;flex-wrap:wrap}
+.weather-button{display:inline-flex;align-items:center;justify-content:center;padding:11px 16px;border:0;background:#123b72;color:#fff!important;text-decoration:none;font-weight:800;cursor:pointer;box-shadow:4px 4px 0 #b5121b}
+.weather-button:hover{background:#b5121b}
+.weather-button.secondary{background:#eee;color:#17202a!important;box-shadow:none}
+.weather-section{margin-top:34px}
+.weather-section-heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:16px}
+.weather-section-heading h2{margin:3px 0;font-size:1.7rem}
+.weather-section-heading p{margin:0;color:#666}
+.weather-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.weather-city-card{padding:20px}
+.weather-city-head{display:flex;justify-content:space-between;gap:10px;align-items:start;border-bottom:1px solid #eee;padding-bottom:14px;margin-bottom:14px}
+.weather-city-head h3{margin:0;font-size:1.2rem}
+.weather-city-head small{display:block;color:#777;margin-top:4px}
+.weather-temp{font-size:2rem;font-weight:900;line-height:1}
+.weather-desc{margin:8px 0 16px;color:#555;min-height:20px}
+.weather-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.weather-metric{background:#f6f7f8;padding:10px}
+.weather-metric span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:#777}
+.weather-metric b{display:block;margin-top:3px}
+.weather-updated{font-size:.75rem;color:#777;margin-top:14px}
+.forecast-table-wrap{overflow:auto;background:#fff;border:1px solid rgba(0,0,0,.09);box-shadow:0 12px 30px rgba(0,0,0,.05)}
+.forecast-table{width:100%;border-collapse:collapse;min-width:760px}
+.forecast-table th,.forecast-table td{padding:13px 14px;text-align:left;border-bottom:1px solid #eee}
+.forecast-table th{font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;background:#f4f5f7}
+.forecast-table tr:last-child td{border-bottom:0}
+.weather-panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.weather-panel{padding:22px}
+.weather-panel h3{margin-top:0}
+.weather-panel p,.weather-panel li{color:#555;line-height:1.6}
+.weather-panel ul{padding-left:20px;margin-bottom:0}
+.weather-note{margin-top:24px;padding:18px 20px;background:#f7f7f7;border-left:4px solid #b5121b;font-size:.9rem;line-height:1.6}
+.weather-map-links{display:flex;flex-wrap:wrap;gap:10px}
+.weather-map-links a{padding:9px 12px;background:#f0f2f5;text-decoration:none;font-weight:700}
+.weather-map-links a:hover{background:#123b72;color:#fff}
+.weather-loading{color:#777;padding:24px 0}
+@media(max-width:900px){.weather-hero,.weather-grid,.weather-panels{grid-template-columns:1fr 1fr}.weather-hero{grid-template-columns:1fr}.weather-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.weather-page{padding-top:26px}.weather-hero-copy{padding:24px}.weather-grid,.weather-panels{grid-template-columns:1fr}.weather-section-heading{display:block}.weather-status{display:block}.weather-status span{display:block;margin-top:5px}.weather-city-card{padding:17px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
