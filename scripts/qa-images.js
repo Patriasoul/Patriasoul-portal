@@ -10,8 +10,12 @@ const imageRe = /<img\b[^>]*?\bsrc\s*=\s*["']([^"']+)["']/i;
 const registryImageRe = /image\s*:\s*["']([^"']+)["']/g;
 
 const heroes = [];
+const allImages = [];
 for (const file of files) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
+  for (const match of html.matchAll(/<img\\b[^>]*?\\bsrc\\s*=\\s*["']([^"']+)["']/gi)) {
+    allImages.push({ file, src: match[1] });
+  }
   const match = html.match(imageRe);
   if (match) heroes.push({ file, src: match[1] });
 }
@@ -43,6 +47,32 @@ console.log("Article hero images:", heroes.length);
 console.log("Registry image fields:", registryImages.length);
 console.log("Duplicate registry images:", duplicateRegistry.length);
 console.log("Duplicate article hero images:", duplicateHeroes.length);
+console.log("All HTML image references:", allImages.length);
+
+const uniqueRemote = [...new Set([
+  ...allImages.map(x => x.src),
+  ...registryImages
+].filter(src => /^https?:\\/\\//i.test(src)))];
+
+async function checkRemoteImages() {
+  const broken = [];
+  for (const src of uniqueRemote) {
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 12000);
+      const response = await fetch(src, { method: "GET", redirect: "follow", signal: controller.signal });
+      clearTimeout(timer);
+      if (!response.ok) broken.push({ src, status: response.status });
+      else await response.body?.cancel();
+    } catch (error) {
+      broken.push({ src, status: error.name === "AbortError" ? "TIMEOUT" : error.message });
+    }
+  }
+  return broken;
+}
+
+console.log("Remote image URLs to check:", uniqueRemote.length);
+
 console.log("Articles without a hero image:", missingHero.length);
 
 if (duplicateRegistry.length) {
@@ -61,4 +91,8 @@ if (missingHero.length) {
   for (const file of missingHero) console.log(" -", file);
 }
 
-if (duplicateRegistry.length || duplicateHeroes.length) process.exit(1);
+checkRemoteImages().then(brokenRemote => {
+  console.log("Broken/unreachable remote images:", brokenRemote.length);
+  for (const item of brokenRemote) console.log(" -", item.status, item.src);
+  if (duplicateRegistry.length || duplicateHeroes.length || brokenRemote.length) process.exit(1);
+});
