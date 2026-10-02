@@ -168,4 +168,32 @@ window.PatriaSoulContent = {
     "hrvati-u-kanadi": { title:"Hrvati u Kanadi: zajednice koje su gradile novi život daleko od domovine", kicker:"Dijaspora · Hrvatske zajednice", deck:"Hrvatski iseljenici u Kanadi kroz obitelji, župe, klubove i udruge čuvaju različite oblike kulturnog identiteta.", date:"2026-10-02", meta:"Piše: PatriaSoul · 2. listopada 2026. · Kanada · ZA PROVJERU", url:"clanak-hrvati-u-kanadi.html", category:"Dijaspora", subcategory:"Hrvatske zajednice", rubric:"Hrvati u Kanadi", tags:["Dijaspora","Hrvatske zajednice","Hrvati u Kanadi","Kanada","20. i 21. stoljeće"], place:"Kanada", period:"20. i 21. stoljeće", type:"Radna priča", status:"ZA PROVJERU", sources:2 },
     "vukovar-memorija": { title:"Vukovar i kultura sjećanja: kako grad postaje mjesto pamćenja", kicker:"Domovina · Branitelji i Domovinski rat", deck:"Vukovar je jedno od središnjih mjesta hrvatskog sjećanja na Domovinski rat.", date:"2026-10-02", meta:"Piše: PatriaSoul · 2. listopada 2026. · Vukovar · ZA PROVJERU", url:"clanak-vukovar-memorija.html", category:"Domovina", subcategory:"Branitelji i Domovinski rat", rubric:"Vukovar", tags:["Domovina","Branitelji i Domovinski rat","Vukovar","Vukovar","1991.–danas"], place:"Vukovar", period:"1991.–danas", type:"Radna priča", status:"ZA PROVJERU", sources:2 },
     "dubrovnik-republika": { title:"Dubrovačka Republika: trgovina, diplomacija i život malog mediteranskog grada", kicker:"Povijest · Gradovi i države", deck:"Dubrovačka Republika razvila je složen politički i trgovački sustav na prostoru istočnog Jadrana.", date:"2026-10-02", meta:"Piše: PatriaSoul · 2. listopada 2026. · Dubrovnik · ZA PROVJERU", url:"clanak-dubrovnik-republika.html", category:"Povijest", subcategory:"Gradovi i države", rubric:"Dubrovačka Republika", tags:["Povijest","Gradovi i države","Dubrovačka Republika","Dubrovnik","1358.–1808."], place:"Dubrovnik", period:"1358.–1808.", type:"Radna priča", status:"ZA PROVJERU", sources:2 }
+    "hrvatsko-gospodarstvo-rujan-2026": {
+      title:"Hrvatsko gospodarstvo u rujnu: što govore novi pokazatelji",
+      kicker:"DOMOVINA · GOSPODARSTVO",
+      deck:"Raspoloženje u hrvatskom gospodarstvu u rujnu 2026. osjetno je poboljšano, uz različita kretanja među sektorima.",
+      date:"2026-09-30", meta:"Piše: PatriaSoul · 30. rujna 2026. · Hrvatska · 6 min čitanja",
+      url:"clanak-hrvatsko-gospodarstvo-rujan-2026.html", category:"Domovina", subcategory:"Gospodarstvo", rubric:"Hrvatska danas", tags:["gospodarstvo","Hrvatska danas","Europska komisija","industrija","usluge"], place:"Hrvatska", period:"2026.", type:"Aktualna priča", status:"OBJAVLJENO", sources:1
+    },
+    "hrvatska-place-zaposlenost-2026": {
+      title:"Plaće i zaposlenost u Hrvatskoj: što pokazuju novi podaci",
+      kicker:"DOMOVINA · HRVATSKA DANAS",
+      deck:"Novi podaci DZS-a donose sliku hrvatskog tržišta rada u ljeto 2026.",
+      date:"2026-09-30", meta:"Piše: PatriaSoul · 30. rujna 2026. · Hrvatska · 6 min čitanja",
+      url:"clanak-hrvatska-place-zaposlenost-2026.html", category:"Domovina", subcategory:"Gospodarstvo i tržište rada", rubric:"Hrvatska danas", tags:["plaće","zaposlenost","nezaposlenost","DZS","Hrvatska danas"], place:"Hrvatska", period:"2026.", type:"Aktualna priča", status:"OBJAVLJENO", sources:1
+    },
+    "hrvatski-turizam-2026": {
+      title:"Hrvatski turizam 2026.: više od 90 milijuna noćenja do kraja kolovoza",
+      kicker:"DOMOVINA · HRVATSKA DANAS",
+      deck:"Prema sustavu eVisitor, Hrvatska je od početka godine do kraja kolovoza 2026. ostvarila 17,5 milijuna dolazaka i 90,5 milijuna noćenja.",
+      date:"2026-09-30", meta:"Piše: PatriaSoul · 30. rujna 2026. · Hrvatska · 8 min čitanja",
+      url:"clanak-hrvatski-turizam-2026-rekordna-godina.html", category:"Domovina", subcategory:"Turizam", rubric:"Hrvatska danas", tags:["turizam","eVisitor","noćenja","dolasci","Hrvatska danas"], place:"Hrvatska", period:"2026.", type:"Aktualna priča", status:"OBJAVLJENO", sources:1
+    },
+    "kiberneticka-sigurnost-hrvatske-tvrtke-2026": {
+      title:"Kibernetička sigurnost više nije samo IT tema: 133 hrvatska projekta dobila potporu",
+      kicker:"HRVATSKA STVARA · TEHNOLOGIJA",
+      deck:"CARNET je 2026. dodijelio oko 2,9 milijuna eura za 133 projekta kojima mikro, mala i srednja poduzeća jačaju kibernetičku sigurnost.",
+      date:"2026-09-30", meta:"Piše: PatriaSoul · 30. rujna 2026. · Hrvatska · 8 min čitanja",
+      url:"clanak-kiberneticka-sigurnost-hrvatske-tvrtke-2026.html", category:"Hrvatska stvara", subcategory:"Tehnologija i digitalna sigurnost", rubric:"Hrvatska danas", tags:["kibernetička sigurnost","CARNET","poduzetništvo","digitalizacija","Hrvatska danas"], place:"Hrvatska", period:"2026.", type:"Aktualna priča", status:"OBJAVLJENO", sources:1
+    },
 };
