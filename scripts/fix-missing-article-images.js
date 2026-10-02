@@ -85,7 +85,7 @@ for (const [key, article] of Object.entries(articles)) {
     }
   }
 
-  const candidates = [key + ": {", '"' + key + '": {', "'" + key + "': {"];
+  const candidates = [key + ":{", key + ": {", '"' + key + '": {', "'" + key + "': {"];
   let pos = -1, marker = "";
   for (const candidate of candidates) {
     const p = dataSource.indexOf(candidate);
