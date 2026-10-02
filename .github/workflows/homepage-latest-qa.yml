@@ -1,0 +1,17 @@
+name: PatriaSoul homepage and latest QA
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Pokreni QA naslovnice i Najnovije
+        run: node scripts/qa-homepage-latest.js
