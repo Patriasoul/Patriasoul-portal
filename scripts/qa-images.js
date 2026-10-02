@@ -11,9 +11,10 @@ const registryImageRe = /image\s*:\s*["']([^"']+)["']/g;
 
 const heroes = [];
 const allImages = [];
+
 for (const file of files) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
-  for (const match of html.matchAll(/<img\b[^>]*?\bsrc\\s*=\\s*["']([^"']+)["']/gi)) {
+  for (const match of html.matchAll(/<img\b[^>]*?\bsrc\s*=\s*["']([^"']+)["']/gi)) {
     allImages.push({ file, src: match[1] });
   }
   const match = html.match(imageRe);
@@ -21,6 +22,7 @@ for (const file of files) {
 }
 
 const registryImages = [...registry.matchAll(registryImageRe)].map(m => m[1]);
+
 const registryCounts = new Map();
 for (const src of registryImages) registryCounts.set(src, (registryCounts.get(src) || 0) + 1);
 
@@ -41,14 +43,6 @@ const duplicateHeroes = [...heroCounts.entries()]
 
 const missingHero = files.filter(file => !heroes.some(x => x.file === file));
 
-console.log("PatriaSoul Image QA");
-console.log("Article pages:", files.length);
-console.log("Article hero images:", heroes.length);
-console.log("Registry image fields:", registryImages.length);
-console.log("Duplicate registry images:", duplicateRegistry.length);
-console.log("Duplicate article hero images:", duplicateHeroes.length);
-console.log("All HTML image references:", allImages.length);
-
 const uniqueRemote = [...new Set([
   ...allImages.map(x => x.src),
   ...registryImages
@@ -56,29 +50,43 @@ const uniqueRemote = [...new Set([
 
 async function checkRemoteImages() {
   const broken = [];
+  const rateLimited = [];
   for (const src of uniqueRemote) {
     try {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 12000);
-      const response = await fetch(src, { method: "GET", redirect: "follow", signal: controller.signal });
+      const response = await fetch(src, {
+        method: "GET",
+        redirect: "follow",
+        signal: controller.signal,
+        headers: { "User-Agent": "PatriaSoul-Image-QA/1.0" }
+      });
       clearTimeout(timer);
-      if (!response.ok) broken.push({ src, status: response.status });
-      else await response.body?.cancel();
+      if (response.status === 429) rateLimited.push(src);
+      else if (!response.ok) broken.push({ src, status: response.status });
+      else if (response.body) await response.body.cancel();
     } catch (error) {
       broken.push({ src, status: error.name === "AbortError" ? "TIMEOUT" : error.message });
     }
   }
-  return broken;
+  return { broken, rateLimited };
 }
 
-console.log("Remote image URLs to check:", uniqueRemote.length);
-
+console.log("PatriaSoul Image QA");
+console.log("Article pages:", files.length);
+console.log("Article hero images:", heroes.length);
+console.log("Registry image fields:", registryImages.length);
+console.log("All HTML image references:", allImages.length);
+console.log("Remote image URLs checked:", uniqueRemote.length);
+console.log("Duplicate registry images:", duplicateRegistry.length);
+console.log("Duplicate article hero images:", duplicateHeroes.length);
 console.log("Articles without a hero image:", missingHero.length);
 
 if (duplicateRegistry.length) {
   console.log("\nDuplicate registry images:");
   for (const item of duplicateRegistry) console.log(" -", item.count + "x", item.src);
 }
+
 if (duplicateHeroes.length) {
   console.log("\nDuplicate article hero images:");
   for (const item of duplicateHeroes) {
@@ -86,13 +94,11 @@ if (duplicateHeroes.length) {
     for (const file of item.files) console.log("    ", file);
   }
 }
-if (missingHero.length) {
-  console.log("\nArticles without hero image:");
-  for (const file of missingHero) console.log(" -", file);
-}
 
-checkRemoteImages().then(brokenRemote => {
-  console.log("Broken/unreachable remote images:", brokenRemote.length);
-  for (const item of brokenRemote) console.log(" -", item.status, item.src);
-  if (duplicateRegistry.length || duplicateHeroes.length || brokenRemote.length) process.exit(1);
+checkRemoteImages().then(({ broken, rateLimited }) => {
+  console.log("Broken/unreachable remote images:", broken.length);
+  console.log("Rate-limited remote images:", rateLimited.length);
+  for (const item of broken) console.log(" -", item.status, item.src);
+  if (rateLimited.length) console.log("Remote host rate-limited QA requests (not treated as broken).");
+  if (duplicateRegistry.length || duplicateHeroes.length || broken.length) process.exit(1);
 });
