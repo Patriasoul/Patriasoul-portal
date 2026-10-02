@@ -17,7 +17,7 @@ function makeSvg(title, category, index) {
   const hue = index % 2 ? "#0b2d59" : "#071f3d";
   const accent = index % 3 === 0 ? "#c8102e" : "#e7edf5";
   const stripe = index % 4;
-  return \`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
 <title id="t">\${safeTitle}</title>
 <desc id="d">PatriaSoul urednička ilustracija za temu: \${safeTitle}</desc>
 <rect width="1600" height="900" fill="\${hue}"/>
@@ -34,7 +34,7 @@ function makeSvg(title, category, index) {
 <foreignObject x="90" y="700" width="1420" height="150">
 <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Arial,Helvetica,sans-serif;color:#fff;font-size:44px;font-weight:800;line-height:1.08;">\${safeTitle}</div>
 </foreignObject>
-</svg>\`;
+</svg>`;
 }
 function parseData(src) {
   const expression = src.replace(/^\\s*window\\.PatriaSoulContent\\s*=\\s*/, "return ");
@@ -74,7 +74,7 @@ for (const [key, article] of Object.entries(articles)) {
   article.imageAlt = article.title;
   article.imageCaption = "PatriaSoul urednička ilustracija izrađena za ovu priču. Ilustracija nije povijesna fotografija niti dokumentarni dokaz.";
   if (!/<img\\b/i.test(html)) {
-    const figure = \`<figure class="article-figure"><img class="article-hero" src="\${rel}" alt="\${escHtml(article.title)}" loading="eager" decoding="async"><figcaption>\${escHtml(article.imageCaption)}</figcaption></figure>\`;
+    const figure = `<figure class="article-figure"><img class="article-hero" src="\${rel}" alt="\${escHtml(article.title)}" loading="eager" decoding="async"><figcaption>\${escHtml(article.imageCaption)}</figcaption></figure>`;
     if (/<div class="article-meta"[^>]*>[\\s\\S]*?<\\/div>/i.test(html)) {
       html = html.replace(/(<div class="article-meta"[^>]*>[\\s\\S]*?<\\/div>)/i, "$1" + figure);
     } else {
