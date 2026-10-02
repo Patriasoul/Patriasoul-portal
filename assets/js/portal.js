@@ -106,6 +106,7 @@
       ['dijaspora.html','Dijaspora'],
       ['hrvatska-stvara.html','Hrvatska stvara']
     ]},
+    {href:'vrijeme.html', label:'🌤️ Vrijeme'},
     {href:'cuvari-nasljeda.html', label:'🛡️ Čuvari nasljeđa', children:[
       ['cuvari-nasljeda.html','Pregled nasljeđa'],
       ['crkvena-bastina.html','Crkvena baština'],
