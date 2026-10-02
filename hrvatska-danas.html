@@ -62,7 +62,8 @@
     list.innerHTML=rows.map(function(a){
       var img=a.image||"";
       var alt=(a.imageAlt||a.title).replace(/"/g,"&quot;");
-      return '<article class="news-row"><a class="thumb thumb-link" href="'+a.url+'"><img src="'+img+'" alt="'+alt+'" loading="lazy" width="800" height="530"></a><div><span class="section-label">'+(a.rubric||"PRIČA")+' · '+(a.category||"")+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p><small>'+a.meta+'</small></div></article>';
+      var thumb=img?'<a class="thumb thumb-link" href="'+a.url+'"><img src="'+img+'" alt="'+alt+'" loading="lazy" width="800" height="530"></a>':'';
+      return '<article class="news-row">'+thumb+'<div><span class="section-label">'+(a.rubric||"PRIČA")+' · '+(a.category||"")+'</span><h3><a href="'+a.url+'">'+a.title+'</a></h3><p>'+a.deck+'</p><small>'+a.meta+'</small></div></article>';
     }).join("")||"<p>Nema objavljenih priča.</p>";
   }
 
