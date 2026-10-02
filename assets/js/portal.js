@@ -118,8 +118,7 @@
       ['o-nama.html','O PatriaSoul'],
       ['urednicki-standard.html','Urednički standard'],
       ['pravne-informacije.html','Pravne informacije'],
-      ['privatnost.html','Privatnost'],
-      ['kontakt.html','Kontakt']
+      ['privatnost.html','Privatnost']
     ]},
     {href:'kontakt.html', label:'✉️ Kontakt'},
     {href:'https://patriasoul.github.io/kviz/', label:'🎮 Kviz PatriaSoul'},
