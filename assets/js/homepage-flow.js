@@ -30,8 +30,7 @@
   }
 
   function matches(a,name){
-    var h=[a.category,a.subcategory,a.rubric,(a.tags||[]).join(" ")].join(" ").toLowerCase();
-    return h.indexOf(name.toLowerCase())!==-1;
+    return String(a.category||"").trim().toLowerCase()===String(name||"").trim().toLowerCase();
   }
 
   function card(a){
