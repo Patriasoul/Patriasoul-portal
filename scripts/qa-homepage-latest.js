@@ -45,9 +45,9 @@ const requiredIndex = [
   'assets/js/portal.js?v=9'
 ];
 const requiredLatest = [
-  'assets/js/content-data.js?v=11',
+  'assets/js/content-data.js?v=12',
   'assets/js/article-system.js?v=2',
-  'assets/js/portal.js?v=8'
+  'assets/js/portal.js?v=9'
 ];
 
 const indexScripts = scriptsFrom(index);
