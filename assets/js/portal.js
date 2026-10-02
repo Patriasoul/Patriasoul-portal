@@ -1,4 +1,10 @@
 (() => {
+
+  // PatriaSoul UI: one shared visual signature for all page actions.
+  if (!document.querySelector('link[data-patriasoul-ui]')) {
+    const uiCss=document.createElement('link'); uiCss.rel='stylesheet'; uiCss.href='assets/css/patriasoul-ui.css?v=1'; uiCss.dataset.patriasoulUi='true'; document.head.appendChild(uiCss);
+  }
+
   const currentPage = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const seoPages = {
     'index.html': {title: 'PatriaSoul — Hrvatska, povijest, znanje i identitet', description: 'PatriaSoul donosi hrvatske priče, povijest, baštinu, vjeru, obitelj, domovinu i provjerene izvore.'},
