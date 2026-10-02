@@ -23,7 +23,7 @@
 
   var sections=[
     {label:"VJERA",icon:"✝️",url:"vjera.html",story:"clanak-vjera-obitelj.html",fallback:"clanak-vjera-obitelj.html"},
-    {label:"OBITELJ",icon:"❤️",url:"obitelj.html",story:"clanak-vjera-obitelj.html",fallback:"clanak-vjera-obitelj.html"},
+    {label:"OBITELJ",icon:"❤️",url:"obitelj.html",story:"clanak-obiteljski-album.html",fallback:"clanak-obitelj-blagdani.html"},
     {label:"POVIJEST",icon:"📚",url:"povijest.html",story:"clanak-krbavska-bitka.html",fallback:"clanak-ruder-boskovic.html"},
     {label:"BRANITELJI",icon:"🪖",url:"branitelji-hrvatska.html",story:"clanak-blago-zadro.html",fallback:"clanak-marko-babic.html"},
     {label:"DOMOVINA",icon:"🇭🇷",url:"domovina.html",story:"clanak-trpinjska-cesta.html",fallback:"clanak-blago-zadro.html"},
