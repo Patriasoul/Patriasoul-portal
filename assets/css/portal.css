@@ -814,7 +814,7 @@ button:not(.menu-toggle):not(.submenu-toggle):not(.ps-slider-btn):hover,input[ty
 .ps-home-slider{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--red) transparent;padding:4px 3px 14px;-webkit-overflow-scrolling:touch}
 .ps-home-slider::-webkit-scrollbar{height:5px}.ps-home-slider::-webkit-scrollbar-track{background:transparent}.ps-home-slider::-webkit-scrollbar-thumb{background:var(--red)}
 .ps-home-slider-track{display:flex;gap:16px;width:max-content}
-.ps-home-slider .ps-home-card{flex:0 0 calc((var(--max) - 48px)/4);width:calc((var(--max) - 48px)/4);scroll-snap-align:start}
+.ps-home-slider .ps-home-card{flex:0 0 280px;width:280px;scroll-snap-align:start}
 .ps-slider-hint{display:flex;justify-content:space-between;gap:15px;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:1px 3px 0}
 .ps-home-end-card p{color:var(--muted);font-size:13px;line-height:1.55;max-width:560px;margin:0 0 12px}.ps-home-end-primary p{color:#dce5ee}
 .ps-home-end-contact{border-top:4px solid var(--red)}.ps-home-end-contact span{color:var(--blue)}
