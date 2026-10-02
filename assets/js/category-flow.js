@@ -59,7 +59,7 @@
   var file = location.pathname.split("/").pop() || "index.html";
   var cfg = configs[file];
   var host = document.getElementById("ps-category-flow");
-  var portal = window.PatriaSoulPortal;
+  var portal = window.PatriaSoulPortal;\n  if (!portal && window.PatriaSoulContent && window.PatriaSoulContent.articles) {\n    portal = { articles: Object.keys(window.PatriaSoulContent.articles).map(function(k){ return window.PatriaSoulContent.articles[k]; }) };\n  }
   if (!cfg || !host || !portal || !Array.isArray(portal.articles)) return;
 
   var articles = portal.articles.slice().sort(function(a,b){
