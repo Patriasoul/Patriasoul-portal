@@ -104,3 +104,4 @@
   .ps-home-end-card{padding:21px}
   .ps-home-end-card strong{font-size:20px}
 }
+.breaking-ticker{flex:1;overflow:hidden;white-space:nowrap}.breaking-ticker>div{display:inline-flex;align-items:center;gap:14px;min-width:max-content;animation:patriaTicker 42s linear infinite}.breaking-ticker:hover>div{animation-play-state:paused}.breaking-ticker a{font-weight:800;color:var(--red)}.breaking-sep{color:var(--muted);padding:0 3px}@keyframes patriaTicker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
