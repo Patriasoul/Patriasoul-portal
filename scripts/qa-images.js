@@ -13,7 +13,7 @@ const heroes = [];
 const allImages = [];
 for (const file of files) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
-  for (const match of html.matchAll(/<img\\b[^>]*?\\bsrc\\s*=\\s*["']([^"']+)["']/gi)) {
+  for (const match of html.matchAll(/<img\b[^>]*?\bsrc\\s*=\\s*["']([^"']+)["']/gi)) {
     allImages.push({ file, src: match[1] });
   }
   const match = html.match(imageRe);
@@ -52,7 +52,7 @@ console.log("All HTML image references:", allImages.length);
 const uniqueRemote = [...new Set([
   ...allImages.map(x => x.src),
   ...registryImages
-].filter(src => /^https?:\\/\\//i.test(src)))];
+].filter(src => /^https?:\/\//i.test(src)))];
 
 async function checkRemoteImages() {
   const broken = [];
