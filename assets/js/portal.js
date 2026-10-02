@@ -16,7 +16,6 @@
     'cuvari-nasljeda.html': {title: 'Čuvari nasljeđa — PatriaSoul', description: 'Priče o ljudima i zajednicama koje čuvaju hrvatsku baštinu, sjećanje i nasljeđe.'},
     'o-nama.html': {title: 'O PatriaSoul — Čuvari nasljeđa', description: 'Saznajte što je PatriaSoul, kako radimo i zašto su provjera izvora i očuvanje nasljeđa važni.'},
     'pretraga.html': {title: 'Pretraga — PatriaSoul', description: 'Pretražite priče, povijest, baštinu i druge sadržaje portala PatriaSoul.'},
-    'rubrike.html': {title: 'Rubrike — PatriaSoul', description: 'Pregled objavljenih priča i rubrika PatriaSoula.'},
     'cuvar-prijava.html': {title: 'Prijavi priču — Čuvari nasljeđa — PatriaSoul', description: 'Pošaljite PatriaSoulu prijedlog dokumentirane priče za format Čuvari nasljeđa.'},
     'kontakt.html': {title: 'Kontakt — PatriaSoul', description: 'Kontaktirajte PatriaSoul i pošaljite prijedlog priče, ispravak ili upit.'},
     'najnovije.html': {title: 'Najnovije — PatriaSoul', description: 'Najnovije objavljene priče PatriaSoula, uz aktualne vremenske podatke za hrvatske gradove.'},
@@ -122,7 +121,6 @@
     ]},
     {href:'kontakt.html', label:'✉️ Kontakt'},
     {href:'https://patriasoul.github.io/kviz/', label:'🎮 Kviz PatriaSoul'},
-    {href:'rubrike.html', label:'📚 Rubrike'},
     {href:'pretraga.html', label:'🔎 Pretraga'}
   ];
 
@@ -236,7 +234,7 @@
 
   const footer = document.querySelector('.site-footer');
   if (footer) {
-    footer.innerHTML = '<div class="container footer-grid"><div><strong class="footer-brand">PatriaSoul · Čuvari nasljeđa</strong><p>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></div><div><strong>Temelji</strong><a href="vjera.html">✝️ Vjera</a><a href="obitelj.html">❤️ Obitelj</a><a href="domovina.html">🇭🇷 Domovina</a><a href="branitelji-hrvatska.html">🪖 Branitelji Hrvatske</a><a href="povijest.html">📚 Povijest</a><a href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa</a></div><div><strong>Istraži</strong><a href="hrvatska-danas.html">📰 Hrvatska danas</a><a href="dijaspora.html">🌍 Dijaspora</a><a href="hrvatska-stvara.html">🔧 Hrvatska stvara</a><a href="svjedocanstva.html">✝️ Svjedočanstva</a><a href="crkvena-bastina.html">⛪ Crkvena baština</a><a href="svetista.html">🕯️ Svetišta</a></div><div><strong>O nama</strong><a href="o-nama.html">O PatriaSoul</a><a href="urednicki-standard.html">Urednički standard</a><a href="pravne-informacije.html">Pravne informacije</a><a href="privatnost.html">Privatnost</a><a href="kontakt.html">Kontakt</a><a href="rubrike.html">Rubrike</a><a href="pretraga.html">Pretraga</a></div><small>PatriaSoul · Čuvari nasljeđa</small></div>';
+    footer.innerHTML = '<div class="container footer-grid"><div><strong class="footer-brand">PatriaSoul · Čuvari nasljeđa</strong><p>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></div><div><strong>Temelji</strong><a href="vjera.html">✝️ Vjera</a><a href="obitelj.html">❤️ Obitelj</a><a href="domovina.html">🇭🇷 Domovina</a><a href="branitelji-hrvatska.html">🪖 Branitelji Hrvatske</a><a href="povijest.html">📚 Povijest</a><a href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa</a></div><div><strong>Istraži</strong><a href="hrvatska-danas.html">📰 Hrvatska danas</a><a href="dijaspora.html">🌍 Dijaspora</a><a href="hrvatska-stvara.html">🔧 Hrvatska stvara</a><a href="svjedocanstva.html">✝️ Svjedočanstva</a><a href="crkvena-bastina.html">⛪ Crkvena baština</a><a href="svetista.html">🕯️ Svetišta</a></div><div><strong>O nama</strong><a href="o-nama.html">O PatriaSoul</a><a href="urednicki-standard.html">Urednički standard</a><a href="pravne-informacije.html">Pravne informacije</a><a href="privatnost.html">Privatnost</a><a href="kontakt.html">Kontakt</a><a href="pretraga.html">Pretraga</a></div><small>PatriaSoul · Čuvari nasljeđa</small></div>';
   }
 
   // Portal Core: central content system, related stories and article structured data.
