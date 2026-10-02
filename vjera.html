@@ -12,11 +12,12 @@
 <section class="page-head"><span class="kicker">VJERA</span><h1>Vjera, baština i svakodnevni život</h1><p>Prostor za dokumentirane priče o Bogu, vjeri, Crkvi i hrvatskoj baštini — uz jasno razlikovanje službenog crkvenog nauka, biblijskog teksta, povijesne činjenice, pobožne predaje i osobnog svjedočanstva.</p></section>
 
 <section class="faith-daily">
-<div class="faith-daily-head"><div><span class="kicker">DANAS · <span id="faith-date"></span></span><h2>Riječ dana</h2></div></div>
+<div class="faith-daily-head"><div><span class="kicker">DANAS · <span id="faith-date"></span></span><h2>Dnevna riječ i vjera</h2></div></div>
 <div class="faith-daily-grid">
-<article class="faith-daily-card faith-gospel"><span class="faith-label">EVANĐELJE DANA</span><h3 id="faith-gospel-title"></h3><p class="faith-reference" id="faith-gospel-ref"></p><p id="faith-gospel-text"></p></article>
-<article class="faith-daily-card"><span class="faith-label">SVETAC DANA</span><h3 id="faith-saint"></h3><p id="faith-saint-text"></p></article>
-<article class="faith-daily-card"><span class="faith-label">CITAT IZ BIBLIJE</span><blockquote id="faith-verse"></blockquote><p class="faith-reference" id="faith-verse-ref"></p></article>
+<article class="faith-daily-card faith-gospel"><span class="faith-label">EVANĐELJE DANA</span><h3 id="faith-gospel-title"></h3><p class="faith-reference" id="faith-gospel-ref"></p><p class="faith-description-label">Kratki opis</p><p id="faith-gospel-text"></p></article>
+<article class="faith-daily-card"><span class="faith-label">SVETAC DANA</span><h3 id="faith-saint"></h3><p class="faith-description-label">Kratki opis</p><p id="faith-saint-text"></p></article>
+<article class="faith-daily-card faith-word"><span class="faith-label">RIJEČ DANA</span><h3 id="faith-word-title"></h3><p class="faith-reference" id="faith-word-ref"></p><p class="faith-description-label">Kratki opis</p><p id="faith-word-text"></p></article>
+<article class="faith-daily-card"><span class="faith-label">CITAT DANA</span><blockquote id="faith-verse"></blockquote><p class="faith-reference" id="faith-verse-ref"></p></article>
 <article class="faith-daily-card faith-thought"><span class="faith-label">KRATKA MISAO DANA</span><h3 id="faith-thought-title"></h3><p id="faith-thought"></p></article>
 </div>
 <p class="faith-source">Dnevni liturgijski sadržaj pripremljen je za čitanje izravno na PatriaSoulu. Podaci se svakodnevno osvježavaju prema liturgijskom kalendaru i provjerenim crkvenim izvorima.</p>
@@ -76,45 +77,79 @@
   const now=new Date();
   const yyyy=now.getFullYear(), mm=String(now.getMonth()+1).padStart(2,"0"), dd=String(now.getDate()).padStart(2,"0");
   const key=yyyy+"-"+mm+"-"+dd;
-  const gospelFallback={
-    "2026-09-20":{title:"Prispodoba o radnicima u vinogradu",ref:"Mt 20, 1–16a",text:"»Zar je oko tvoje zlo što sam ja dobar?«",saint:"Sveti Pavao Pustinjak i sveta Anastazija (Stošija)",saintText:"U hrvatskoj se tradiciji danas posebno spominje sveta Anastazija, odnosno Stošija, zaštitnica Zadra.",verse:"Blizu je Gospodin svima koji ga prizivlju.",verseRef:"Ps 145, 2–3.8–9.17–18",thought:"Božja dobrota ne mjeri čovjeka našim mjerilima. Današnje Evanđelje poziva nas da budemo zahvalni na daru koji primamo i da se radujemo dobru koje je dano drugome."}
+  const dailyFallback={
+    "2026-10-02":{
+      liturgical:"Sveti Anđeli Čuvari",
+      gospelTitle:"Anđeli njihovi na nebu uvijek gledaju lice Oca mojega",
+      gospelRef:"Mt 18, 1–5.10",
+      gospelText:"Isus učenike poučava poniznosti i jednostavnosti te ih upozorava da ne preziru ni jednoga od malenih. Evanđelje podsjeća na vrijednost svakog čovjeka i na Božju brigu za njega.",
+      saint:"Sveti Anđeli Čuvari",
+      saintText:"Spomendan posvećen Anđelima Čuvarima, koji u kršćanskoj vjeri označavaju Božju brigu i zaštitu čovjeka na njegovu životnom putu.",
+      wordTitle:"Bog poznaje čovjeka i vodi ga",
+      wordRef:"Ps 139, 1–3.7–8.9–10.13–14",
+      wordText:"Psalam govori o Božjoj blizini: Bog poznaje čovjeka, njegove putove i njegove misli. Pred njegovom prisutnošću čovjek ne može biti skriven, a njegova je ruka uvijek spremna voditi i držati.",
+      verse:"Anđeli njihovi na nebu uvijek gledaju lice Oca mojega, koji je na nebesima.",
+      verseRef:"Mt 18, 10",
+      thought:"Danas zastani i zahvali za ljude i darove koji te prate kroz život. Poniznost, povjerenje i briga za najmanje otvaraju srce Božjoj blizini."
+    }
   };
   function set(id,value){const el=document.getElementById(id);if(el)el.textContent=value||"—";}
   function render(d){
     set("faith-date",now.getDate()+". "+months[now.getMonth()]+" "+yyyy+". · "+d.liturgical);
-    set("faith-gospel-title",d.title);
-    set("faith-gospel-ref",d.ref);
-    set("faith-gospel-text",d.text);
+    set("faith-gospel-title",d.gospelTitle);
+    set("faith-gospel-ref",d.gospelRef);
+    set("faith-gospel-text",d.gospelText);
     set("faith-saint",d.saint);
     set("faith-saint-text",d.saintText);
+    set("faith-word-title",d.wordTitle);
+    set("faith-word-ref",d.wordRef);
+    set("faith-word-text",d.wordText);
     set("faith-verse",d.verse);
     set("faith-verse-ref",d.verseRef);
     set("faith-thought-title","Kratka misao dana");
     set("faith-thought",d.thought);
   }
   async function load(){
+    const fallback=dailyFallback[key];
     try{
       const [calRes,readRes]=await Promise.all([
         fetch(API+"/liturgical-calendar/"+yyyy+"/"+mm+"-"+dd+".json",{cache:"no-store"}),
         fetch(API+"/readings/"+yyyy+"/"+mm+"-"+dd+".json",{cache:"no-store"})
       ]);
-      if(!calRes.ok||!readRes.ok) throw new Error("Nema dnevnih podataka");
+      if(!calRes.ok||!readRes.ok) throw new Error("Dnevni podaci nisu dostupni");
       const cal=await calRes.json(), readings=await readRes.json(), celebration=cal.celebration||{};
-      const gospel=readings.readings?.gospel||"";
-      const d=gospelFallback[key]||{
+      const gospelRef=readings.readings?.gospel||"";
+      const psalmRef=readings.readings?.psalm||"";
+      const dynamic={
         liturgical:celebration.name||cal.season||"Liturgijski dan",
-        title:gospel||"Današnje Evanđelje",
-        ref:gospel||"Dnevno Evanđelje",
-        text:"Današnje Evanđelje: "+(gospel||"podaci nisu dostupni")+".",
+        gospelTitle:"Današnje Evanđelje",
+        gospelRef:gospelRef||"Dnevno Evanđelje",
+        gospelText:"Današnje Evanđelje donosi poziv na vjeru, poniznost i život prema Božjoj riječi.",
         saint:celebration.name||"Svetac dana",
         saintText:celebration.description||"Liturgijski spomendan prema dnevnom kalendaru.",
+        wordTitle:"Riječ iz današnjih čitanja",
+        wordRef:psalmRef||"Dnevna liturgijska čitanja",
+        wordText:"Današnja Božja riječ poziva na zaustavljanje, razmišljanje i zahvalnost.",
         verse:"Riječ dana",
-        verseRef:readings.readings?.psalm||"Dnevna liturgijska čitanja",
+        verseRef:psalmRef||"Dnevna liturgijska čitanja",
         thought:"Zastani, pročitaj današnju Božju riječ i pronađi trenutak zahvalnosti."
       };
-      render(d);
+      render(fallback||dynamic);
     }catch(err){
-      render(gospelFallback[key]||{liturgical:"Liturgijski dan",title:"Današnje Evanđelje",ref:"Dnevno Evanđelje",text:"Današnji liturgijski tekst trenutačno nije dostupan.",saint:"Svetac dana",saintText:"Podatak trenutačno nije dostupan.",verse:"Riječ dana",verseRef:"Dnevna liturgijska čitanja",thought:"Zastani, pročitaj Božju riječ i pronađi trenutak zahvalnosti."});
+      render(fallback||{
+        liturgical:"Liturgijski dan",
+        gospelTitle:"Današnje Evanđelje",
+        gospelRef:"Dnevno Evanđelje",
+        gospelText:"Današnji liturgijski tekst trenutačno nije dostupan.",
+        saint:"Svetac dana",
+        saintText:"Podatak trenutačno nije dostupan.",
+        wordTitle:"Riječ dana",
+        wordRef:"Dnevna liturgijska čitanja",
+        wordText:"Podatak trenutačno nije dostupan.",
+        verse:"Riječ dana",
+        verseRef:"Dnevna liturgijska čitanja",
+        thought:"Zastani, pročitaj Božju riječ i pronađi trenutak zahvalnosti."
+      });
     }
   }
   load();
