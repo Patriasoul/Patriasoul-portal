@@ -15,6 +15,7 @@
     'domovina.html': {title: 'Domovina — PatriaSoul', description: 'Hrvatska kroz ljude, mjesta, sjećanja i priče o Domovini.'},
     'cuvari-nasljeda.html': {title: 'Čuvari nasljeđa — PatriaSoul', description: 'Priče o ljudima i zajednicama koje čuvaju hrvatsku baštinu, sjećanje i nasljeđe.'},
     'o-nama.html': {title: 'O PatriaSoul — Čuvari nasljeđa', description: 'Saznajte što je PatriaSoul, kako radimo i zašto su provjera izvora i očuvanje nasljeđa važni.'},
+    'kviz.html': {title: 'Kviz PatriaSoul — Igre', description: 'Odaberi PatriaSoul igru: Hrvatski kviz, Brani svoj grad, Dnevni kviz ili Rang-lista.'},
     'pretraga.html': {title: 'Pretraga — PatriaSoul', description: 'Pretražite priče, povijest, baštinu i druge sadržaje portala PatriaSoul.'},
     'cuvar-prijava.html': {title: 'Prijavi priču — Čuvari nasljeđa — PatriaSoul', description: 'Pošaljite PatriaSoulu prijedlog dokumentirane priče za format Čuvari nasljeđa.'},
     'kontakt.html': {title: 'Kontakt — PatriaSoul', description: 'Kontaktirajte PatriaSoul i pošaljite prijedlog priče, ispravak ili upit.'},
@@ -116,7 +117,7 @@
       ['privatnost.html','Privatnost']
     ]},
     {href:'kontakt.html', label:'✉️ Kontakt'},
-    {href:'https://patriasoul.github.io/kviz/', label:'🎮 Kviz PatriaSoul'},
+    {href:'kviz.html', label:'🎮 Kviz PatriaSoul'},
     {href:'pretraga.html', label:'🔎 Pretraga'}
   ];
 
