@@ -27,7 +27,7 @@ window.PatriaSoulContent = {
       deck:"Na Krbavskome polju kraj Udbine 9. rujna 1493. sukobile su se hrvatska plemićka vojska i osmanska vojska. Poraz je bio težak, ali njegova povijesna priča nije završila tog dana.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Krbava, Lika · 8 min čitanja", url:"clanak-krbavska-bitka.html",
       category:"Povijest", subcategory:"Povijesne priče", rubric:"Povijesne priče", tags:["Krbavska bitka","Krbava","Udbina","srednji vijek","1493.","hrvatska povijest"], place:"Krbava", period:"1493.", type:"Povijesna priča",
-      image:"https://upload.wikimedia.org/wikipedia/commons/6/65/Battle_of_Krbava_Field.jpg", imageAlt:"Prikaz Krbavske bitke", imageCaption:"Prikaz Krbavske bitke, Leonhard Beck, oko 1514.–1516. / Wikimedia Commons, javna domena."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Battle%20of%20Krbava%20Field.jpg", imageAlt:"Prikaz Krbavske bitke", imageCaption:"Prikaz Krbavske bitke, Leonhard Beck, oko 1514.–1516. / Wikimedia Commons, javna domena."
     },
     australskiHrvati: {
       title:"Kad hrvatska riječ živi tisućama kilometara od domovine", kicker:"DIJASPORA",
