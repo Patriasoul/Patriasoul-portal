@@ -4,6 +4,7 @@ const path = require("path");
 const ROOT = process.cwd();
 const DATA = path.join(ROOT, "assets/js/content-data.js");
 const IMAGE_DIR = path.join(ROOT, "assets/images/articles");
+// Završno pravilo: članci ne smiju koristiti generirane SVG placeholder slike.
 
 function escHtml(v) {
   return String(v).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
