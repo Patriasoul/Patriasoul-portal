@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - scripts/fix-missing-article-images.js
+      - .github/workflows/repair-missing-images.yml
   workflow_dispatch:
 
 permissions:
