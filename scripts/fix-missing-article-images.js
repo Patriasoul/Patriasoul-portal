@@ -29,7 +29,7 @@ async function searchCommons(title) {
   const queries = [title, cleanQuery(title)];
   for (const q of queries) {
     const api = "https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch="+encodeURIComponent(q)+"&gsrnamespace=6&gsrlimit=8&prop=imageinfo&iiprop=url|mime|extmetadata&iiurlwidth=1600&format=json&origin=*";
-    const response = await fetch(api,{headers:{"User-Agent":"PatriaSoul-Image-Repair/2.0"}});
+    const response = await fetch(api,{headers:{"User-Agent":"PatriaSoul-Image-Repair/2.1"}});
     if (!response.ok) continue;
     const json = await response.json();
     const pages = Object.values((json.query && json.query.pages) || {});
