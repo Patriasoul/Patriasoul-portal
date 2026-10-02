@@ -1,0 +1,65 @@
+/* PatriaSoul · zajednički slider i tematski blokovi */
+.ps-featured,.ps-topic-section,.ps-next-pages{margin:42px 0}
+.ps-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding-bottom:14px;margin-bottom:18px;border-bottom:2px solid var(--line);position:relative}
+.ps-section-head:after{content:"";position:absolute;left:0;bottom:-2px;width:72px;height:2px;background:var(--red)}
+.ps-section-head h2{margin:3px 0 0;font-family:"Libre Baskerville",serif;font-size:27px;line-height:1.2}
+.ps-section-head p{margin:7px 0 0;color:var(--muted);font-size:13px;line-height:1.5}
+.ps-section-count{font-size:10px;font-weight:800;color:var(--muted);white-space:nowrap}
+.ps-slider{position:relative;display:grid;grid-template-columns:42px minmax(0,1fr) 42px;align-items:center;gap:8px}
+.ps-slider-track{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:3px 2px 12px}
+.ps-slider-track::-webkit-scrollbar{display:none}
+.ps-slider .ps-story-card{flex:0 0 calc((100% - 36px)/3);scroll-snap-align:start}
+.ps-slider-btn{width:40px;height:44px;border:1px solid var(--line);background:#fff;color:var(--blue);font-size:20px;font-weight:800;cursor:pointer;border-radius:4px}
+.ps-slider-btn:hover{background:var(--red);border-color:var(--red);color:#fff}
+.ps-story-card{background:#fff;border:1px solid var(--line);overflow:hidden;min-width:0;transition:transform .18s ease,box-shadow .18s ease}
+.ps-story-card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(23,32,42,.08)}
+.ps-card-image{display:block;height:185px;background:#e6e8e9;overflow:hidden}
+.ps-card-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .22s ease}
+.ps-story-card:hover .ps-card-image img{transform:scale(1.025)}
+.ps-story-copy{padding:16px 17px 17px}
+.ps-card-label{font-size:9px;font-weight:900;letter-spacing:.1em;color:var(--red);text-transform:uppercase}
+.ps-story-copy h3{margin:7px 0 7px;font:700 18px/1.3 "Libre Baskerville",serif}
+.ps-story-copy h3 a:hover{color:var(--red)}
+.ps-story-copy p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}
+.ps-card-link{display:inline-flex;margin-top:13px;color:var(--red);font-size:11px;font-weight:800;text-decoration:none}
+.ps-topic-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.ps-topic-grid .ps-story-card{display:grid;grid-template-columns:120px minmax(0,1fr)}
+.ps-topic-grid .ps-card-image{height:100%;min-height:150px}
+.ps-topic-grid .ps-story-copy{padding:14px}
+.ps-topic-grid .ps-story-copy h3{font-size:16px}
+.ps-topic-grid .ps-story-copy p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ps-next-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.ps-next-block{padding:25px;background:linear-gradient(135deg,#fff,#f4f2ed);border:1px solid var(--line);text-decoration:none;color:var(--ink);display:flex;flex-direction:column;min-height:150px}
+.ps-next-block:hover{border-color:var(--red);transform:translateY(-2px)}
+.ps-next-block span,.ps-final-links span{font-size:9px;letter-spacing:.12em;font-weight:900;color:var(--red)}
+.ps-next-block strong{font:700 23px/1.25 "Libre Baskerville",serif;margin:8px 0}
+.ps-next-block em,.ps-final-links em{font-style:normal;margin-top:auto;color:var(--red);font-size:11px;font-weight:800}
+.ps-final-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:50px 0 15px}
+.ps-final-links>a{display:flex;flex-direction:column;min-height:145px;padding:24px;background:var(--blue);color:#fff;text-decoration:none}
+.ps-final-links>a:last-child{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.ps-final-links strong{font:700 22px/1.3 "Libre Baskerville",serif;margin:9px 0}
+.ps-final-links>a:first-child em{color:#fff}
+.ps-final-links>a:hover{transform:translateY(-2px)}
+@media(max-width:900px){
+ .ps-slider .ps-story-card{flex-basis:calc((100% - 18px)/2)}
+ .ps-topic-grid{grid-template-columns:1fr}
+ .ps-topic-grid .ps-story-card{grid-template-columns:180px minmax(0,1fr)}
+}
+@media(max-width:560px){
+ .ps-featured,.ps-topic-section,.ps-next-pages{margin:32px 0}
+ .ps-section-head{align-items:flex-start}
+ .ps-section-head h2{font-size:22px}
+ .ps-slider{grid-template-columns:34px minmax(0,1fr) 34px;gap:5px}
+ .ps-slider-btn{width:34px;height:40px;font-size:17px}
+ .ps-slider .ps-story-card{flex-basis:88%}
+ .ps-card-image{height:170px}
+ .ps-topic-grid .ps-story-card{grid-template-columns:1fr}
+ .ps-topic-grid .ps-card-image{height:170px;min-height:0}
+ .ps-next-grid,.ps-final-links{grid-template-columns:1fr}
+ .ps-next-block,.ps-final-links>a{min-height:125px}
+ .ps-final-links{margin-top:38px}
+}
+@media(prefers-reduced-motion:reduce){
+ .ps-slider-track{scroll-behavior:auto}
+ .ps-story-card,.ps-next-block,.ps-final-links>a{transition:none}
+}
