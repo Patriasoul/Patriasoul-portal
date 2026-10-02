@@ -3,6 +3,8 @@ name: Repair missing article images
 on:
   push:
     branches: [main]
+    paths:
+      - scripts/fix-missing-article-images.js
   workflow_dispatch:
 
 permissions:
