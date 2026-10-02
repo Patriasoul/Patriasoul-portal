@@ -107,10 +107,6 @@
     ]},
     {href:'vrijeme.html', label:'🌤️ Vrijeme'},
     {href:'cuvari-nasljeda.html', label:'🛡️ Čuvari nasljeđa', children:[
-      ['cuvari-nasljeda.html','Pregled nasljeđa'],
-      ['crkvena-bastina.html','Crkvena baština'],
-      ['vjera-hrvatska-bastina.html','Vjera i hrvatska baština'],
-      ['povijest.html','Povijest'],
       ['cuvar-prijava.html','Prijavi priču']
     ]},
     {href:'o-nama.html', label:'🇭🇷 O PatriaSoul', children:[
