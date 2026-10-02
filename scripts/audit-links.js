@@ -30,15 +30,17 @@ const broken = [];
 const externalStoryLinks = [];
 const externalLinks = [];
 
-const hrefRe = /href\s*=\s*["']([^"']+)["']/gi;
+const anchorRe = /<a\b([^>]*?)\bhref\s*=\s*["']([^"']+)["']([^>]*)>([\\s\\S]*?)<\\/a>/gi;
 
 for (const file of htmlFiles) {
   const rel = path.relative(ROOT, file).replaceAll(path.sep, "/");
   const html = fs.readFileSync(file, "utf8");
   let match;
 
-  while ((match = hrefRe.exec(html))) {
-    const href = match[1].trim();
+  while ((match = anchorRe.exec(html))) {
+    const href = match[2].trim();
+    const openTag = match[1] + match[3];
+    const anchorText = match[4].replace(/<[^>]+>/g, " ").replace(/\\s+/g, " ").trim();
     if (
       !href ||
       href.startsWith("#") ||
