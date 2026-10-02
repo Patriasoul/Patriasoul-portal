@@ -41,7 +41,7 @@ window.PatriaSoulContent = {
       deck:"Vjera se često ne pamti po velikim riječima, nego po malim stvarima: molitvi, blagdanu, crkvi i primjeru čovjeka koji je znao pomoći drugome.",
       date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Hrvatska · 7 min čitanja", url:"clanak-vjera-obitelj.html",
       category:"Vjera", subcategory:"Vjera i život", rubric:"Vjera i život", tags:["Vjera","obitelj","Vjera i život","Crkva","hrvatska baština","svjedočanstvo"], place:"Hrvatska", period:"20. i 21. stoljeće", type:"Vjerska priča",
-      image:"assets/images/articles/aljmas-svetiste.svg", imageAlt:"Svetište Gospe od Utočišta u Aljmašu", imageCaption:"PatriaSoul ilustracija svetilišta u Aljmašu."
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Svetiste%20Aljmas%2001.jpg", imageAlt:"Svetište Gospe od Utočišta u Aljmašu", imageCaption:"Svetište Gospe od Utočišta u Aljmašu. Foto: MaGa / Wikimedia Commons, CC BY-SA 4.0."
     },
     ruderBoskovic: {
       title:"Ruđer Bošković: čovjek koji je znanje nosio preko granica", kicker:"ŽIVOTNE PRIČE · LJUDI",
