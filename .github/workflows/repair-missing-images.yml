@@ -1,4 +1,4 @@
-name: Repair missing article images
+name: Repair missing article photographs
 
 on:
   push:
