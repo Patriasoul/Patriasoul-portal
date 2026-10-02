@@ -9,49 +9,49 @@
     "hrvatska-danas.html": {
       title: "Izdvojeno iz Hrvatske danas",
       intro: "Najnovije i važne teme iz Hrvatske, složene po područjima.",
-      categories: ["Hrvatska danas", "Gospodarstvo", "Društvo", "Domovina", "Baština"],
+      categories: ["Hrvatska danas", "Gospodarstvo", "Domovina", "Društvo", "Turizam"],
       links: [["Povijest", "povijest.html"], ["Vjera", "vjera.html"]]
     },
     "povijest.html": {
       title: "Izdvojeno iz povijesti",
       intro: "Priče o događajima, ljudima, mjestima i baštini koji su oblikovali Hrvatsku.",
-      categories: ["Povijest", "Baština", "Ljudi", "Domovina"],
+      categories: ["Povijest", "Baština", "Ljudi Domovinskog rata", "Domovina", "Čuvari nasljeđa"],
       links: [["Domovina", "domovina.html"], ["Hrvatska stvara", "hrvatska-stvara.html"]]
     },
     "vjera.html": {
       title: "Izdvojeno iz vjere",
       intro: "Priče o vjeri, ljudima, svetištima i tradiciji hrvatskoga prostora.",
-      categories: ["Vjera", "Vjera i život", "Ljudi vjere", "Crkvena baština"],
+      categories: ["Vjera", "Ljudi vjere", "Crkvena baština", "Vjera i obitelj", "Svjedočanstva"],
       links: [["Obitelj", "obitelj.html"], ["Čuvari nasljeđa", "cuvari-nasljeda.html"]]
     },
     "obitelj.html": {
       title: "Izdvojeno iz obitelji",
       intro: "Priče o obitelji, odnosima, običajima i vrijednostima koje se prenose.",
-      categories: ["Obitelj", "Vjera i obitelj", "Baština", "Vjera"],
+      categories: ["Obitelj", "Vjera i obitelj", "Baština", "Vjera", "Svjedočanstva"],
       links: [["Vjera", "vjera.html"], ["Domovina", "domovina.html"]]
     },
     "domovina.html": {
       title: "Izdvojeno iz domovine",
       intro: "Povijest, ljudi, mjesta, obrana i suvremene teme hrvatske domovine.",
-      categories: ["Domovina", "Braniteljske priče", "Povijest", "Hrvatska danas"],
+      categories: ["Domovina", "Braniteljske priče", "Ljudi Domovinskog rata", "Povijest", "Hrvatska danas"],
       links: [["Povijest", "povijest.html"], ["Hrvatska danas", "hrvatska-danas.html"]]
     },
     "dijaspora.html": {
       title: "Izdvojeno iz dijaspore",
       intro: "Priče o hrvatskim zajednicama, jeziku, kulturi i životu izvan domovine.",
-      categories: ["Dijaspora", "Hrvatske zajednice", "Vjera", "Obitelj"],
+      categories: ["Dijaspora", "Hrvatske zajednice", "Obitelj", "Vjera", "Domovina"],
       links: [["Domovina", "domovina.html"], ["Čuvari nasljeđa", "cuvari-nasljeda.html"]]
     },
     "hrvatska-stvara.html": {
       title: "Izdvojeno iz Hrvatske stvara",
       intro: "Ljudi, znanje, izumi, umjetnost i stvaralaštvo iz hrvatskoga prostora.",
-      categories: ["Hrvatska stvara", "Znanost i izumi", "Ljudi koji stvaraju", "Glazba"],
+      categories: ["Hrvatska stvara", "Znanost i izumi", "Ljudi", "Kultura", "Baština"],
       links: [["Povijest", "povijest.html"], ["Hrvatska danas", "hrvatska-danas.html"]]
     },
     "cuvari-nasljeda.html": {
       title: "Izdvojeno iz Čuvara nasljeđa",
       intro: "Osobne priče, svjedočanstva i ljudi koji čuvaju tragove prošlosti.",
-      categories: ["Čuvari nasljeđa", "Sjećanje", "Svjedočanstva", "Baština"],
+      categories: ["Čuvari nasljeđa", "Sjećanje", "Svjedočanstva", "Baština", "Ljudi"],
       links: [["Domovina", "domovina.html"], ["Kontakt", "kontakt.html"]]
     }
   };
