@@ -23,12 +23,14 @@ function walk(dir) {
 }
 walk(ROOT);
 
-const known = new Set(htmlFiles.map(file => path.relative(ROOT, file).replaceAll(path.sep, "/")));
+const known = new Set(
+  htmlFiles.map(file => path.relative(ROOT, file).replaceAll(path.sep, "/"))
+);
 const broken = [];
 const externalStoryLinks = [];
 const externalLinks = [];
 
-const hrefRe = /href\\s*=\\s*["']([^"']+)["']/gi;
+const hrefRe = /href\s*=\s*["']([^"']+)["']/gi;
 
 for (const file of htmlFiles) {
   const rel = path.relative(ROOT, file).replaceAll(path.sep, "/");
@@ -36,39 +38,67 @@ for (const file of htmlFiles) {
   let match;
 
   while ((match = hrefRe.exec(html))) {
-    let href = match[1].trim();
-    if (!href || href.startsWith("#") || /^(mailto:|tel:|javascript:|data:)/i.test(href)) continue;
+    const href = match[1].trim();
+    if (
+      !href ||
+      href.startsWith("#") ||
+      /^(mailto:|tel:|javascript:|data:)/i.test(href)
+    ) continue;
 
-    if (/^https?:\\/\\//i.test(href)) {
+    if (/^https?:\/\//i.test(href)) {
       externalLinks.push({ file: rel, href });
-      const context = html.slice(Math.max(0, match.index - 220), match.index + 320);
-      if (/(clanak|priča|prica|pročitaj|procitaj|saznaj više|saznaj vise|čitaj|citaj|story|article)/i.test(context)) {
+      const context = html.slice(
+        Math.max(0, match.index - 220),
+        match.index + 320
+      );
+      if (
+        /(clanak|priča|prica|pročitaj|procitaj|saznaj više|saznaj vise|čitaj|citaj|story|article)/i.test(
+          context
+        )
+      ) {
         externalStoryLinks.push({ file: rel, href });
       }
       continue;
     }
 
-    const target = href.split("#")[0].split("?")[0].replace(/^\.\//, "");
+    const target = href
+      .split("#")[0]
+      .split("?")[0]
+      .replace(/^\.\//, "");
     if (!target || !target.endsWith(".html")) continue;
 
-    const resolved = path.posix.normalize(path.posix.join(path.posix.dirname(rel), target));
-    if (!known.has(resolved)) broken.push({ file: rel, href, resolved });
+    const resolved = path.posix.normalize(
+      path.posix.join(path.posix.dirname(rel), target)
+    );
+    if (!known.has(resolved)) {
+      broken.push({ file: rel, href, resolved });
+    }
   }
 }
 
-console.log("\\nPatriaSoul — QA unutarnjih poveznica");
+console.log("\nPatriaSoul — QA unutarnjih poveznica");
 console.log("HTML stranica:", htmlFiles.length);
 console.log("Vanjske poveznice:", externalLinks.length);
 console.log("Pokvarene unutarnje poveznice:", broken.length);
-console.log("Sumnjive vanjske poveznice na priče/članke:", externalStoryLinks.length);
+console.log(
+  "Sumnjive vanjske poveznice na priče/članke:",
+  externalStoryLinks.length
+);
 
 if (broken.length) {
-  console.log("\\nBROKEN LINKS");
-  for (const item of broken) console.log(`- ${item.file} -> ${item.href} (traženo: ${item.resolved})`);
+  console.log("\nBROKEN LINKS");
+  for (const item of broken) {
+    console.log(
+      `- ${item.file} -> ${item.href} (traženo: ${item.resolved})`
+    );
+  }
 }
+
 if (externalStoryLinks.length) {
-  console.log("\\nEXTERNAL STORY LINKS");
-  for (const item of externalStoryLinks) console.log(`- ${item.file} -> ${item.href}`);
+  console.log("\nEXTERNAL STORY LINKS");
+  for (const item of externalStoryLinks) {
+    console.log(`- ${item.file} -> ${item.href}`);
+  }
 }
 
 if (broken.length || externalStoryLinks.length) process.exitCode = 1;
