@@ -206,7 +206,7 @@ window.PatriaSoulContent = {
     "dubrovnik-republika": {
       image:"https://commons.wikimedia.org/wiki/Special:FilePath/Dubrovnik%20Old%20Town%20walls.jpg", imageAlt:"Dubrovačka Republika: trgovina, diplomacija i život malog mediteranskog grada", imageCaption:"PatriaSoul urednička ilustracija izrađena za ovu priču. Ilustracija nije povijesna fotografija niti dokumentarni dokaz.", title:"Dubrovačka Republika: trgovina, diplomacija i život malog mediteranskog grada", kicker:"Povijest · Gradovi i države", deck:"Dubrovačka Republika razvila je složen politički i trgovački sustav na prostoru istočnog Jadrana.", date:"2026-10-02", meta:"Piše: PatriaSoul · 2. listopada 2026. · Dubrovnik · ZA PROVJERU", url:"clanak-dubrovnik-republika.html", category:"Povijest", subcategory:"Gradovi i države", rubric:"Dubrovačka Republika", tags:["Povijest","Gradovi i države","Dubrovačka Republika","Dubrovnik","1358.–1808."], place:"Dubrovnik", period:"1358.–1808.", type:"Radna priča", status:"ZA PROVJERU", sources:2 },
     "hrvatsko-gospodarstvo-rujan-2026": {
-      image:"assets/images/articles/gospodarstvorujan2026.svg", imageAlt:"Hrvatsko gospodarstvo u rujnu: što govore novi pokazatelji", imageCaption:"Fotografija korištena na članku; provjera izvora i licence ostaje dio uredničke obrade.",
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Cemex%20Plant%2C%20Solin%20Croatia%20near%20Split%201684.jpg", imageAlt:"Hrvatsko gospodarstvo u rujnu: što govore novi pokazatelji", imageCaption:"Fotografija korištena na članku; provjera izvora i licence ostaje dio uredničke obrade.",
       title:"Hrvatsko gospodarstvo u rujnu: što govore novi pokazatelji",
       kicker:"DOMOVINA · GOSPODARSTVO",
       deck:"Raspoloženje u hrvatskom gospodarstvu u rujnu 2026. osjetno je poboljšano, uz različita kretanja među sektorima.",
@@ -214,7 +214,7 @@ window.PatriaSoulContent = {
       url:"clanak-hrvatsko-gospodarstvo-rujan-2026.html", category:"Domovina", subcategory:"Gospodarstvo", rubric:"Hrvatska danas", tags:["gospodarstvo","Hrvatska danas","Europska komisija","industrija","usluge"], place:"Hrvatska", period:"2026.", type:"Aktualna priča", status:"OBJAVLJENO", sources:1
     },
     "hrvatska-place-zaposlenost-2026": {
-      image:"assets/images/articles/placezaposlenost2026.svg", imageAlt:"Plaće i zaposlenost u Hrvatskoj: što pokazuju novi podaci", imageCaption:"Fotografija korištena na članku; provjera izvora i licence ostaje dio uredničke obrade.",
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Worker%20operates%20machinery%20in%20a%20factory%20setting.jpg", imageAlt:"Plaće i zaposlenost u Hrvatskoj: što pokazuju novi podaci", imageCaption:"Fotografija korištena na članku; provjera izvora i licence ostaje dio uredničke obrade.",
       title:"Plaće i zaposlenost u Hrvatskoj: što pokazuju novi podaci",
       kicker:"DOMOVINA · HRVATSKA DANAS",
       deck:"Novi podaci DZS-a donose sliku hrvatskog tržišta rada u ljeto 2026.",
@@ -222,7 +222,7 @@ window.PatriaSoulContent = {
       url:"clanak-hrvatska-place-zaposlenost-2026.html", category:"Domovina", subcategory:"Gospodarstvo i tržište rada", rubric:"Hrvatska danas", tags:["plaće","zaposlenost","nezaposlenost","DZS","Hrvatska danas"], place:"Hrvatska", period:"2026.", type:"Aktualna priča", status:"OBJAVLJENO", sources:1
     },
     "hrvatski-turizam-2026": {
-      image:"assets/images/articles/hrvatskiturizam2026.svg", imageAlt:"Hrvatski turizam 2026.: više od 90 milijuna noćenja do kraja kolovoza", imageCaption:"Fotografija korištena na članku; provjera izvora i licence ostaje dio uredničke obrade.",
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Dubrovnik%20coast.jpg", imageAlt:"Hrvatski turizam 2026.: više od 90 milijuna noćenja do kraja kolovoza", imageCaption:"Fotografija korištena na članku; provjera izvora i licence ostaje dio uredničke obrade.",
       title:"Hrvatski turizam 2026.: više od 90 milijuna noćenja do kraja kolovoza",
       kicker:"DOMOVINA · HRVATSKA DANAS",
       deck:"Prema sustavu eVisitor, Hrvatska je od početka godine do kraja kolovoza 2026. ostvarila 17,5 milijuna dolazaka i 90,5 milijuna noćenja.",
@@ -230,7 +230,7 @@ window.PatriaSoulContent = {
       url:"clanak-hrvatski-turizam-2026-rekordna-godina.html", category:"Domovina", subcategory:"Turizam", rubric:"Hrvatska danas", tags:["turizam","eVisitor","noćenja","dolasci","Hrvatska danas"], place:"Hrvatska", period:"2026.", type:"Aktualna priča", status:"OBJAVLJENO", sources:1
     },
     "kiberneticka-sigurnost-hrvatske-tvrtke-2026": {
-      image:"assets/images/articles/kibernetickasigurnost2026.svg", imageAlt:"Kibernetička sigurnost više nije samo IT tema: 133 hrvatska projekta dobila potporu", imageCaption:"Fotografija korištena na članku; provjera izvora i licence ostaje dio uredničke obrade.",
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/BalticServers%20data%20center.jpg", imageAlt:"Kibernetička sigurnost više nije samo IT tema: 133 hrvatska projekta dobila potporu", imageCaption:"Fotografija korištena na članku; provjera izvora i licence ostaje dio uredničke obrade.",
       title:"Kibernetička sigurnost više nije samo IT tema: 133 hrvatska projekta dobila potporu",
       kicker:"HRVATSKA STVARA · TEHNOLOGIJA",
       deck:"CARNET je 2026. dodijelio oko 2,9 milijuna eura za 133 projekta kojima mikro, mala i srednja poduzeća jačaju kibernetičku sigurnost.",
@@ -248,5 +248,5 @@ window.PatriaSoulContent = {
     "zet-arbitraza-2026": {
       image:"https://commons.wikimedia.org/wiki/Special:FilePath/Adtranz%20GT6M%20in%20Zagreb%20%28semi-profile%20view%29.jpg", imageAlt:"ZET nakon štrajka: počela arbitraža o nužnim poslovima", imageCaption:"PatriaSoul urednička ilustracija izrađena za ovu priču. Ilustracija nije povijesna fotografija niti dokumentarni dokaz.",title:"ZET nakon štrajka: počela arbitraža o nužnim poslovima",deck:"Nakon završetka štrajka zagrebački tramvaji i autobusi ponovno prometuju, dok je počeo postupak arbitraže o opsegu nužnih poslova tijekom mogućeg budućeg štrajka.",date:"2026-10-02",meta:"Piše: PatriaSoul · 2. listopada 2026. · Zagreb · 6 min čitanja",url:"clanak-zet-arbitraza-2026.html",category:"Domovina",subcategory:"Zagreb",rubric:"Hrvatska danas",tags:["ZET","Zagreb","javni prijevoz","štrajk","arbitraža","Hrvatska danas"],place:"Zagreb",period:"2026.",type:"Aktualna priča",status:"OBJAVLJENO",sources:1},
     "potres-zagreb-2-listopada-2026": {
-      image:"assets/images/articles/potres-zagreb-2-listopada-2026.svg", imageAlt:"Potres magnitude 2,6 zabilježen južno od Zagreba", imageCaption:"PatriaSoul urednička ilustracija izrađena za ovu priču. Ilustracija nije povijesna fotografija niti dokumentarni dokaz.",title:"Potres magnitude 2,6 zabilježen južno od Zagreba",deck:"U petak 2. listopada 2026. ujutro zabilježeno je podrhtavanje tla magnitude 2,6 u okolici Zagreba, prema preliminarnim seizmološkim podacima.",date:"2026-10-02",meta:"Piše: PatriaSoul · 2. listopada 2026. · Hrvatska · 4 min čitanja",url:"clanak-potres-zagreb-2-listopada-2026.html",category:"Domovina",subcategory:"Aktualno",rubric:"Hrvatska danas",tags:["potres","Zagreb","seizmologija","Hrvatska danas"],place:"Zagreb",period:"2026.",type:"Aktualna vijest",status:"OBJAVLJENO",sources:1},
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Seismograph%20recording.jpg", imageAlt:"Potres magnitude 2,6 zabilježen južno od Zagreba", imageCaption:"PatriaSoul urednička ilustracija izrađena za ovu priču. Ilustracija nije povijesna fotografija niti dokumentarni dokaz.",title:"Potres magnitude 2,6 zabilježen južno od Zagreba",deck:"U petak 2. listopada 2026. ujutro zabilježeno je podrhtavanje tla magnitude 2,6 u okolici Zagreba, prema preliminarnim seizmološkim podacima.",date:"2026-10-02",meta:"Piše: PatriaSoul · 2. listopada 2026. · Hrvatska · 4 min čitanja",url:"clanak-potres-zagreb-2-listopada-2026.html",category:"Domovina",subcategory:"Aktualno",rubric:"Hrvatska danas",tags:["potres","Zagreb","seizmologija","Hrvatska danas"],place:"Zagreb",period:"2026.",type:"Aktualna vijest",status:"OBJAVLJENO",sources:1},
 }};
