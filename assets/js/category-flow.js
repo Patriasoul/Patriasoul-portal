@@ -105,7 +105,7 @@
   var featured = [];
   cfg.categories.forEach(function(cat) {
     articles.filter(function(a){return matches(a,cat);}).slice(0,3).forEach(function(a){
-      if (!used[a.url] && featured.length < 6) {
+      if (!used[a.url] && featured.length < 8) {
         used[a.url] = true;
         featured.push(a);
       }
