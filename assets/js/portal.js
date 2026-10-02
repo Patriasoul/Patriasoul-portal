@@ -112,7 +112,6 @@
       ['crkvena-bastina.html','Crkvena baština'],
       ['vjera-hrvatska-bastina.html','Vjera i hrvatska baština'],
       ['povijest.html','Povijest'],
-      ['dijaspora.html','Hrvatska dijaspora'],
       ['cuvar-prijava.html','Prijavi priču']
     ]},
     {href:'o-nama.html', label:'🇭🇷 O PatriaSoul', children:[
