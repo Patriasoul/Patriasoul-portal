@@ -107,3 +107,5 @@ console.log("Articles with images:", Object.values(articles).filter(a => a.image
 console.log("New SVG covers:", svgCount);
 console.log("Article pages updated:", pageCount);
 console.log("Registry entries updated:", registryCount);
+
+// Repair pass 2: keep this utility deterministic and idempotent.
