@@ -12,7 +12,7 @@
 (()=>{const p=window.PatriaSoulPortal;if(!p)return;const q=document.getElementById('rubrike-q'),sel=document.getElementById('rubrike-category'),grid=document.getElementById('rubrike-grid'),count=document.getElementById('rubrike-count');
 const esc=v=>String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 p.categories.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o)});
-const pills=document.getElementById('category-pills');p.categories.forEach(c=>{const a=document.createElement('a');a.className='category-pill';a.href='#'+encodeURIComponent(c);a.textContent=c;pills.appendChild(a)});
+const pills=document.getElementById('category-pills');p.categories.forEach(c=>{const a=document.createElement('a');a.className='category-pill';a.href='rubrike.html?category='+encodeURIComponent(c);a.textContent=c;pills.appendChild(a)});
 function render(){let list=p.find(q.value).filter(a=>!sel.value||a.category===sel.value);count.textContent=list.length+' priča';grid.innerHTML=list.map(a=>'<a class="core-card" href="'+esc(a.url)+'"><img src="'+esc(a.image||'')+'" alt="'+esc(a.imageAlt||a.title)+'" loading="lazy" width="800" height="530"><span class="core-card-body"><span class="core-card-label">'+esc(a.rubric||a.category)+'</span><h3>'+esc(a.title)+'</h3><p>'+esc(a.deck)+'</p><small class="core-card-meta">'+esc(a.meta||a.date||'')+'</small></span></a>').join('')||'<p>Nema pronađenih priča.</p>'}
 q.addEventListener('input',render);sel.addEventListener('change',render);render()})();
 </script></body></html>
