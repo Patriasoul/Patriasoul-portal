@@ -67,11 +67,17 @@
       +'</section>';
   }
 
+  var bibleQuotes=[["Gospodin je pastir moj: ni u čem ja ne oskudijevam.","Ps 23, 1"],["Sve mogu u Onome koji me jača.","Fil 4, 13"],["Ja sam put i istina i život.","Iv 14, 6"],["Blago mirotvorcima: oni će se sinovima Božjim zvati.","Mt 5, 9"],["Ne boj se, jer ja sam s tobom.","Iz 41, 10"],["Gospodin je svjetlost moja i spasenje: koga da se bojim?","Ps 27, 1"],["Uzdaj se u Gospodina svim srcem svojim.","Izr 3, 5"],["Ljubite jedni druge kao što sam ja vas ljubio.","Iv 15, 12"],["Ostanite u mojoj ljubavi.","Iv 15, 9"],["Neka vam srca ne budu uznemirena.","Iv 14, 1"],["Mir vam svoj dajem.","Iv 14, 27"],["Radujte se u nadi, budite strpljivi u nevolji, ustrajni u molitvi.","Rim 12, 12"],["Sve što činite, činite iz srca kao Gospodinu.","Kol 3, 23"],["Bog je ljubav.","1 Iv 4, 8"],["Gospodin je blizu onima koji su skršena srca.","Ps 34, 19"],["Prepusti Gospodinu putove svoje, u njega se uzdaj i on će sve voditi.","Ps 37, 5"],["Tvoja riječ nozi je mojoj svjetiljka i svjetlo mojoj stazi.","Ps 119, 105"],["Blagoslovljen čovjek koji se uzda u Gospodina.","Jr 17, 7"],["Gospodin je dobar, dovijeka je ljubav njegova.","Ps 100, 5"],["Tražite najprije Kraljevstvo i pravednost njegovu.","Mt 6, 33"],["Dođite k meni svi koji ste izmoreni i opterećeni i ja ću vas odmoriti.","Mt 11, 28"],["Ne sudite, da ne budete suđeni.","Mt 7, 1"],["Što god želite da ljudi vama čine, činite i vi njima.","Mt 7, 12"],["Tko ostaje u meni i ja u njemu, taj donosi mnogo roda.","Iv 15, 5"],["Ja sam uskrsnuće i život.","Iv 11, 25"],["Blago onima koji su čista srca: oni će Boga gledati.","Mt 5, 8"],["Blago krotkima: oni će baštiniti zemlju.","Mt 5, 5"],["Blago gladnima i žednima pravednosti: oni će se nasititi.","Mt 5, 6"],["Neka se ne umaraš čineći dobro.","Gal 6, 9"],["U svemu zahvaljujte!","1 Sol 5, 18"],["Gospodin neka te blagoslovi i neka te čuva!","Br 6, 24"]];
+  var now=new Date();
+  var startOfYear=new Date(now.getFullYear(),0,1);
+  var dayOfYear=Math.floor((now-startOfYear)/86400000);
+  var dailyQuote=bibleQuotes[((dayOfYear%bibleQuotes.length)+bibleQuotes.length)%bibleQuotes.length];
+
   var html='<section class="ps-home-flow" aria-label="Tematske priče PatriaSoula">'
-    +'<div class="ps-home-flow-intro">'
-    +'<span class="kicker">PATRIASOUL · NASLOVNICA</span>'
-    +'<h2>Jedna naslovnica povezana sa svim glavnim stranicama.</h2>'
-    +'<p>Svaka glavna rubrika ima svoj klizni blok priča. Sadržaj se automatski povlači iz zajedničke baze članaka, a klik vodi izravno na PatriaSoul priču ili pripadajuću stranicu.</p>'
+    +'<div class="ps-home-flow-intro ps-daily-bible-quote">'
+    +'<span class="kicker">BIBLIJSKI CITAT DANA</span>'
+    +'<blockquote id="ps-daily-bible-text">„'+esc(dailyQuote[0])+'”</blockquote>'
+    +'<p class="ps-daily-bible-ref" id="ps-daily-bible-ref">'+esc(dailyQuote[1])+'</p>'
     +'</div>';
 
   groups.forEach(function(g,i){html+=sliderSection(g,i);});
