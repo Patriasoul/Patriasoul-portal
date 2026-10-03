@@ -125,7 +125,7 @@
     const old=document.getElementById('ps-community');if(old)old.remove();
     const root=document.createElement('section');root.id='ps-community';root.className='ps-community';root.innerHTML='<h2>💬 Komentari</h2><p class="ps-community-muted">Rasprava je otvorena registriranim korisnicima. Molimo poštujte druge i držite se teme članka.</p>';
     article.appendChild(root);
-    const toolbar=document.createElement('div');toolbar.className='ps-share-row';toolbar.innerHTML='<button data-share>↗ Podijeli članak</button><button data-article-like>❤️ Sviđa mi se <span>0</span></button><button data-article-dislike>👎 Ne sviđa mi se <span>0</span></button>';root.appendChild(toolbar);
+    const toolbar=document.createElement('div');toolbar.className='ps-share-row';toolbar.innerHTML='<button data-share>↗ Podijeli članak</button><button data-article-like>❤️ Lajk <span>0</span></button><button data-article-dislike>👎 Dislike <span>0</span></button>';root.appendChild(toolbar);
     toolbar.querySelector('[data-share]').onclick=async()=>{const data={title:document.title,text:document.querySelector('.article-deck')?.textContent||'',url:location.href};if(navigator.share)await navigator.share(data).catch(()=>{});else{await navigator.clipboard.writeText(location.href);alert('Poveznica je kopirana.')}await sb.from('community_article_shares').insert({article_slug:slug(),user_id:user?.id||null,channel:navigator.share?'native':'copy'})};
     const ar=await sb.from('community_article_reactions').select('user_id,reaction').eq('article_slug',slug());const ac={like:0,dislike:0};(ar.data||[]).forEach(x=>ac[x.reaction]++);toolbar.querySelector('[data-article-like] span').textContent=ac.like;toolbar.querySelector('[data-article-dislike] span').textContent=ac.dislike;
     const mine=(ar.data||[]).find(x=>x.user_id===user?.id);toolbar.querySelector('[data-article-like]').classList.toggle('active',mine?.reaction==='like');toolbar.querySelector('[data-article-dislike]').classList.toggle('active',mine?.reaction==='dislike');
@@ -170,6 +170,7 @@
     if(user)await ensureProfile();
     sb.auth.onAuthStateChange(async(_event,s)=>{user=s?.user||null;isAnonymous=!!user?.is_anonymous;if(user)await ensureProfile();authHeader();mountComments()});
     authHeader();mountComments();
+    readyResolve();
   }
   window.PatriaSoulCommunity={openAuth,reactArticle};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
