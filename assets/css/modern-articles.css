@@ -503,3 +503,13 @@
     transition:none;
   }
 }
+
+/* Kartice Obitelji: stvarna tematska fotografija, bez generičkih placeholdera. */
+.article-card .article-card-image{
+  display:block;
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  background:#e8e5de;
+}
+.article-card .article-card-body{padding:22px;}
