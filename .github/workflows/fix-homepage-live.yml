@@ -30,7 +30,7 @@ jobs:
               '<script src="assets/js/homepage-render.js?v=2"></script>'
               '<script src="assets/js/homepage-flow.js?v=5"></script>'
               '<script src="assets/js/homepage-live.js?v=7"></script>'
-              '<script src="assets/js/portal.js?v=9"></script>'
+              '<script src="assets/js/portal.js?v=10"></script>'
           )
 
           pattern = (
