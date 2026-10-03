@@ -105,45 +105,72 @@
     });
   }
 
-  function loadCity(c){
-    var url="https://api.open-meteo.com/v1/forecast?latitude="+c[1]+"&longitude="+c[2]+"&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,pressure_msl,cloud_cover,visibility,uv_index&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,precipitation,weather_code,wind_speed_10m,wind_gusts_10m,wind_direction_10m,visibility,pressure_msl,uv_index&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant,uv_index_max,sunrise,sunset&timezone=Europe%2FZagreb&forecast_days=7&forecast_hours=24";
-    return request(url).then(function(d){
-      results[c[0]]=d;
-    }).catch(function(){
-      results[c[0]]={error:true};
-    }).then(function(){
-      renderCurrent();
-      if(c[0]===selectedCity){renderForecast();renderDetail();renderHourly();renderRisk();}
-    });
-  }
-
   function loadAll(){
     results={};
     renderCurrent();
     renderForecast();
     if(status)status.textContent="Dohvaćanje aktualnih podataka…";
 
-    // Ne šaljemo 20 zahtjeva istodobno: to može izazvati ograničenje API-ja.
-    var index=0;
-    function nextBatch(){
-      var batch=cities.slice(index,index+4);
-      index+=4;
-      if(!batch.length){
-        var ok=Object.keys(results).some(function(k){return results[k] && !results[k].error;});
-        if(status)status.textContent=ok
-          ?"Podaci se učitavaju uživo. Za službena upozorenja pogledajte DHMZ."
-          :"Vremenski servis trenutno nije dostupan. Pokušajte ponovno.";
-        if(lastUpdated)lastUpdated.textContent=ok?"Zadnje dohvaćanje: "+new Date().toLocaleString("hr-HR"):"";
-        renderCurrent();
-        renderForecast();renderDetail();renderHourly();renderRisk();
-        return Promise.resolve();
-      }
-      return Promise.all(batch.map(loadCity)).then(function(){return nextBatch();});
-    }
-    return nextBatch();
+    // Open-Meteo podržava više koordinata u jednom zahtjevu.
+    // Tako izbjegavamo 20 paralelnih zahtjeva i moguće ograničenje servisa.
+    var url="https://api.open-meteo.com/v1/forecast"
+      +"?latitude="+cities.map(function(c){return c[1];}).join(",")
+      +"&longitude="+cities.map(function(c){return c[2];}).join(",")
+      +"&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m,pressure_msl,cloud_cover,visibility,uv_index"
+      +"&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,precipitation,weather_code,wind_speed_10m,wind_gusts_10m,wind_direction_10m,visibility,pressure_msl,uv_index"
+      +"&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant,uv_index_max,sunrise,sunset"
+      +"&timezone=Europe%2FZagreb&forecast_days=7&forecast_hours=24";
+
+    return request(url).then(function(payload){
+      var data=Array.isArray(payload)?payload:[payload];
+      cities.forEach(function(c,i){
+        if(data[i]) results[c[0]]=data[i];
+        else results[c[0]]={error:true};
+      });
+      if(status)status.textContent="Podaci su učitani. Za službena upozorenja pogledajte DHMZ.";
+      if(lastUpdated)lastUpdated.textContent="Zadnje dohvaćanje: "+new Date().toLocaleString("hr-HR");
+    }).catch(function(err){
+      console.error("PatriaSoul weather:",err);
+      cities.forEach(function(c){results[c[0]]={error:true};});
+      if(status)status.textContent="Vremenski servis trenutno nije dostupan. Pokušajte ponovno.";
+      if(lastUpdated)lastUpdated.textContent="";
+    }).then(function(){
+      renderCurrent();
+      renderForecast();
+      renderDetail();
+      renderHourly();
+      renderRisk();
+    });
   }
 
-  if(cs){cs.value=selectedCity;cs.addEventListener("change",function(){selectedCity=this.value;renderForecast();});} if(rs){rs.value=selectedRegion;rs.addEventListener("change",function(){selectedRegion=this.value;var list=selectedRegion==="Hrvatska"?cities:cities.filter(function(c){return c[3]===selectedRegion;});selectedCity=list.length?list[0][0]:"Zagreb";cs.value=selectedCity;renderCurrent();renderForecast();});} loadAll();
+  if(cs){
+    cs.value=selectedCity;
+    cs.addEventListener("change",function(){
+      selectedCity=this.value;
+      renderCurrent();
+      renderForecast();
+      renderDetail();
+      renderHourly();
+      renderRisk();
+    });
+  }
+
+  if(rs){
+    rs.value=selectedRegion;
+    rs.addEventListener("change",function(){
+      selectedRegion=this.value;
+      var list=selectedRegion==="Hrvatska"?cities:cities.filter(function(c){return c[3]===selectedRegion;});
+      selectedCity=list.length?list[0][0]:"Zagreb";
+      if(cs)cs.value=selectedCity;
+      renderCurrent();
+      renderForecast();
+      renderDetail();
+      renderHourly();
+      renderRisk();
+    });
+  }
+
+  loadAll();
 
   var refresh=document.getElementById("weather-refresh");
   if(refresh){
