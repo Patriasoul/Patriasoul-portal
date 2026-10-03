@@ -89,10 +89,7 @@
     const existing=document.getElementById('ps-auth-modal');
     if(existing){ existing.remove(); return; }
 
-    if(window.PatriaSoulCommunity?.openAuth){
-      try { return await window.PatriaSoulCommunity.openAuth(mode); } catch(e) { console.warn('Community prijava nije dostupna:',e); }
-    }
-
+    // Navigacija koristi ovaj samostalni obrazac prijave; ne ovisi o Community modulu.
     const CDN='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js';
     const URL='https://ijimozjfdffejbczwyzb.supabase.co';
     const KEY='sb_publishable_SvuPtQUmXamt1a1_JpU6Jg_Bf3Fshqr';
@@ -240,8 +237,15 @@
         link.dataset.navLogin = 'true';
         link.addEventListener('click', event => {
           event.preventDefault();
-          window.PatriaSoulOpenAuth('login')
+          event.stopPropagation();
+          window.PatriaSoulOpenAuth('login');
         });
+        link.onclick = event => {
+          event.preventDefault();
+          event.stopPropagation();
+          window.PatriaSoulOpenAuth('login');
+          return false;
+        };
       }
       if (item.href === 'pretraga.html') link.classList.add('nav-search');
       if (currentPage === item.href.toLowerCase()) {
@@ -334,12 +338,12 @@ shell.querySelector('[data-community-dislike]').onclick=()=>window.PatriaSoulCom
   (() => {
     if (!document.querySelector('link[data-patriasoul-community]')) {
       const css=document.createElement('link');
-      css.rel='stylesheet'; css.href='assets/css/community.css?v=8';
+      css.rel='stylesheet'; css.href='assets/css/community.css?v=9';
       css.dataset.patriasoulCommunity='true'; document.head.appendChild(css);
     }
     if (!document.querySelector('script[data-patriasoul-community]')) {
       const script=document.createElement('script');
-      script.src='assets/js/community.js?v=8';
+      script.src='assets/js/community.js?v=9';
       script.dataset.patriasoulCommunity='true'; document.body.appendChild(script);
     }
   })();
