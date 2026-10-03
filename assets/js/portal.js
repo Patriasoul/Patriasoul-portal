@@ -19,6 +19,7 @@
     'pretraga.html': {title: 'Pretraga — PatriaSoul', description: 'Pretražite priče, povijest, baštinu i druge sadržaje portala PatriaSoul.'},
     'cuvar-prijava.html': {title: 'Prijavi priču — Čuvari nasljeđa — PatriaSoul', description: 'Pošaljite PatriaSoulu prijedlog dokumentirane priče za format Čuvari nasljeđa.'},
     'kontakt.html': {title: 'Kontakt — PatriaSoul', description: 'Kontaktirajte PatriaSoul i pošaljite prijedlog priče, ispravak ili upit.'},
+    'prijava.html': {title: 'Prijava — PatriaSoul', description: 'Prijava i registracija PatriaSoul računa za portal i kviz.'},
     'najnovije.html': {title: 'Najnovije — PatriaSoul', description: 'Najnovije objavljene priče PatriaSoula, uz aktualne vremenske podatke za hrvatske gradove.'},
     'povijest.html': {title: 'Povijest — PatriaSoul', description: 'Hrvatska povijest kroz provjerene priče, ljude, događaje i izvore.'},
     'urednicki-standard.html': {title: 'Urednički standard — PatriaSoul', description: 'Kako PatriaSoul provjerava izvore, razlikuje činjenice od svjedočanstava i ispravlja pogreške.'},
@@ -189,7 +190,7 @@
     {href:'kontakt.html', label:'✉️ Kontakt'},
     {href:'kviz.html', label:'🎮 Kviz PatriaSoul'},
     {href:'pretraga.html', label:'🔎 Pretraga'},
-    {href:'#', label:'🔐 Prijava', auth:true}
+    {href:'prijava.html', label:'🔐 Prijava'}
   ];
 
 
