@@ -1044,3 +1044,134 @@ button:not(.menu-toggle):not(.submenu-toggle):not(.ps-slider-btn):hover,input[ty
 .ps-family-tile-red b,.ps-family-tile-blue b,.ps-family-tile-dark b{color:#fff}.ps-family-tile-light b{color:#c5222b}
 @media(max-width:900px){.ps-family-hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.ps-family-tile{min-height:210px!important}.ps-family-hub-head{align-items:flex-start}}
 @media(max-width:600px){.ps-family-hub{margin:46px 0 20px!important}.ps-family-hub:before{height:5px;margin-bottom:22px}.ps-family-hub-head{gap:15px}.ps-family-hub-head h2{font-size:1.8rem!important}.ps-family-hub-head p{font-size:13px}.ps-family-hub-count{width:58px;height:58px;flex-basis:58px}.ps-family-hub-count strong{font-size:21px}.ps-family-hub-grid{grid-template-columns:1fr!important;gap:11px!important}.ps-family-tile{min-height:190px!important;padding:20px!important}.ps-family-tile-icon{width:48px;height:48px;margin-bottom:17px;font-size:23px}.ps-family-tile strong{font-size:1.22rem!important}}
+
+
+/* PATRIASOUL · JEDINSTVENI SUSTAV POVEZNICA · v2
+   Svi akcijski linkovi koriste isti oblik: plava baza + crveni pomak + ravni rubovi.
+*/
+:where(
+  a.patria-button,
+  a.read-more,
+  a.text-link,
+  a.category-pill,
+  a.ps-btn,
+  a.ps-button,
+  a.ps-card-link,
+  a.weather-button,
+  a.pillar-intro-link,
+  a.home-section-more,
+  a.home-section-footer>a,
+  a.module-title>a,
+  a.breaking-inner>a,
+  a.guardian-cta,
+  a.obitelj-new-stories-link,
+  a.article-related-card em
+){
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:8px!important;
+  min-height:40px!important;
+  width:auto!important;
+  padding:10px 15px!important;
+  margin:0!important;
+  border:1px solid var(--blue,#17395f)!important;
+  border-radius:0!important;
+  background:var(--blue,#17395f)!important;
+  color:#fff!important;
+  font:800 11px/1.15 Inter,system-ui,sans-serif!important;
+  letter-spacing:.045em!important;
+  text-transform:uppercase!important;
+  text-decoration:none!important;
+  box-shadow:3px 3px 0 var(--red,#c5222b)!important;
+  transition:transform .16s ease,background .16s ease,box-shadow .16s ease,border-color .16s ease!important;
+}
+:where(
+  a.patria-button:hover,
+  a.read-more:hover,
+  a.text-link:hover,
+  a.category-pill:hover,
+  a.ps-btn:hover,
+  a.ps-button:hover,
+  a.ps-card-link:hover,
+  a.weather-button:hover,
+  a.pillar-intro-link:hover,
+  a.home-section-more:hover,
+  a.home-section-footer>a:hover,
+  a.module-title>a:hover,
+  a.breaking-inner>a:hover,
+  a.guardian-cta:hover,
+  a.obitelj-new-stories-link:hover,
+  a.article-related-card em:hover
+){
+  background:var(--red,#c5222b)!important;
+  border-color:var(--red,#c5222b)!important;
+  color:#fff!important;
+  transform:translate(-1px,-1px)!important;
+  box-shadow:4px 4px 0 var(--blue,#17395f)!important;
+}
+:where(
+  a.ps-btn-light,
+  a.ps-button-outline,
+  a.weather-button.secondary
+){
+  background:#fff!important;
+  color:var(--blue,#17395f)!important;
+  border-color:var(--blue,#17395f)!important;
+  box-shadow:3px 3px 0 var(--red,#c5222b)!important;
+}
+:where(
+  a.ps-btn-light:hover,
+  a.ps-button-outline:hover,
+  a.weather-button.secondary:hover
+){
+  background:var(--red,#c5222b)!important;
+  color:#fff!important;
+  border-color:var(--red,#c5222b)!important;
+}
+:where(
+  button:not(.menu-toggle):not(.submenu-toggle):not(.ps-slider-btn),
+  input[type=submit],
+  input[type=button]
+){
+  min-height:40px!important;
+  padding:10px 15px!important;
+  border:1px solid var(--blue,#17395f)!important;
+  border-radius:0!important;
+  background:var(--blue,#17395f)!important;
+  color:#fff!important;
+  font:800 11px/1.15 Inter,system-ui,sans-serif!important;
+  letter-spacing:.045em!important;
+  text-transform:uppercase!important;
+  box-shadow:3px 3px 0 var(--red,#c5222b)!important;
+}
+:where(
+  button:not(.menu-toggle):not(.submenu-toggle):not(.ps-slider-btn):hover,
+  input[type=submit]:hover,
+  input[type=button]:hover
+){
+  background:var(--red,#c5222b)!important;
+  border-color:var(--red,#c5222b)!important;
+  transform:translate(-1px,-1px)!important;
+  box-shadow:4px 4px 0 var(--blue,#17395f)!important;
+}
+@media(max-width:560px){
+  :where(
+    a.patria-button,
+    a.read-more,
+    a.text-link,
+    a.category-pill,
+    a.ps-btn,
+    a.ps-button,
+    a.ps-card-link,
+    a.weather-button,
+    a.pillar-intro-link,
+    a.home-section-more,
+    a.home-section-footer>a,
+    a.module-title>a,
+    a.breaking-inner>a,
+    a.guardian-cta,
+    a.obitelj-new-stories-link,
+    a.article-related-card em
+  ){min-height:38px!important;padding:9px 12px!important;font-size:10px!important}
+}
