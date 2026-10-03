@@ -266,12 +266,12 @@ shell.querySelector('[data-community-dislike]').onclick=()=>window.PatriaSoulCom
   (() => {
     if (!document.querySelector('link[data-patriasoul-community]')) {
       const css=document.createElement('link');
-      css.rel='stylesheet'; css.href='assets/css/community.css?v=4';
+      css.rel='stylesheet'; css.href='assets/css/community.css?v=5';
       css.dataset.patriasoulCommunity='true'; document.head.appendChild(css);
     }
     if (!document.querySelector('script[data-patriasoul-community]')) {
       const script=document.createElement('script');
-      script.src='assets/js/community.js?v=4';
+      script.src='assets/js/community.js?v=5';
       script.dataset.patriasoulCommunity='true'; document.body.appendChild(script);
     }
   })();
