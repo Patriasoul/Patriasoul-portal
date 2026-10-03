@@ -84,15 +84,71 @@
   upsertMeta('theme-color', '#8b0000');
 
 
-  // Pouzdani ulaz u prijavu: ne ovisi o trenutku učitavanja community.js.
+  // Samostalna prijava: navigacija ne ovisi o učitavanju Community modula.
   window.PatriaSoulOpenAuth = async (mode='login') => {
-    for(let i=0;i<120;i++){
-      if(window.PatriaSoulCommunity?.openAuth){
-        return window.PatriaSoulCommunity.openAuth(mode);
-      }
-      await new Promise(r=>setTimeout(r,100));
+    const existing=document.getElementById('ps-auth-modal');
+    if(existing){ existing.remove(); return; }
+
+    if(window.PatriaSoulCommunity?.openAuth){
+      try { return await window.PatriaSoulCommunity.openAuth(mode); } catch(e) { console.warn('Community prijava nije dostupna:',e); }
     }
-    alert('Prijava se nije uspjela učitati. Osvježi stranicu i pokušaj ponovno.');
+
+    const CDN='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js';
+    const URL='https://ijimozjfdffejbczwyzb.supabase.co';
+    const KEY='sb_publishable_SvuPtQUmXamt1a1_JpU6Jg_Bf3Fshqr';
+    const loadScript=src=>new Promise((resolve,reject)=>{
+      const s=document.createElement('script'); s.src=src; s.onload=resolve; s.onerror=reject; document.head.appendChild(s);
+    });
+
+    const box=document.createElement('div');
+    box.className='ps-auth-modal';
+    box.id='ps-auth-modal';
+    box.innerHTML='<div class="ps-auth-card"><button class="ps-close" aria-label="Zatvori">×</button><h2>'+ (mode==='login'?'Prijava':'Registracija') +'</h2><p class="ps-community-muted">Isti PatriaSoul račun koristi se i za kviz i za portal.</p><label>E-mail</label><input id="ps-direct-email" type="email" autocomplete="email"><label>Lozinka</label><input id="ps-direct-pass" type="password" autocomplete="'+(mode==='login'?'current-password':'new-password')+'"><div class="ps-auth-actions"><button id="ps-direct-submit" type="button">'+(mode==='login'?'Prijavi se':'Registriraj se')+'</button><button id="ps-direct-google" type="button">Nastavi s Googleom</button></div><div id="ps-direct-error" class="ps-auth-error"></div><div class="ps-auth-switch">'+(mode==='login'?'Nemaš račun? ':'Već imaš račun? ')+'<button id="ps-direct-switch" type="button">'+(mode==='login'?'Registriraj se':'Prijavi se')+'</button></div></div>';
+    document.body.appendChild(box);
+    box.querySelector('.ps-close').onclick=()=>box.remove();
+    box.onclick=e=>{if(e.target===box)box.remove()};
+    box.querySelector('#ps-direct-switch').onclick=()=>{box.remove();window.PatriaSoulOpenAuth(mode==='login'?'signup':'login')};
+
+    let client=null;
+    const ensureClient=async()=>{
+      try{
+        if(!window.supabase) await loadScript(CDN);
+        if(!window.supabase) throw new Error('Supabase biblioteka nije dostupna.');
+        if(!client) client=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+        return client;
+      }catch(e){
+        box.querySelector('#ps-direct-error').textContent='Prijava se trenutno ne može učitati. '+(e?.message||'');
+        return null;
+      }
+    };
+
+    box.querySelector('#ps-direct-submit').onclick=async()=>{
+      const out=box.querySelector('#ps-direct-error'); out.textContent='';
+      const email=box.querySelector('#ps-direct-email').value.trim();
+      const password=box.querySelector('#ps-direct-pass').value;
+      if(!email||!password){out.textContent='Upiši e-mail i lozinku.';return}
+      const sb=await ensureClient(); if(!sb)return;
+      const btn=box.querySelector('#ps-direct-submit'); btn.disabled=true;
+      try{
+        const res=mode==='login'
+          ?await sb.auth.signInWithPassword({email,password})
+          :await sb.auth.signUp({email,password,options:{data:{display_name:email.split('@')[0]}}});
+        if(res.error){out.textContent=res.error.message;return}
+        if(mode==='signup'&&!res.data.session){out.textContent='Registracija je zaprimljena. Provjeri e-mail i potvrdi račun.';return}
+        box.remove();
+        location.reload();
+      }catch(e){out.textContent=e?.message||'Prijava nije uspjela.'}
+      finally{btn.disabled=false}
+    };
+
+    box.querySelector('#ps-direct-google').onclick=async()=>{
+      const out=box.querySelector('#ps-direct-error'); out.textContent='';
+      const sb=await ensureClient(); if(!sb)return;
+      try{
+        const {error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.href.split('#')[0]}});
+        if(error)out.textContent=error.message;
+      }catch(e){out.textContent=e?.message||'Google prijava nije uspjela.'}
+    };
   };
 
   const navItems = [
