@@ -2,7 +2,7 @@
   const SUPABASE_URL = 'https://ijimozjfdffejbczwyzb.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_SvuPtQUmXamt1a1_JpU6Jg_Bf3Fshqr';
   const QUIZ_URL = 'https://patriasoul.github.io/kviz/';
-  const CDN = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+  const CDN = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js';
   const load = src => new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.head.appendChild(s)});
   const esc = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   const slug = () => {
@@ -156,5 +156,6 @@
     sb.auth.onAuthStateChange(async(_event,s)=>{user=s?.user||null;if(user)await ensureProfile();authHeader();mountComments()});
     authHeader();mountComments();
   }
+  window.PatriaSoulCommunity={openAuth};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
