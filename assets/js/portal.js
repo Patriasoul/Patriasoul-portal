@@ -291,6 +291,26 @@
       nav.appendChild(wrap);
     });
 
+    // Globalna zaštita prijave: hvata klik prije ostalih navigacijskih handlera.
+    if (!document.documentElement.dataset.patriaAuthCapture) {
+      document.documentElement.dataset.patriaAuthCapture = 'true';
+      document.addEventListener('click', event => {
+        const login = event.target.closest && event.target.closest('[data-nav-login]');
+        if (!login) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (typeof window.PatriaSoulOpenAuth === 'function') window.PatriaSoulOpenAuth('login');
+      }, true);
+    }
+
+    const authStyle = 'ps-auth-inline-style';
+    if (!document.getElementById(authStyle)) {
+      const style = document.createElement('style');
+      style.id = authStyle;
+      style.textContent = '.ps-auth-modal{position:fixed!important;inset:0!important;display:flex!important;align-items:center!important;justify-content:center!important;background:rgba(0,0,0,.72)!important;z-index:2147483647!important;padding:20px!important}.ps-auth-card{display:block!important;width:min(460px,100%)!important;background:#fff!important;padding:28px!important;box-shadow:0 20px 60px rgba(0,0,0,.35)!important;position:relative!important;color:#17395f!important}.ps-auth-card input{display:block!important;width:100%!important;box-sizing:border-box!important;margin:6px 0 12px!important;padding:12px!important}.ps-auth-card button{cursor:pointer!important}.ps-auth-error{color:#b4232b!important;margin-top:10px!important}';
+      document.head.appendChild(style);
+    }
+
     const toggle = header.querySelector('.menu-toggle');
     const closeMenu = () => {
       nav.classList.remove('open');
