@@ -20,23 +20,56 @@
     if(!data) await sb.from('profiles').upsert({id:user.id,display_name:profile.display_name},{onConflict:'id'});
   }
 
-  async function openAuth(mode='login'){ if(!sb){await new Promise(r=>setTimeout(r,250));} if(!sb){alert('Prijava se još učitava. Pokušaj ponovno za trenutak.');return}
+  async function openAuth(mode='login'){
     authMode=mode;
+    const existing=document.getElementById('ps-auth-modal'); if(existing) existing.remove();
     const box=document.createElement('div');box.className='ps-auth-modal';box.id='ps-auth-modal';
-    box.innerHTML='<div class="ps-auth-card"><button class="ps-close" aria-label="Zatvori">×</button><h2>'+(mode==='login'?'Prijava':'Registracija')+'</h2><p class="ps-community-muted">Isti PatriaSoul račun koristi se i za kviz i za portal.</p><label>E-mail</label><input id="ps-email" type="email" autocomplete="email"><label>Lozinka</label><input id="ps-pass" type="password" autocomplete="'+(mode==='login'?'current-password':'new-password')+'"><div class="ps-auth-actions"><button id="ps-submit">'+(mode==='login'?'Prijavi se':'Registriraj se')+'</button><button id="ps-google">Nastavi s Googleom</button></div><div id="ps-auth-error" class="ps-auth-error"></div><div class="ps-auth-switch">'+(mode==='login'?'Nemaš račun? ':'Već imaš račun? ')+'<button id="ps-switch">'+(mode==='login'?'Registriraj se':'Prijavi se')+'</button></div></div>';
+    box.innerHTML='<div class="ps-auth-card"><button class="ps-close" aria-label="Zatvori">×</button><h2>'+(mode==='login'?'Prijava':'Registracija')+'</h2><p class="ps-community-muted">Isti PatriaSoul račun koristi se i za kviz i za portal.</p><label>E-mail</label><input id="ps-email" type="email" autocomplete="email"><label>Lozinka</label><input id="ps-pass" type="password" autocomplete="'+(mode==='login'?'current-password':'new-password')+'"><div class="ps-auth-actions"><button id="ps-submit" type="button">'+(mode==='login'?'Prijavi se':'Registriraj se')+'</button><button id="ps-google" type="button">Nastavi s Googleom</button></div><div id="ps-auth-error" class="ps-auth-error"></div><div class="ps-auth-switch">'+(mode==='login'?'Nemaš račun? ':'Već imaš račun? ')+'<button id="ps-switch" type="button">'+(mode==='login'?'Registriraj se':'Prijavi se')+'</button></div></div>';
     document.body.appendChild(box);
     box.querySelector('.ps-close').onclick=()=>box.remove();
     box.onclick=e=>{if(e.target===box)box.remove()};
     box.querySelector('#ps-switch').onclick=()=>{box.remove();openAuth(mode==='login'?'signup':'login')};
-    box.querySelector('#ps-submit').onclick=async()=>{
-      const email=box.querySelector('#ps-email').value.trim(), password=box.querySelector('#ps-pass').value;
-      const out=box.querySelector('#ps-auth-error');out.textContent='';
-      let res=mode==='login'?await sb.auth.signInWithPassword({email,password}):await sb.auth.signUp({email,password,options:{data:{display_name:email.split('@')[0]}}});
-      if(res.error){out.textContent=res.error.message;return}
-      if(mode==='signup'&&!res.data.session){out.textContent='Registracija je zaprimljena. Provjeri e-mail i potvrdi račun.';return}
-      box.remove();
+
+    const ensureClient=async()=>{
+      if(sb)return true;
+      try{
+        if(!window.supabase) await load(CDN);
+        if(!window.supabase) throw new Error('Supabase biblioteka nije učitana.');
+        sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+        const session=(await sb.auth.getSession()).data.session;
+        user=session?.user||null; isAnonymous=!!user?.is_anonymous;
+        return true;
+      }catch(e){box.querySelector('#ps-auth-error').textContent='Prijava se trenutno ne može učitati. '+(e?.message||'');return false}
     };
-    box.querySelector('#ps-google').onclick=async()=>{const {error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.href}});if(error)box.querySelector('#ps-auth-error').textContent=error.message};
+
+    box.querySelector('#ps-submit').onclick=async()=>{
+      const out=box.querySelector('#ps-auth-error');out.textContent='';
+      const email=box.querySelector('#ps-email').value.trim(), password=box.querySelector('#ps-pass').value;
+      if(!email||!password){out.textContent='Upiši e-mail i lozinku.';return}
+      if(!await ensureClient())return;
+      box.querySelector('#ps-submit').disabled=true;
+      try{
+        if(user?.is_anonymous){
+          await sb.auth.signOut({scope:'local'});
+          user=null;isAnonymous=false;
+        }
+        const res=mode==='login'
+          ?await sb.auth.signInWithPassword({email,password})
+          :await sb.auth.signUp({email,password,options:{data:{display_name:email.split('@')[0]}}});
+        if(res.error){out.textContent=res.error.message;return}
+        if(mode==='signup'&&!res.data.session){out.textContent='Registracija je zaprimljena. Provjeri e-mail i potvrdi račun.';return}
+        user=res.data?.user||null;isAnonymous=!!user?.is_anonymous;
+        if(user)await ensureProfile();
+        box.remove();authHeader();mountComments();
+      }finally{box.querySelector('#ps-submit').disabled=false}
+    };
+    box.querySelector('#ps-google').onclick=async()=>{
+      const out=box.querySelector('#ps-auth-error');out.textContent='';
+      if(!await ensureClient())return;
+      if(user?.is_anonymous) await sb.auth.signOut({scope:'local'});
+      const {error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.href.split('#')[0]}});
+      if(error)out.textContent=error.message;
+    };
   }
 
   function authHeader(){
