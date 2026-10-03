@@ -20,7 +20,7 @@
     if(!data) await sb.from('profiles').upsert({id:user.id,display_name:profile.display_name},{onConflict:'id'});
   }
 
-  async function openAuth(mode='login'){ await ready; if(!sb){alert('Prijava se još učitava. Pokušaj ponovno za trenutak.');return}
+  async function openAuth(mode='login'){ if(!sb){await new Promise(r=>setTimeout(r,250));} if(!sb){alert('Prijava se još učitava. Pokušaj ponovno za trenutak.');return}
     authMode=mode;
     const box=document.createElement('div');box.className='ps-auth-modal';box.id='ps-auth-modal';
     box.innerHTML='<div class="ps-auth-card"><button class="ps-close" aria-label="Zatvori">×</button><h2>'+(mode==='login'?'Prijava':'Registracija')+'</h2><p class="ps-community-muted">Isti PatriaSoul račun koristi se i za kviz i za portal.</p><label>E-mail</label><input id="ps-email" type="email" autocomplete="email"><label>Lozinka</label><input id="ps-pass" type="password" autocomplete="'+(mode==='login'?'current-password':'new-password')+'"><div class="ps-auth-actions"><button id="ps-submit">'+(mode==='login'?'Prijavi se':'Registriraj se')+'</button><button id="ps-google">Nastavi s Googleom</button></div><div id="ps-auth-error" class="ps-auth-error"></div><div class="ps-auth-switch">'+(mode==='login'?'Nemaš račun? ':'Već imaš račun? ')+'<button id="ps-switch">'+(mode==='login'?'Registriraj se':'Prijavi se')+'</button></div></div>';
@@ -48,7 +48,7 @@
       area.innerHTML='<button class="ps-user" id="ps-profile">'+avatar(profile)+'<span>'+esc(profile?.display_name||user.email||'Profil')+'</span></button><button id="ps-notify" class="ps-tool">🔔</button><button id="ps-logout" class="ps-tool">Odjava</button>';
     }
     utility.appendChild(area);
-    if(!user){area.querySelector('#ps-login').onclick=()=>openAuth('login');area.querySelector('#ps-signup').onclick=()=>openAuth('signup')}
+    if(!user || isAnonymous){area.querySelector('#ps-login').onclick=()=>openAuth('login');area.querySelector('#ps-signup').onclick=()=>openAuth('signup')}
     else{area.querySelector('#ps-profile').onclick=showProfile;area.querySelector('#ps-logout').onclick=()=>sb.auth.signOut();area.querySelector('#ps-notify').onclick=showNotifications;loadNotifications()}
   }
 
@@ -133,7 +133,7 @@
     const old=document.getElementById('ps-community');if(old)old.remove();
     const root=document.createElement('section');root.id='ps-community';root.className='ps-community';root.innerHTML='<h2>💬 Komentari</h2><p class="ps-community-muted">Rasprava je otvorena registriranim korisnicima. Molimo poštujte druge i držite se teme članka.</p>';
     article.appendChild(root);
-    const toolbar=document.createElement('div');toolbar.className='ps-share-row';toolbar.innerHTML='<button data-share>↗ Podijeli članak</button><button data-article-like>❤️ Lajk <span>0</span></button><button data-article-dislike>👎 Dislike <span>0</span></button>';root.appendChild(toolbar);
+    const toolbar=document.createElement('div');toolbar.className='ps-share-row';toolbar.innerHTML='<button data-share>↗ Podijeli članak</button><button data-article-like>❤️ Lajk&nbsp;<span>0</span></button><button data-article-dislike>👎 Dislike&nbsp;<span>0</span></button>';root.appendChild(toolbar);
     toolbar.querySelector('[data-share]').onclick=async()=>{const data={title:document.title,text:document.querySelector('.article-deck')?.textContent||'',url:location.href};if(navigator.share)await navigator.share(data).catch(()=>{});else{await navigator.clipboard.writeText(location.href);alert('Poveznica je kopirana.')}await sb.from('community_article_shares').insert({article_slug:slug(),user_id:user?.id||null,channel:navigator.share?'native':'copy'})};
     const ar=await sb.from('community_article_reactions').select('user_id,reaction').eq('article_slug',slug());const ac={like:0,dislike:0};(ar.data||[]).forEach(x=>ac[x.reaction]++);toolbar.querySelector('[data-article-like] span').textContent=ac.like;toolbar.querySelector('[data-article-dislike] span').textContent=ac.dislike;
     const mine=(ar.data||[]).find(x=>x.user_id===user?.id);toolbar.querySelector('[data-article-like]').classList.toggle('active',mine?.reaction==='like');toolbar.querySelector('[data-article-dislike]').classList.toggle('active',mine?.reaction==='dislike');
@@ -181,17 +181,19 @@
     if(!window.supabase){try{await load(CDN)}catch(e){ readyResolve(); authHeader(); mountComments(); return; }}
     sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
     const session=(await sb.auth.getSession()).data.session;
-    if(session?.user){ user=session.user; }
-    else {
-      const anon=await sb.auth.signInAnonymously();
-      if(anon.error) console.warn('Anonimna prijava nije omogućena:', anon.error.message);
-      user=anon.data?.user||null;
+    if(session?.user){ user=session.user; isAnonymous=!!user.is_anonymous; }
+    readyResolve();
+    if(!user){
+      try {
+        const anon=await sb.auth.signInAnonymously();
+        if(anon.error) console.warn('Anonimna prijava nije omogućena:', anon.error.message);
+        user=anon.data?.user||null;
+      } catch(e){ console.warn('Anonimna prijava nije dostupna:', e); }
+      isAnonymous=!!user?.is_anonymous;
     }
-    isAnonymous=!!user?.is_anonymous;
     if(user)await ensureProfile();
     sb.auth.onAuthStateChange(async(_event,s)=>{user=s?.user||null;isAnonymous=!!user?.is_anonymous;if(user)await ensureProfile();authHeader();mountComments()});
     authHeader();mountComments();
-    readyResolve();
   }
   window.PatriaSoulCommunity={openAuth,reactArticle};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
