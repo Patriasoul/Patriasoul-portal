@@ -42,12 +42,12 @@ const requiredIndex = [
   'assets/js/homepage-render.js?v=2',
   'assets/js/homepage-flow.js?v=5',
   'assets/js/homepage-live.js?v=7',
-  'assets/js/portal.js?v=11'
+  'assets/js/portal.js?v=12'
 ];
 const requiredLatest = [
   'assets/js/content-data.js?v=12',
   'assets/js/article-system.js?v=2',
-  'assets/js/portal.js?v=11'
+  'assets/js/portal.js?v=12'
 ];
 
 const indexScripts = scriptsFrom(index);
@@ -106,7 +106,7 @@ try {
 ].forEach(checkScriptSyntax);
 
 const workflow = read('.github/workflows/fix-homepage-live.yml');
-if (workflow && !workflow.includes('assets/js/portal.js?v=11')) fail('Deployment workflow', 'fix-homepage-live.yml ne vraća portal.js');
+if (workflow && !workflow.includes('assets/js/portal.js?v=12')) fail('Deployment workflow', 'fix-homepage-live.yml ne vraća portal.js');
 else if (workflow) ok('Deployment workflow', 'portal.js ostaje u naslovnici');
 
 const oldPortalRewrite = /replaces?\([^\n]*portal\.js|s\.replace\([^\n]*portal\.js[^\n]*homepage-live/i.test(workflow);
