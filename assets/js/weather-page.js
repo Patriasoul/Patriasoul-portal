@@ -35,7 +35,7 @@
   var forecastBox=document.getElementById("weather-forecast-body");
   var status=document.getElementById("weather-live-status");
   var lastUpdated=document.getElementById("weather-updated");
-  var results={};
+  var results={}; var selectedCity="Zagreb";
 
   function esc(s){
     return String(s).replace(/[&<>"']/g,function(c){
@@ -62,7 +62,7 @@
         return '<article class="weather-city-card"><div class="weather-city-head"><div><h3>'+esc(c[0])+'</h3><small>Hrvatska</small></div><div class="weather-temp">…</div></div><div class="weather-loading">Učitavanje podataka…</div></article>';
       }
       var cur=d.current;
-      return '<article class="weather-city-card"><div class="weather-city-head"><div><h3>'+esc(c[0])+'</h3><small>'+esc(labels[cur.weather_code]||"Vrijeme")+'</small></div><div class="weather-temp">'+Math.round(cur.temperature_2m)+" °C</div></div><div class="weather-desc">"+(icons[cur.weather_code]||"🌤️")+" "+esc(labels[cur.weather_code]||"Vrijeme")+'</div><div class="weather-metrics"><div class="weather-metric"><span>Osjećaj</span><b>'+Math.round(cur.apparent_temperature)+' °C</b></div><div class="weather-metric"><span>Vjetar</span><b>'+kmh(cur.wind_speed_10m)+' km/h</b></div><div class="weather-metric"><span>Vlaga</span><b>'+Math.round(cur.relative_humidity_2m)+' %</b></div><div class="weather-metric"><span>Oborina</span><b>'+mm(cur.precipitation)+'</b></div></div><div class="weather-updated">Ažurirano: '+time(cur.time)+'</div></article>';
+      return '<article class="weather-city-card"><div class="weather-city-head"><div><h3>'+esc(c[0])+'</h3><small>'+esc(labels[cur.weather_code]||"Vrijeme")+'</small></div><div class="weather-temp">'+Math.round(cur.temperature_2m)+" °C</div></div><div class="weather-desc">"+(icons[cur.weather_code]||"🌤️")+" "+esc(labels[cur.weather_code]||"Vrijeme")+'</div><div class="weather-metrics"><div class="weather-metric"><span>Osjećaj</span><b>'+Math.round(cur.apparent_temperature)+' °C</b></div><div class="weather-metric"><span>Vjetar</span><b>'+kmh(cur.wind_speed_10m)+' km/h</b></div><div class="weather-metric"><span>Udari</span><b>'+kmh(cur.wind_gusts_10m)+'</b></div><div class="weather-metric"><span>Vlaga</span><b>'+Math.round(cur.relative_humidity_2m)+' %</b></div><div class="weather-metric"><span>Tlak</span><b>'+Math.round(cur.pressure_msl)+' hPa</b></div><div class="weather-metric"><span>UV</span><b>'+Math.round(cur.uv_index*10)/10+'</b></div><div class="weather-metric"><span>Oborina</span><b>'+mm(cur.precipitation)+'</b></div><div class="weather-metric"><span>Vidljivost</span><b>'+(cur.visibility/1000).toFixed(1)+' km</b></div></div><div class="weather-updated">Ažurirano: '+time(cur.time)+'</div></article>';
     }).join("");
   }
 
@@ -136,7 +136,7 @@
     return nextBatch();
   }
 
-  loadAll();
+  var cs=document.getElementById("weather-city-select"); if(cs){cs.value=selectedCity;cs.addEventListener("change",function(){selectedCity=this.value;renderForecast();});} loadAll();
 
   var refresh=document.getElementById("weather-refresh");
   if(refresh){
