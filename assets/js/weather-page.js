@@ -66,9 +66,15 @@
     }).join("");
   }
 
+  function windDirection(deg){if(deg==null)return "—";var a=["S","SI","I","JI","J","JZ","Z","SZ"];return a[Math.round(Number(deg)/45)%8];}
+  function renderDetail(){var box=document.getElementById("weather-detail"),d=results[selectedCity];if(!box||!d||d.error)return;var x=d.current;box.innerHTML="<div class=\"weather-detail-main\"><div><span class=\"weather-eyebrow\">ODABRANI GRAD</span><h2>"+esc(selectedCity)+"</h2><div class=\"weather-big\">"+(icons[x.weather_code]||"🌤️")+" "+Math.round(x.temperature_2m)+" °C</div><p>"+esc(labels[x.weather_code]||"Vrijeme")+" · osjećaj "+Math.round(x.apparent_temperature)+" °C</p></div><div class=\"weather-detail-grid\">"+metric("Vlažnost",Math.round(x.relative_humidity_2m)+" %")+metric("Vjetar",kmh(x.wind_speed_10m)+" km/h")+metric("Smjer",windDirection(x.wind_direction_10m))+metric("Udari",kmh(x.wind_gusts_10m)+" km/h")+metric("Tlak",Math.round(x.pressure_msl)+" hPa")+metric("UV indeks",x.uv_index==null?"—":Math.round(x.uv_index*10)/10)+metric("Vidljivost",x.visibility==null?"—":(x.visibility/1000).toFixed(1)+" km")+metric("Naoblaka",Math.round(x.cloud_cover||0)+" %")+"</div></div>";}
+  function metric(a,b){return "<div class=\"weather-metric\"><span>"+a+"</span><b>"+b+"</b></div>";}
+  function renderHourly(){var box=document.getElementById("weather-hourly"),d=results[selectedCity];if(!box||!d||d.error||!d.hourly)return;var h=d.hourly,n=Math.min(24,h.time.length);box.innerHTML="<div class=\"weather-section-heading\"><div><span class=\"weather-eyebrow\">SATNA PROGNOZA</span><h3>Sljedeća 24 sata · "+esc(selectedCity)+"</h3></div></div><div class=\"hourly-scroll\"><div class=\"hourly-row\">"+Array.from({length:n},function(_,i){return "<article class=\"hour-card\"><b>"+time(h.time[i])+"</b><strong>"+(icons[h.weather_code[i]]||"🌤️")+"</strong><em>"+Math.round(h.temperature_2m[i])+"°</em><span>"+Math.round(h.relative_humidity_2m[i])+"% vlage</span><span>"+kmh(h.wind_speed_10m[i])+" km/h</span><span>"+Math.round(h.precipitation_probability[i]||0)+"% kiše</span></article>";}).join("")+"</div></div>";}
+  function renderRisk(){var box=document.getElementById("weather-risk"),d=results[selectedCity];if(!box||!d||d.error)return;var x=d.current,items=[];if(Number(x.wind_gusts_10m)>=70)items.push("🔴 Jaki udari vjetra — provjeri službena DHMZ upozorenja.");else if(Number(x.wind_gusts_10m)>=50)items.push("🟠 Pojačani udari vjetra — provjeri DHMZ.");else if(Number(x.wind_gusts_10m)>=35)items.push("🟡 Vjetrovito — povećan oprez.");if(Number(x.weather_code)>=95)items.push("🔴 Grmljavina — provjeri službena DHMZ upozorenja.");if(x.visibility!=null&&x.visibility<2000)items.push("🟡 Smanjena vidljivost.");box.innerHTML=(items.length?items:["🟢 Nema istaknutog lokalnog rizika prema trenutno dohvaćenim podacima."]).map(function(t){return "<div class=\"weather-risk-item\">"+t+"</div>";}).join("");}
+
   function renderForecast(){
     if(!forecastBox)return;
-    var city=results["Zagreb"];
+    var city=results[selectedCity] || results["Zagreb"];
     if(!city || city.error){
       forecastBox.innerHTML='<tr><td colspan="7" class="weather-loading">Prognoza trenutno nije dostupna. Pokušajte ponovno za nekoliko trenutaka.</td></tr>';
       return;
@@ -106,7 +112,7 @@
       results[c[0]]={error:true};
     }).then(function(){
       renderCurrent();
-      if(c[0]==="Zagreb")renderForecast();
+      if(c[0]===selectedCity){renderForecast();renderDetail();renderHourly();renderRisk();}
     });
   }
 
@@ -128,7 +134,7 @@
           :"Vremenski servis trenutno nije dostupan. Pokušajte ponovno.";
         if(lastUpdated)lastUpdated.textContent=ok?"Zadnje dohvaćanje: "+new Date().toLocaleString("hr-HR"):"";
         renderCurrent();
-        renderForecast();
+        renderForecast();renderDetail();renderHourly();renderRisk();
         return Promise.resolve();
       }
       return Promise.all(batch.map(loadCity)).then(function(){return nextBatch();});
