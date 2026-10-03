@@ -123,7 +123,8 @@
     ]},
     {href:'kontakt.html', label:'✉️ Kontakt'},
     {href:'kviz.html', label:'🎮 Kviz PatriaSoul'},
-    {href:'pretraga.html', label:'🔎 Pretraga'}
+    {href:'pretraga.html', label:'🔎 Pretraga'},
+    {href:'#', label:'🔐 Prijava', auth:true}
   ];
 
 
@@ -167,6 +168,13 @@
       const link = document.createElement('a');
       link.href = item.href;
       link.textContent = item.label;
+      if (item.auth) {
+        link.dataset.navLogin = 'true';
+        link.addEventListener('click', event => {
+          event.preventDefault();
+          window.PatriaSoulCommunity?.openAuth?.('login');
+        });
+      }
       if (item.href === 'pretraga.html') link.classList.add('nav-search');
       if (currentPage === item.href.toLowerCase()) {
         link.classList.add('active');
@@ -256,12 +264,12 @@
   (() => {
     if (!document.querySelector('link[data-patriasoul-community]')) {
       const css=document.createElement('link');
-      css.rel='stylesheet'; css.href='assets/css/community.css?v=2';
+      css.rel='stylesheet'; css.href='assets/css/community.css?v=3';
       css.dataset.patriasoulCommunity='true'; document.head.appendChild(css);
     }
     if (!document.querySelector('script[data-patriasoul-community]')) {
       const script=document.createElement('script');
-      script.src='assets/js/community.js?v=2';
+      script.src='assets/js/community.js?v=3';
       script.dataset.patriasoulCommunity='true'; document.body.appendChild(script);
     }
   })();
