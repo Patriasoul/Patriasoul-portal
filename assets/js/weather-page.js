@@ -35,7 +35,7 @@
   var forecastBox=document.getElementById("weather-forecast-body");
   var status=document.getElementById("weather-live-status");
   var lastUpdated=document.getElementById("weather-updated");
-  var results={}; var selectedCity="Zagreb"; var selectedRegion="Hrvatska"; var cs=document.getElementById("weather-city-select"); var rs=document.getElementById("weather-region-select"); if(cs){cities.forEach(function(c){var o=document.createElement("option");o.value=c[0];o.textContent=c[0]+" · "+c[3];cs.appendChild(o);});} if(rs){["Hrvatska","Istra","Kvarner","Zagreb i okolica","Središnja Hrvatska","Sjeverozapadna Hrvatska","Gorska Hrvatska","Slavonija","Sjeverna Dalmacija","Srednja Dalmacija","Južna Dalmacija","Dalmatinska zagora"].forEach(function(r){var o=document.createElement("option");o.value=r;o.textContent=r;rs.appendChild(o);});}
+  var results={}; var selectedCity="Zagreb"; var selectedRegion="Hrvatska"; var cs=document.getElementById("weather-city-select"); var rs=document.getElementById("weather-region-select"); if(cs){cs.innerHTML="";cities.forEach(function(c){var o=document.createElement("option");o.value=c[0];o.textContent=c[0]+" · "+c[3];cs.appendChild(o);});} if(rs){rs.innerHTML="";["Hrvatska","Istra","Kvarner","Zagreb i okolica","Središnja Hrvatska","Sjeverozapadna Hrvatska","Gorska Hrvatska","Slavonija","Sjeverna Dalmacija","Srednja Dalmacija","Južna Dalmacija","Dalmatinska zagora"].forEach(function(r){var o=document.createElement("option");o.value=r;o.textContent=r;rs.appendChild(o);});}
 
   function esc(s){
     return String(s).replace(/[&<>"']/g,function(c){
