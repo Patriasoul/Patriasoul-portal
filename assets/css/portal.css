@@ -1020,3 +1020,27 @@ button:not(.menu-toggle):not(.submenu-toggle):not(.ps-slider-btn):hover,input[ty
 .obitelj-explore-card b{margin-top:auto;padding-top:18px;color:var(--red,#c5222b);font:800 10px/1 Inter,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase}
 @media(max-width:900px){.obitelj-explore-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.obitelj-explore-section{margin-top:42px;padding-top:27px}.obitelj-explore-head{align-items:flex-start}.obitelj-explore-head h2{font-size:1.75rem}.obitelj-explore-head p{font-size:13px}.obitelj-explore-mark{display:none}.obitelj-explore-grid{grid-template-columns:1fr;gap:11px}.obitelj-explore-card{min-height:175px;padding:18px}.obitelj-explore-icon{width:44px;height:44px;margin-bottom:13px;font-size:21px}.obitelj-explore-card b{padding-top:14px}}
+
+
+/* PATRIASOUL · FAMILY HUB · v10 */
+.ps-family-hub{margin:64px 0 28px!important;padding:0!important;border:0!important;position:relative}
+.ps-family-hub:before{content:"";display:block;height:6px;width:100%;margin-bottom:28px;background:linear-gradient(90deg,var(--red,#c5222b) 0 38%,var(--blue,#17395f) 38% 100%)}
+.ps-family-hub-head{display:flex;justify-content:space-between;align-items:flex-end;gap:25px;margin-bottom:24px}
+.ps-family-hub-head h2{margin:7px 0 8px!important;font:700 clamp(1.9rem,3.2vw,2.7rem)/1.12 "Libre Baskerville",Georgia,serif!important;color:#17202a!important}
+.ps-family-hub-head p{margin:0!important;max-width:720px;color:#5b6872;font-size:14px;line-height:1.6}
+.ps-family-hub-count{width:76px;height:76px;flex:0 0 76px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#17202a;color:#fff;box-shadow:5px 5px 0 var(--red,#c5222b)}
+.ps-family-hub-count strong{font:800 27px/1 Inter,system-ui,sans-serif}.ps-family-hub-count span{margin-top:5px;font:700 9px/1 Inter,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#ccd4da}
+.ps-family-hub-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px!important}
+.ps-family-tile{position:relative;min-height:235px!important;padding:25px!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;overflow:hidden;text-decoration:none!important;border:0!important;box-shadow:0 9px 25px rgba(23,32,42,.12)!important;transition:transform .2s ease,box-shadow .2s ease!important}
+.ps-family-tile:hover{transform:translateY(-6px)!important;box-shadow:0 18px 34px rgba(23,32,42,.2)!important}
+.ps-family-tile:after{content:"";position:absolute;width:130px;height:130px;border:22px solid rgba(255,255,255,.09);right:-55px;bottom:-60px;transform:rotate(45deg);pointer-events:none}
+.ps-family-tile-red{background:#c5222b!important;color:#fff!important}.ps-family-tile-blue{background:#17395f!important;color:#fff!important}.ps-family-tile-dark{background:#17202a!important;color:#fff!important}.ps-family-tile-light{background:#eeeae2!important;color:#17202a!important}
+.ps-family-tile-no{position:absolute;top:20px;right:20px;font:800 10px/1 Inter,system-ui,sans-serif;letter-spacing:.15em;opacity:.62}
+.ps-family-tile-icon{display:flex;align-items:center;justify-content:center;width:54px;height:54px;margin-bottom:22px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);font-size:26px}
+.ps-family-tile-light .ps-family-tile-icon{background:rgba(23,32,42,.08);border-color:rgba(23,32,42,.12)}
+.ps-family-tile strong{position:relative;z-index:1;font:700 1.35rem/1.15 "Libre Baskerville",Georgia,serif!important;letter-spacing:-.02em}
+.ps-family-tile small{position:relative;z-index:1;margin-top:10px;max-width:260px;font:600 10px/1.5 Inter,system-ui,sans-serif;letter-spacing:.03em;opacity:.78}
+.ps-family-tile b{position:relative;z-index:1;margin-top:auto;padding-top:20px;font:800 10px/1 Inter,system-ui,sans-serif;letter-spacing:.1em}
+.ps-family-tile-red b,.ps-family-tile-blue b,.ps-family-tile-dark b{color:#fff}.ps-family-tile-light b{color:#c5222b}
+@media(max-width:900px){.ps-family-hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.ps-family-tile{min-height:210px!important}.ps-family-hub-head{align-items:flex-start}}
+@media(max-width:600px){.ps-family-hub{margin:46px 0 20px!important}.ps-family-hub:before{height:5px;margin-bottom:22px}.ps-family-hub-head{gap:15px}.ps-family-hub-head h2{font-size:1.8rem!important}.ps-family-hub-head p{font-size:13px}.ps-family-hub-count{width:58px;height:58px;flex-basis:58px}.ps-family-hub-count strong{font-size:21px}.ps-family-hub-grid{grid-template-columns:1fr!important;gap:11px!important}.ps-family-tile{min-height:190px!important;padding:20px!important}.ps-family-tile-icon{width:48px;height:48px;margin-bottom:17px;font-size:23px}.ps-family-tile strong{font-size:1.22rem!important}}
