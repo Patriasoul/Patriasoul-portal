@@ -53,7 +53,8 @@
 
   function renderCurrent(){
     if(!currentBox)return;
-    currentBox.innerHTML=cities.map(function(c){
+    var visibleCities=selectedRegion==="Hrvatska"?cities:cities.filter(function(c){return c[3]===selectedRegion;});
+    currentBox.innerHTML=visibleCities.map(function(c){
       var d=results[c[0]];
       if(d && d.error){
         return '<article class="weather-city-card"><div class="weather-city-head"><div><h3>'+esc(c[0])+'</h3><small>Hrvatska</small></div><div class="weather-temp">—</div></div><div class="weather-loading">Podaci trenutno nisu dostupni.</div></article>';
