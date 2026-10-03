@@ -35,7 +35,7 @@
   var forecastBox=document.getElementById("weather-forecast-body");
   var status=document.getElementById("weather-live-status");
   var lastUpdated=document.getElementById("weather-updated");
-  var results={}; var selectedCity="Zagreb";
+  var results={}; var selectedCity="Zagreb"; var selectedRegion="Hrvatska"; var cs=document.getElementById("weather-city-select"); var rs=document.getElementById("weather-region-select"); if(cs){cities.forEach(function(c){var o=document.createElement("option");o.value=c[0];o.textContent=c[0]+" · "+c[3];cs.appendChild(o);});} if(rs){["Hrvatska","Istra","Kvarner","Zagreb i okolica","Središnja Hrvatska","Sjeverozapadna Hrvatska","Gorska Hrvatska","Slavonija","Sjeverna Dalmacija","Srednja Dalmacija","Južna Dalmacija","Dalmatinska zagora"].forEach(function(r){var o=document.createElement("option");o.value=r;o.textContent=r;rs.appendChild(o);});}
 
   function esc(s){
     return String(s).replace(/[&<>"']/g,function(c){
@@ -136,7 +136,7 @@
     return nextBatch();
   }
 
-  var cs=document.getElementById("weather-city-select"); if(cs){cs.value=selectedCity;cs.addEventListener("change",function(){selectedCity=this.value;renderForecast();});} loadAll();
+  if(cs){cs.value=selectedCity;cs.addEventListener("change",function(){selectedCity=this.value;renderForecast();});} if(rs){rs.value=selectedRegion;rs.addEventListener("change",function(){selectedRegion=this.value;var list=selectedRegion==="Hrvatska"?cities:cities.filter(function(c){return c[3]===selectedRegion;});selectedCity=list.length?list[0][0]:"Zagreb";cs.value=selectedCity;renderCurrent();renderForecast();});} loadAll();
 
   var refresh=document.getElementById("weather-refresh");
   if(refresh){
