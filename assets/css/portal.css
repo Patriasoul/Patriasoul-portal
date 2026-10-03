@@ -1175,3 +1175,124 @@ button:not(.menu-toggle):not(.submenu-toggle):not(.ps-slider-btn):hover,input[ty
     a.article-related-card em
   ){min-height:38px!important;padding:9px 12px!important;font-size:10px!important}
 }
+
+
+/* PATRIASOUL · VJERA · ZAVRŠNI BLOK PRIČA */
+.article-links-panel.faith-stories-end{
+  margin:64px 0 28px;
+  padding:34px 0 8px;
+  border-top:5px solid var(--blue,#17395f);
+}
+.article-links-panel.faith-stories-end .article-links-panel-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:28px;
+  margin-bottom:24px;
+}
+.article-links-panel.faith-stories-end h2{
+  margin:7px 0 8px;
+  color:#17202a;
+  font:700 clamp(1.8rem,3vw,2.55rem)/1.12 "Libre Baskerville",Georgia,serif;
+  letter-spacing:-.025em;
+}
+.article-links-panel.faith-stories-end p{
+  max-width:720px;
+  margin:0;
+  color:#5b6872;
+  font-size:14px;
+  line-height:1.65;
+}
+.article-links-panel-mark{
+  flex:0 0 76px;
+  width:76px;
+  height:76px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:#17202a;
+  color:#fff;
+  font:800 25px/1 Inter,system-ui,sans-serif;
+  box-shadow:5px 5px 0 var(--red,#c5222b);
+}
+.article-links-panel-mark small{
+  margin-top:5px;
+  color:#cfd6dc;
+  font:800 8px/1 Inter,system-ui,sans-serif;
+  letter-spacing:.16em;
+}
+.article-links-panel.faith-stories-end .article-links-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+.article-links-panel.faith-stories-end .faith-story-link{
+  position:relative;
+  min-height:235px;
+  display:flex;
+  flex-direction:column;
+  padding:23px;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid #d9dfe3;
+  color:#17202a;
+  text-decoration:none;
+  box-shadow:0 9px 24px rgba(23,32,42,.08);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.article-links-panel.faith-stories-end .faith-story-link:nth-child(1){border-top:5px solid var(--red,#c5222b)}
+.article-links-panel.faith-stories-end .faith-story-link:nth-child(2){border-top:5px solid var(--blue,#17395f)}
+.article-links-panel.faith-stories-end .faith-story-link:nth-child(3){border-top:5px solid #17202a}
+.article-links-panel.faith-stories-end .faith-story-link:nth-child(4){border-top:5px solid #8d6d35}
+.article-links-panel.faith-stories-end .faith-story-link:hover{
+  transform:translateY(-5px);
+  border-color:var(--red,#c5222b);
+  box-shadow:0 17px 32px rgba(23,32,42,.14);
+}
+.article-links-panel.faith-stories-end .faith-story-no{
+  position:absolute;
+  top:18px;
+  right:18px;
+  color:#9aa4ab;
+  font:800 10px/1 Inter,system-ui,sans-serif;
+  letter-spacing:.14em;
+}
+.article-links-panel.faith-stories-end .faith-story-icon{
+  width:52px;
+  height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:20px;
+  background:#f0f2f3;
+  border:1px solid #e0e4e7;
+  font-size:24px;
+}
+.article-links-panel.faith-stories-end .faith-story-link strong{
+  max-width:240px;
+  font:700 1.18rem/1.22 "Libre Baskerville",Georgia,serif;
+}
+.article-links-panel.faith-stories-end .faith-story-link small{
+  margin-top:9px;
+  color:#66727b;
+  font:400 12px/1.55 Inter,system-ui,sans-serif;
+}
+.article-links-panel.faith-stories-end .faith-story-link b{
+  margin-top:auto;
+  padding-top:18px;
+  color:var(--red,#c5222b);
+  font:800 10px/1 Inter,system-ui,sans-serif;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+@media(max-width:900px){
+  .article-links-panel.faith-stories-end .article-links-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px){
+  .article-links-panel.faith-stories-end{margin:46px 0 20px;padding-top:27px}
+  .article-links-panel.faith-stories-end .article-links-panel-head{gap:15px;align-items:flex-start}
+  .article-links-panel-mark{width:58px;height:58px;flex-basis:58px;font-size:20px}
+  .article-links-panel.faith-stories-end .article-links-grid{grid-template-columns:1fr;gap:11px}
+  .article-links-panel.faith-stories-end .faith-story-link{min-height:195px;padding:20px}
+}
