@@ -9,7 +9,7 @@
     const path=location.pathname.split('/').pop()||'index.html';
     return path.replace(/\.html$/,'');
   };
-  let sb=null, user=null, profile=null, authMode='login', isAnonymous=false;
+  let sb=null, user=null, profile=null, authMode='login', isAnonymous=false, readyResolve; const ready=new Promise(r=>readyResolve=r);
 
   function avatar(p, size=''){const name=(p?.display_name||p?.email||'P').trim();const initials=name.split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();return '<span class="ps-avatar '+size+'">'+(p?.avatar_url?'<img src="'+esc(p.avatar_url)+'" alt="">':esc(initials||'P'))+'</span>'}
 
@@ -20,7 +20,7 @@
     if(!data) await sb.from('profiles').upsert({id:user.id,display_name:profile.display_name},{onConflict:'id'});
   }
 
-  function openAuth(mode='login'){
+  async function openAuth(mode='login'){ await ready; if(!sb){alert('Prijava se još učitava. Pokušaj ponovno za trenutak.');return}
     authMode=mode;
     const box=document.createElement('div');box.className='ps-auth-modal';box.id='ps-auth-modal';
     box.innerHTML='<div class="ps-auth-card"><button class="ps-close" aria-label="Zatvori">×</button><h2>'+(mode==='login'?'Prijava':'Registracija')+'</h2><p class="ps-community-muted">Isti PatriaSoul račun koristi se i za kviz i za portal.</p><label>E-mail</label><input id="ps-email" type="email" autocomplete="email"><label>Lozinka</label><input id="ps-pass" type="password" autocomplete="'+(mode==='login'?'current-password':'new-password')+'"><div class="ps-auth-actions"><button id="ps-submit">'+(mode==='login'?'Prijavi se':'Registriraj se')+'</button><button id="ps-google">Nastavi s Googleom</button></div><div id="ps-auth-error" class="ps-auth-error"></div><div class="ps-auth-switch">'+(mode==='login'?'Nemaš račun? ':'Već imaš račun? ')+'<button id="ps-switch">'+(mode==='login'?'Registriraj se':'Prijavi se')+'</button></div></div>';
@@ -152,6 +152,7 @@
     if(session?.user){ user=session.user; }
     else {
       const anon=await sb.auth.signInAnonymously();
+      if(anon.error) console.warn('Anonimna prijava nije omogućena:', anon.error.message);
       user=anon.data?.user||null;
     }
     isAnonymous=!!user?.is_anonymous;
