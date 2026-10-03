@@ -52,9 +52,35 @@
     else{area.querySelector('#ps-profile').onclick=showProfile;area.querySelector('#ps-logout').onclick=()=>sb.auth.signOut();area.querySelector('#ps-notify').onclick=showNotifications;loadNotifications()}
   }
 
+
+  async function showAdminModeration(){
+    if(profile?.role!=='admin'){alert('Moderiranje je dostupno samo administratorima.');return}
+    const modal=document.createElement('div');modal.className='ps-auth-modal';
+    modal.innerHTML='<div class="ps-auth-card" style="max-width:760px"><button class="ps-close">×</button><h2>Moderiranje komentara</h2><div id="ps-admin-list" class="ps-admin">Učitavanje prijava…</div></div>';
+    document.body.appendChild(modal);modal.querySelector('.ps-close').onclick=()=>modal.remove();
+    const list=modal.querySelector('#ps-admin-list');
+    const q=await sb.from('community_comment_reports').select('id,comment_id,reason,details,status,created_at,reporter_id').in('status',['open','reviewed']).order('created_at',{ascending:false}).limit(50);
+    if(q.error){list.textContent=q.error.message;return}
+    if(!q.data?.length){list.innerHTML='<p class="ps-community-muted">Nema otvorenih prijava.</p>';return}
+    const ids=[...new Set(q.data.map(x=>x.comment_id))];
+    const cq=await sb.from('community_comments').select('id,content,status,user_id,article_slug').in('id',ids);
+    const comments={};(cq.data||[]).forEach(x=>comments[x.id]=x);
+    list.innerHTML=q.data.map(r=>{const cm=comments[r.comment_id];return '<div class="ps-admin-item"><b>'+esc(r.reason)+'</b> · '+new Date(r.created_at).toLocaleString('hr-HR')+'<br><small>'+esc(cm?.article_slug||'')+'</small><p>'+esc(cm?.content||'[komentar više nije dostupan]')+'</p><div class="ps-comment-tools"><button data-mod="hide" data-id="'+r.comment_id+'">Sakrij</button><button data-mod="remove" data-id="'+r.comment_id+'">Ukloni</button><button data-mod="dismiss" data-report="'+r.id+'">Odbaci prijavu</button></div></div>'}).join('');
+    list.querySelectorAll('[data-mod]').forEach(btn=>btn.onclick=async()=>{
+      if(btn.dataset.mod==='dismiss') await sb.from('community_comment_reports').update({status:'dismissed',reviewed_by:user.id,reviewed_at:new Date().toISOString()}).eq('id',btn.dataset.report);
+      else {
+        const status=btn.dataset.mod==='hide'?'hidden':'removed';
+        await sb.from('community_comments').update({status,moderated_by:user.id,moderated_at:new Date().toISOString(),moderation_note:'Moderirano kroz PatriaSoul portal.'}).eq('id',btn.dataset.id);
+        await sb.from('community_comment_reports').update({status:status==='removed'?'removed':'reviewed',reviewed_by:user.id,reviewed_at:new Date().toISOString()}).eq('comment_id',btn.dataset.id).eq('status','open');
+      }
+      showAdminModeration();
+    });
+  }
+
   async function showProfile(){
-    const modal=document.createElement('div');modal.className='ps-auth-modal';modal.innerHTML='<div class="ps-auth-card"><button class="ps-close">×</button><h2>Moj PatriaSoul profil</h2><div class="ps-profile-card">'+avatar(profile,'ps-profile-avatar')+'<div><strong>'+esc(profile?.display_name||'Korisnik')+'</strong><p class="ps-community-muted">'+esc(user.email||'')+'</p></div></div><label>Ime za prikaz</label><input id="ps-display" maxlength="24" value="'+esc(profile?.display_name||'')+'"><label>Profilna slika</label><input id="ps-avatar-file" type="file" accept="image/png,image/jpeg,image/webp"><div class="ps-auth-actions"><button id="ps-save">Spremi profil</button></div><div id="ps-profile-msg" class="ps-auth-error"></div></div>';
+    const modal=document.createElement('div');modal.className='ps-auth-modal';modal.innerHTML='<div class="ps-auth-card"><button class="ps-close">×</button><h2>Moj PatriaSoul profil</h2><div class="ps-profile-card">'+avatar(profile,'ps-profile-avatar')+'<div><strong>'+esc(profile?.display_name||'Korisnik')+'</strong><p class="ps-community-muted">'+esc(user.email||'')+'</p></div></div><div class="ps-auth-actions"><button id="ps-admin-open">⚖ Moderiranje</button></div><label>Ime za prikaz</label><input id="ps-display" maxlength="24" value="'+esc(profile?.display_name||'')+'"><label>Profilna slika</label><input id="ps-avatar-file" type="file" accept="image/png,image/jpeg,image/webp"><div class="ps-auth-actions"><button id="ps-save">Spremi profil</button></div><div id="ps-profile-msg" class="ps-auth-error"></div></div>';
     document.body.appendChild(modal);modal.querySelector('.ps-close').onclick=()=>modal.remove();modal.onclick=e=>{if(e.target===modal)modal.remove()};
+    const adminBtn=modal.querySelector('#ps-admin-open'); if(adminBtn) adminBtn.onclick=()=>{modal.remove();showAdminModeration()};
     modal.querySelector('#ps-save').onclick=async()=>{
       const msg=modal.querySelector('#ps-profile-msg');msg.textContent='';
       const name=modal.querySelector('#ps-display').value.trim(); let avatarUrl=profile.avatar_url||null;
