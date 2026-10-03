@@ -96,7 +96,12 @@
       ['vjera-hrvatska-bastina.html','Vjera i hrvatska baština']
     ]},
     {href:'obitelj.html', label:'❤️ Obitelj', children:[
-      ['clanak-vjera-obitelj.html','Vjera i obitelj']
+      ['obiteljske-price.html','Obiteljske priče'],
+      ['obiteljska-povijest.html','Obiteljska povijest'],
+      ['obiteljska-bastina.html','Obiteljska baština'],
+      ['roditeljstvo-i-odgoj.html','Roditeljstvo i odgoj'],
+      ['obitelj-i-vjera.html','Obitelj i vjera'],
+      ['obitelj-svakodnevica.html','Obitelj i svakodnevica']
     ]},
     {href:'domovina.html', label:'🇭🇷 Domovina', children:[
       ['povijest.html','Povijest'],
