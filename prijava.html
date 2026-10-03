@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Prijava i registracija PatriaSoul računa za portal i kviz.">
+<title>Prijava — PatriaSoul</title>
+<link rel="stylesheet" href="assets/css/portal.css?v=5">
+<link rel="stylesheet" href="assets/css/patriasoul-ui.css?v=1">
+<style>
+.ps-login-page{min-height:calc(100vh - 220px);display:flex;align-items:center;justify-content:center;padding:48px 18px}
+.ps-login-card{width:min(480px,100%);background:#fff;border:1px solid #d9dde1;box-shadow:0 14px 40px rgba(0,0,0,.08);padding:32px}
+.ps-login-card h1{margin:0 0 8px;font-family:"Libre Baskerville",Georgia,serif;color:#17395f}
+.ps-login-card .lead{color:#68727d;margin:0 0 24px}
+.ps-login-card label{display:block;font-size:12px;font-weight:800;margin:14px 0 6px;color:#17395f}
+.ps-login-card input{width:100%;box-sizing:border-box;padding:13px;border:1px solid #ccd2d8;font:inherit}
+.ps-login-actions{display:grid;gap:10px;margin-top:20px}
+.ps-login-actions button{min-height:44px;border:1px solid #17395f;background:#17395f;color:#fff;font:800 12px Inter,system-ui,sans-serif;cursor:pointer}
+.ps-login-actions button:hover{background:#c5222b}
+.ps-login-actions .secondary{background:#fff;color:#17395f}
+.ps-login-msg{min-height:22px;margin-top:14px;font-size:13px;color:#b4232b}
+.ps-login-switch{text-align:center;margin-top:18px;font-size:13px;color:#68727d}
+.ps-login-switch button{border:0;background:none;color:#c5222b;font-weight:800;cursor:pointer}
+.ps-login-back{display:inline-block;margin-top:20px;color:#17395f;font-weight:800}
+.ps-login-status{padding:12px;background:#f4f6f8;margin-bottom:16px;font-size:13px}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="utility-bar"><div class="utility-inner"></div></div>
+  <div class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">🇭🇷</span><span><strong>PatriaSoul</strong><small>Čuvari nasljeđa</small></span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Izbornik</button>
+  </div>
+  <nav id="main-nav" class="main-nav" aria-label="Glavna navigacija"></nav>
+</header>
+<main>
+<section class="ps-login-page">
+  <div class="ps-login-card">
+    <span class="kicker">PATRIASOUL RAČUN</span>
+    <h1 id="title">Prijava na PatriaSoul</h1>
+    <p class="lead">Isti račun koristi se za PatriaSoul portal i kviz.</p>
+    <div id="status" class="ps-login-status" hidden></div>
+    <form id="auth-form">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" autocomplete="email" required>
+      <label for="password">Lozinka</label>
+      <input id="password" type="password" autocomplete="current-password" minlength="6" required>
+      <div class="ps-login-actions">
+        <button id="submit" type="submit">Prijavi se</button>
+        <button id="google" class="secondary" type="button">Nastavi s Googleom</button>
+      </div>
+      <div id="msg" class="ps-login-msg" role="status" aria-live="polite"></div>
+    </form>
+    <div class="ps-login-switch"><span id="switch-text">Nemaš račun?</span> <button id="switch" type="button">Registriraj se</button></div>
+    <a class="ps-login-back" href="index.html">← Natrag na naslovnicu</a>
+  </div>
+</section>
+</main>
+<footer class="site-footer"><div class="container footer-grid"><div><strong>PatriaSoul</strong><p>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></div><div><strong>Temelji</strong><a href="vjera.html">✝️ Vjera</a><a href="obitelj.html">❤️ Obitelj</a><a href="domovina.html">🇭🇷 Domovina</a><a href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa</a></div><div><strong>O nama</strong><a href="o-nama.html">O PatriaSoul</a><a href="urednicki-standard.html">Urednički standard</a><a href="kontakt.html">Kontakt</a></div><small>PatriaSoul · Čuvari nasljeđa</small></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.102.0/dist/umd/supabase.min.js"></script>
+<script>
+(() => {
+  const URL='https://ijimozjfdffejbczwyzb.supabase.co';
+  const KEY='sb_publishable_SvuPtQUmXamt1a1_JpU6Jg_Bf3Fshqr';
+  const sb=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+  const form=document.getElementById('auth-form'), msg=document.getElementById('msg'), submit=document.getElementById('submit');
+  const title=document.getElementById('title'), sw=document.getElementById('switch'), swText=document.getElementById('switch-text');
+  const password=document.getElementById('password'), status=document.getElementById('status');
+  let mode='login';
+  const setMode=m=>{
+    mode=m;
+    const signup=mode==='signup';
+    title.textContent=signup?'Registracija na PatriaSoul':'Prijava na PatriaSoul';
+    submit.textContent=signup?'Registriraj se':'Prijavi se';
+    password.autocomplete=signup?'new-password':'current-password';
+    swText.textContent=signup?'Već imaš račun?':'Nemaš račun?';
+    sw.textContent=signup?'Prijavi se':'Registriraj se';
+    msg.textContent='';
+  };
+  const finish=()=>{ window.location.href='index.html'; };
+  (async()=>{
+    const {data}=await sb.auth.getSession();
+    if(data.session){
+      status.hidden=false;
+      status.textContent='Već si prijavljen. Preusmjeravamo na PatriaSoul…';
+      setTimeout(finish,500);
+    }
+  })();
+  sw.onclick=()=>setMode(mode==='login'?'signup':'login');
+  form.onsubmit=async e=>{
+    e.preventDefault(); msg.textContent='';
+    const email=document.getElementById('email').value.trim();
+    const pass=password.value;
+    if(!email||!pass){msg.textContent='Upiši e-mail i lozinku.';return}
+    submit.disabled=true;
+    try{
+      const result=mode==='login'
+        ?await sb.auth.signInWithPassword({email,password:pass})
+        :await sb.auth.signUp({email,password:pass,options:{data:{display_name:email.split('@')[0]},emailRedirectTo:location.origin+location.pathname}});
+      if(result.error){msg.textContent=result.error.message;return}
+      if(mode==='signup'&&!result.data.session){
+        msg.textContent='Registracija je zaprimljena. Provjeri e-mail i potvrdi račun.';
+        return;
+      }
+      finish();
+    }catch(err){msg.textContent=err?.message||'Prijava nije uspjela.'}
+    finally{submit.disabled=false}
+  };
+  document.getElementById('google').onclick=async()=>{
+    msg.textContent='';
+    try{
+      const {error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+'/Patriasoul-portal/prijava.html'}});
+      if(error)msg.textContent=error.message;
+    }catch(err){msg.textContent=err?.message||'Google prijava nije uspjela.'}
+  };
+})();
+</script>
+<script src="assets/js/portal.js?v=12"></script>
+</body>
+</html>
