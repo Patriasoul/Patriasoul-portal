@@ -80,7 +80,7 @@
   async function showProfile(){
     const modal=document.createElement('div');modal.className='ps-auth-modal';modal.innerHTML='<div class="ps-auth-card"><button class="ps-close">×</button><h2>Moj PatriaSoul profil</h2><div class="ps-profile-card">'+avatar(profile,'ps-profile-avatar')+'<div><strong>'+esc(profile?.display_name||'Korisnik')+'</strong><p class="ps-community-muted">'+esc(user.email||'')+'</p></div></div><div class="ps-auth-actions"><button id="ps-admin-open">⚖ Moderiranje</button></div><label>Ime za prikaz</label><input id="ps-display" maxlength="24" value="'+esc(profile?.display_name||'')+'"><label>Profilna slika</label><input id="ps-avatar-file" type="file" accept="image/png,image/jpeg,image/webp"><div class="ps-auth-actions"><button id="ps-save">Spremi profil</button></div><div id="ps-profile-msg" class="ps-auth-error"></div></div>';
     document.body.appendChild(modal);modal.querySelector('.ps-close').onclick=()=>modal.remove();modal.onclick=e=>{if(e.target===modal)modal.remove()};
-    const adminBtn=modal.querySelector('#ps-admin-open'); if(adminBtn) adminBtn.onclick=()=>{modal.remove();showAdminModeration()};
+    const adminBtn=modal.querySelector('#ps-admin-open'); if(adminBtn){ if(profile?.role!=='admin') adminBtn.style.display='none'; adminBtn.onclick=()=>{modal.remove();showAdminModeration()}; }
     modal.querySelector('#ps-save').onclick=async()=>{
       const msg=modal.querySelector('#ps-profile-msg');msg.textContent='';
       const name=modal.querySelector('#ps-display').value.trim(); let avatarUrl=profile.avatar_url||null;
