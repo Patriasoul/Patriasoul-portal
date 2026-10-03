@@ -172,7 +172,7 @@
         link.dataset.navLogin = 'true';
         link.addEventListener('click', event => {
           event.preventDefault();
-          window.PatriaSoulCommunity?.openAuth?.('login');
+          if(window.PatriaSoulCommunity?.openAuth) window.PatriaSoulCommunity.openAuth('login'); else { let n=0; const wait=setInterval(()=>{ if(window.PatriaSoulCommunity?.openAuth){clearInterval(wait);window.PatriaSoulCommunity.openAuth('login');} else if(++n>30) clearInterval(wait); },100); }
         });
       }
       if (item.href === 'pretraga.html') link.classList.add('nav-search');
@@ -258,7 +258,7 @@
     shell.querySelector('[data-community-login]').onclick=()=>window.PatriaSoulCommunity?.openAuth?.('login');
 shell.querySelector('[data-community-like]').onclick=()=>window.PatriaSoulCommunity?.reactArticle?.('like');
 shell.querySelector('[data-community-dislike]').onclick=()=>window.PatriaSoulCommunity?.reactArticle?.('dislike');
-    shell.querySelector('[data-community-signup]').onclick=()=>window.PatriaSoulCommunity?.openAuth?.('signup');
+    shell.querySelector('[data-community-signup]').onclick=()=>if(window.PatriaSoulCommunity?.openAuth) window.PatriaSoulCommunity.openAuth('signup'); else { let n=0; const wait=setInterval(()=>{ if(window.PatriaSoulCommunity?.openAuth){clearInterval(wait);window.PatriaSoulCommunity.openAuth('signup');} else if(++n>30) clearInterval(wait); },100); }
     shell.querySelector('[data-community-share]').onclick=async()=>{try{if(navigator.share) await navigator.share({title:document.title,url:location.href}); else {await navigator.clipboard.writeText(location.href);alert('Poveznica je kopirana.')}}catch(e){}};
   })();
 
@@ -266,12 +266,12 @@ shell.querySelector('[data-community-dislike]').onclick=()=>window.PatriaSoulCom
   (() => {
     if (!document.querySelector('link[data-patriasoul-community]')) {
       const css=document.createElement('link');
-      css.rel='stylesheet'; css.href='assets/css/community.css?v=3';
+      css.rel='stylesheet'; css.href='assets/css/community.css?v=4';
       css.dataset.patriasoulCommunity='true'; document.head.appendChild(css);
     }
     if (!document.querySelector('script[data-patriasoul-community]')) {
       const script=document.createElement('script');
-      script.src='assets/js/community.js?v=3';
+      script.src='assets/js/community.js?v=4';
       script.dataset.patriasoulCommunity='true'; document.body.appendChild(script);
     }
   })();
