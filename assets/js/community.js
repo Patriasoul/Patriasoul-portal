@@ -9,7 +9,7 @@
     const path=location.pathname.split('/').pop()||'index.html';
     return path.replace(/\.html$/,'');
   };
-  let sb=null, user=null, profile=null, authMode='login';
+  let sb=null, user=null, profile=null, authMode='login', isAnonymous=false;
 
   function avatar(p, size=''){const name=(p?.display_name||p?.email||'P').trim();const initials=name.split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase();return '<span class="ps-avatar '+size+'">'+(p?.avatar_url?'<img src="'+esc(p.avatar_url)+'" alt="">':esc(initials||'P'))+'</span>'}
 
@@ -43,7 +43,7 @@
     const utility=document.querySelector('.utility-inner'); if(!utility)return;
     const old=document.getElementById('ps-auth-area'); if(old)old.remove();
     const area=document.createElement('div');area.id='ps-auth-area';area.className='ps-authbar';
-    if(!user){area.innerHTML='<button id="ps-login">Prijava</button><button id="ps-signup">Registracija</button>';}
+    if(!user || isAnonymous){area.innerHTML='<button id="ps-login">Prijava</button><button id="ps-signup">Registracija</button>';}
     else{
       area.innerHTML='<button class="ps-user" id="ps-profile">'+avatar(profile)+'<span>'+esc(profile?.display_name||user.email||'Profil')+'</span></button><button id="ps-notify" class="ps-tool">🔔</button><button id="ps-logout" class="ps-tool">Odjava</button>';
     }
@@ -118,10 +118,10 @@
     toolbar.querySelector('[data-share]').onclick=async()=>{const data={title:document.title,text:document.querySelector('.article-deck')?.textContent||'',url:location.href};if(navigator.share)await navigator.share(data).catch(()=>{});else{await navigator.clipboard.writeText(location.href);alert('Poveznica je kopirana.')}await sb.from('community_article_shares').insert({article_slug:slug(),user_id:user?.id||null,channel:navigator.share?'native':'copy'})};
     const ar=await sb.from('community_article_reactions').select('user_id,reaction').eq('article_slug',slug());const ac={like:0,dislike:0};(ar.data||[]).forEach(x=>ac[x.reaction]++);toolbar.querySelector('[data-article-like] span').textContent=ac.like;toolbar.querySelector('[data-article-dislike] span').textContent=ac.dislike;
     const mine=(ar.data||[]).find(x=>x.user_id===user?.id);toolbar.querySelector('[data-article-like]').classList.toggle('active',mine?.reaction==='like');toolbar.querySelector('[data-article-dislike]').classList.toggle('active',mine?.reaction==='dislike');
-    async function articleReact(type){if(!user){openAuth('login');return}if(mine?.reaction===type){await sb.from('community_article_reactions').delete().eq('article_slug',slug()).eq('user_id',user.id)}else{await sb.from('community_article_reactions').upsert({article_slug:slug(),user_id:user.id,reaction:type},{onConflict:'article_slug,user_id'})}mountComments()}
+    async function articleReact(type){if(!user){return}if(mine?.reaction===type){await sb.from('community_article_reactions').delete().eq('article_slug',slug()).eq('user_id',user.id)}else{await sb.from('community_article_reactions').upsert({article_slug:slug(),user_id:user.id,reaction:type},{onConflict:'article_slug,user_id'})}mountComments()}
     toolbar.querySelector('[data-article-like]').onclick=()=>articleReact('like');toolbar.querySelector('[data-article-dislike]').onclick=()=>articleReact('dislike');
 
-    if(!user){root.insertAdjacentHTML('beforeend','<div class="ps-login-prompt">Za pisanje komentara, reakcije i prijavu komentara <button id="ps-community-login">prijavi se</button> ili se <button id="ps-community-signup">registriraj</button>.</div>');root.querySelector('#ps-community-login').onclick=()=>openAuth('login');root.querySelector('#ps-community-signup').onclick=()=>openAuth('signup')}
+    if(!user || isAnonymous){root.insertAdjacentHTML('beforeend','<div class="ps-login-prompt">Za pisanje komentara i prijavu sadržaja <button id="ps-community-login">prijavi se</button> ili se <button id="ps-community-signup">registriraj</button>. <strong>Lajk i dislike rade bez prijave.</strong></div>');root.querySelector('#ps-community-login').onclick=()=>openAuth('login');root.querySelector('#ps-community-signup').onclick=()=>openAuth('signup')}
     else{root.insertAdjacentHTML('beforeend','<div class="ps-comment-form"><textarea id="ps-comment-text" maxlength="1000" placeholder="Napiši komentar…"></textarea><div class="ps-comment-actions"><span class="ps-count">0 / 1000</span><button id="ps-post">Objavi komentar</button></div></div>');const ta=root.querySelector('textarea');ta.oninput=()=>root.querySelector('.ps-count').textContent=ta.value.length+' / 1000';root.querySelector('#ps-post').onclick=async()=>{const content=ta.value.trim();if(!content)return;const res=await sb.from('community_comments').insert({user_id:user.id,article_slug:slug(),content});if(res.error)alert(res.error.message);else{ta.value='';mountComments()}}}
 
     const q=await sb.from('community_comments').select('id,user_id,parent_id,content,created_at,updated_at').eq('article_slug',slug()).eq('status','published').order('created_at',{ascending:true});
@@ -138,22 +138,25 @@
 
   async function bindComment(el,root,counts,mine){
     const id=el.dataset.comment;
-    el.querySelectorAll('[data-react]').forEach(btn=>btn.onclick=async()=>{if(!user){openAuth('login');return}const type=btn.dataset.react;if(mine[id]===type)await sb.from('community_comment_reactions').delete().eq('comment_id',id).eq('user_id',user.id);else await sb.from('community_comment_reactions').upsert({comment_id:id,user_id:user.id,reaction:type},{onConflict:'comment_id,user_id'});mountComments()});
-    el.querySelector('[data-reply]').onclick=()=>{if(!user){openAuth('login');return}const existing=el.querySelector('.ps-inline-reply');if(existing){existing.remove();return}const box=document.createElement('div');box.className='ps-inline-reply ps-comment-form';box.innerHTML='<textarea maxlength="1000" placeholder="Odgovori…"></textarea><button>Objavi odgovor</button>';el.appendChild(box);box.querySelector('button').onclick=async()=>{const content=box.querySelector('textarea').value.trim();if(!content)return;const res=await sb.from('community_comments').insert({user_id:user.id,article_slug:slug(),parent_id:id,content});if(res.error)alert(res.error.message);else mountComments()}};
-    el.querySelector('[data-report]').onclick=()=>{if(!user){openAuth('login');return}const box=document.createElement('div');box.className='ps-report-box';box.innerHTML='<select><option value="spam">Spam</option><option value="uvreda">Uvreda</option><option value="mrznja">Govor mržnje</option><option value="neprimjeren_sadrzaj">Neprimjeren sadržaj</option><option value="dezinformacija">Moguća dezinformacija</option><option value="drugo">Drugo</option></select><button>Pošalji prijavu</button>';el.appendChild(box);box.querySelector('button').onclick=async()=>{const reason=box.querySelector('select').value;const r=await sb.from('community_comment_reports').insert({comment_id:id,reporter_id:user.id,reason});box.remove();if(r.error)alert(r.error.message);else alert('Hvala. Prijava je poslana na moderiranje.')}};
+    el.querySelectorAll('[data-react]').forEach(btn=>btn.onclick=async()=>{if(!user){return}const type=btn.dataset.react;if(mine[id]===type)await sb.from('community_comment_reactions').delete().eq('comment_id',id).eq('user_id',user.id);else await sb.from('community_comment_reactions').upsert({comment_id:id,user_id:user.id,reaction:type},{onConflict:'comment_id,user_id'});mountComments()});
+    el.querySelector('[data-reply]').onclick=()=>{if(!user || isAnonymous){openAuth('login');return}const existing=el.querySelector('.ps-inline-reply');if(existing){existing.remove();return}const box=document.createElement('div');box.className='ps-inline-reply ps-comment-form';box.innerHTML='<textarea maxlength="1000" placeholder="Odgovori…"></textarea><button>Objavi odgovor</button>';el.appendChild(box);box.querySelector('button').onclick=async()=>{const content=box.querySelector('textarea').value.trim();if(!content)return;const res=await sb.from('community_comments').insert({user_id:user.id,article_slug:slug(),parent_id:id,content});if(res.error)alert(res.error.message);else mountComments()}};
+    el.querySelector('[data-report]').onclick=()=>{if(!user || isAnonymous){openAuth('login');return}const box=document.createElement('div');box.className='ps-report-box';box.innerHTML='<select><option value="spam">Spam</option><option value="uvreda">Uvreda</option><option value="mrznja">Govor mržnje</option><option value="neprimjeren_sadrzaj">Neprimjeren sadržaj</option><option value="dezinformacija">Moguća dezinformacija</option><option value="drugo">Drugo</option></select><button>Pošalji prijavu</button>';el.appendChild(box);box.querySelector('button').onclick=async()=>{const reason=box.querySelector('select').value;const r=await sb.from('community_comment_reports').insert({comment_id:id,reporter_id:user.id,reason});box.remove();if(r.error)alert(r.error.message);else alert('Hvala. Prijava je poslana na moderiranje.')}};
   }
 
   async function init(){
     // UI se mora prikazati i ako CDN privremeno ne učita Supabase.
     // Supabase služi za podatke/auth, ali ne smije sakriti cijeli community sloj.
-    if(!window.supabase){try{await load(CDN)}catch(e){
-      authHeader();
-      mountComments();
-      return;
-    }}
+    if(!window.supabase){try{await load(CDN)}catch(e){ authHeader(); mountComments(); return; }}
     sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-    const session=(await sb.auth.getSession()).data.session;user=session?.user||null;if(user)await ensureProfile();
-    sb.auth.onAuthStateChange(async(_event,s)=>{user=s?.user||null;if(user)await ensureProfile();authHeader();mountComments()});
+    const session=(await sb.auth.getSession()).data.session;
+    if(session?.user){ user=session.user; }
+    else {
+      const anon=await sb.auth.signInAnonymously();
+      user=anon.data?.user||null;
+    }
+    isAnonymous=!!user?.is_anonymous;
+    if(user)await ensureProfile();
+    sb.auth.onAuthStateChange(async(_event,s)=>{user=s?.user||null;isAnonymous=!!user?.is_anonymous;if(user)await ensureProfile();authHeader();mountComments()});
     authHeader();mountComments();
   }
   window.PatriaSoulCommunity={openAuth};
