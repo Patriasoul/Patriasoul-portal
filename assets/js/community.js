@@ -115,8 +115,16 @@
     const articleSlug=slug();
     const {data:mineData}=await sb.from('community_article_reactions').select('user_id,reaction').eq('article_slug',articleSlug);
     const mine=(mineData||[]).find(x=>x.user_id===user.id);
-    if(mine?.reaction===type) await sb.from('community_article_reactions').delete().eq('article_slug',articleSlug).eq('user_id',user.id);
-    else await sb.from('community_article_reactions').upsert({article_slug:articleSlug,user_id:user.id,reaction:type},{onConflict:'article_slug,user_id'});
+    if(mine){
+      alert('Već si glasao za ovaj članak. Jedna reakcija po IP adresi.');
+      return;
+    }
+    const res=await sb.from('community_article_reactions').insert({article_slug:articleSlug,user_id:user.id,reaction:type});
+    if(res.error){
+      if(res.error.code==='23505') alert('S ove IP adrese već je poslana reakcija za ovaj članak.');
+      else alert('Reakciju nije moguće spremiti: '+res.error.message);
+      return;
+    }
     mountComments();
   }
 
@@ -129,7 +137,20 @@
     toolbar.querySelector('[data-share]').onclick=async()=>{const data={title:document.title,text:document.querySelector('.article-deck')?.textContent||'',url:location.href};if(navigator.share)await navigator.share(data).catch(()=>{});else{await navigator.clipboard.writeText(location.href);alert('Poveznica je kopirana.')}await sb.from('community_article_shares').insert({article_slug:slug(),user_id:user?.id||null,channel:navigator.share?'native':'copy'})};
     const ar=await sb.from('community_article_reactions').select('user_id,reaction').eq('article_slug',slug());const ac={like:0,dislike:0};(ar.data||[]).forEach(x=>ac[x.reaction]++);toolbar.querySelector('[data-article-like] span').textContent=ac.like;toolbar.querySelector('[data-article-dislike] span').textContent=ac.dislike;
     const mine=(ar.data||[]).find(x=>x.user_id===user?.id);toolbar.querySelector('[data-article-like]').classList.toggle('active',mine?.reaction==='like');toolbar.querySelector('[data-article-dislike]').classList.toggle('active',mine?.reaction==='dislike');
-    async function articleReact(type){if(!user){return}if(mine?.reaction===type){await sb.from('community_article_reactions').delete().eq('article_slug',slug()).eq('user_id',user.id)}else{await sb.from('community_article_reactions').upsert({article_slug:slug(),user_id:user.id,reaction:type},{onConflict:'article_slug,user_id'})}mountComments()}
+    async function articleReact(type){
+      if(!user){return}
+      if(mine){
+        alert('Već si glasao za ovaj članak. Jedna reakcija po IP adresi.');
+        return;
+      }
+      const res=await sb.from('community_article_reactions').insert({article_slug:slug(),user_id:user.id,reaction:type});
+      if(res.error){
+        if(res.error.code==='23505') alert('S ove IP adrese već je poslana reakcija za ovaj članak.');
+        else alert('Reakciju nije moguće spremiti: '+res.error.message);
+        return;
+      }
+      mountComments();
+    }
     toolbar.querySelector('[data-article-like]').onclick=()=>articleReact('like');toolbar.querySelector('[data-article-dislike]').onclick=()=>articleReact('dislike');
 
     if(!user || isAnonymous){root.insertAdjacentHTML('beforeend','<div class="ps-login-prompt">Za pisanje komentara i prijavu sadržaja <button id="ps-community-login">prijavi se</button> ili se <button id="ps-community-signup">registriraj</button>. <strong>Lajk i dislike rade bez prijave.</strong></div>');root.querySelector('#ps-community-login').onclick=()=>openAuth('login');root.querySelector('#ps-community-signup').onclick=()=>openAuth('signup')}
