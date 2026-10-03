@@ -4,14 +4,14 @@
   "use strict";
 
   var cities=[
-    ["Zagreb",45.815,15.982],["Split",43.508,16.440],["Rijeka",45.327,14.442],
-    ["Osijek",45.555,18.695],["Pula",44.867,13.849],["Zadar",44.119,15.232],
-    ["Dubrovnik",42.650,18.094],["Šibenik",43.735,15.895],["Varaždin",46.305,16.336],
-    ["Karlovac",45.492,15.555],["Sisak",45.487,16.375],["Slavonski Brod",45.160,18.015],
-    ["Gospić",44.546,15.375],["Knin",44.040,16.200],["Makarska",43.296,17.017],
-    ["Pazin",45.240,13.936],["Vukovar",45.352,19.002],["Čakovec",46.391,16.442],
-    ["Bjelovar",45.898,16.842],["Krapina",46.160,15.879]
-  ];
+["Zagreb",45.815,15.982,"Zagreb i okolica"],["Split",43.508,16.440,"Srednja Dalmacija"],["Rijeka",45.327,14.442,"Kvarner"],
+["Osijek",45.555,18.695,"Slavonija"],["Pula",44.867,13.849,"Istra"],["Zadar",44.119,15.232,"Sjeverna Dalmacija"],
+["Dubrovnik",42.650,18.094,"Južna Dalmacija"],["Šibenik",43.735,15.895,"Sjeverna Dalmacija"],["Varaždin",46.305,16.336,"Sjeverozapadna Hrvatska"],
+["Karlovac",45.492,15.555,"Središnja Hrvatska"],["Sisak",45.487,16.375,"Središnja Hrvatska"],["Slavonski Brod",45.160,18.015,"Slavonija"],
+["Gospić",44.546,15.375,"Gorska Hrvatska"],["Knin",44.040,16.200,"Dalmatinska zagora"],["Makarska",43.296,17.017,"Srednja Dalmacija"],
+["Pazin",45.240,13.936,"Istra"],["Vukovar",45.352,19.002,"Slavonija"],["Čakovec",46.391,16.442,"Sjeverozapadna Hrvatska"],
+["Bjelovar",45.898,16.842,"Središnja Hrvatska"],["Krapina",46.160,15.879,"Sjeverozapadna Hrvatska"]
+];
 
   var labels={
     0:"Vedro",1:"Pretežno vedro",2:"Djelomično oblačno",3:"Oblačno",
