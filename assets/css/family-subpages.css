@@ -1,0 +1,32 @@
+/* PatriaSoul · Obitelj podstranice · v1 */
+.family-subpage{padding-bottom:30px}
+.family-subpage-hero{margin:18px 0 34px;padding:30px 32px;background:#fff;border:1px solid #dfe4e8;box-shadow:0 12px 30px rgba(23,32,42,.07);position:relative;overflow:hidden}
+.family-subpage-hero:before{content:"";position:absolute;inset:0 auto 0 0;width:7px;background:var(--family-accent,#c5222b)}
+.family-subpage-hero .family-eyebrow{display:inline-flex;align-items:center;gap:9px;font:800 10px/1 Inter,system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--family-accent,#c5222b)}
+.family-subpage-hero h1{margin:10px 0 10px;font:700 clamp(2rem,4vw,3.2rem)/1.08 "Libre Baskerville",Georgia,serif;color:#17202a;letter-spacing:-.035em}
+.family-subpage-hero p{max-width:780px;margin:0;color:#5b6872;font-size:15px;line-height:1.7}
+.family-subpage-hero-meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.family-subpage-hero-meta a,.family-subpage-hero-meta span{display:inline-flex;padding:8px 11px;border:1px solid #d9dfe3;background:#f7f7f5;color:#46525b;text-decoration:none;font:700 10px/1 Inter,system-ui,sans-serif;letter-spacing:.04em}
+.family-subpage-hero-meta a:hover{border-color:var(--family-accent,#c5222b);color:var(--family-accent,#c5222b)}
+.family-section-title{margin:0 0 17px;padding-top:10px;border-top:4px solid var(--family-accent,#c5222b);font:700 1.65rem/1.2 "Libre Baskerville",Georgia,serif;color:#17202a}
+.family-articles{margin:0 0 38px}
+.family-articles .article-grid{margin:0}
+.family-note{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(240px,.6fr);gap:18px;margin:0 0 42px}
+.family-note-main,.family-note-side{background:#fff;border:1px solid #dfe4e8;padding:25px;box-shadow:0 8px 22px rgba(23,32,42,.055)}
+.family-note-main h2,.family-note-side h3{margin:0 0 10px;font:700 1.35rem/1.25 "Libre Baskerville",Georgia,serif;color:#17202a}
+.family-note-main p,.family-note-side p{margin:0 0 10px;color:#59666f;font-size:14px;line-height:1.7}
+.family-note-side{background:#f1eee8}
+.family-note-side a{display:block;margin-top:12px;color:var(--family-accent,#c5222b);font-weight:800;text-decoration:none}
+.family-links{margin:0 0 28px}
+.family-links-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.family-links-grid a{display:flex;flex-direction:column;gap:7px;padding:17px 18px;background:#17202a;color:#fff;text-decoration:none;min-height:104px;box-shadow:0 7px 18px rgba(23,32,42,.11);transition:transform .18s ease,background .18s ease}
+.family-links-grid a:hover{transform:translateY(-3px);background:var(--family-accent,#c5222b)}
+.family-links-grid strong{font:700 1rem/1.25 "Libre Baskerville",Georgia,serif}
+.family-links-grid small{color:#d4dbe0;font:600 10px/1.45 Inter,system-ui,sans-serif}
+.family-footer-cta{margin:38px 0 0;padding:27px 29px;background:#17395f;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.family-footer-cta h2{margin:0 0 6px;font:700 1.35rem/1.2 "Libre Baskerville",Georgia,serif}
+.family-footer-cta p{margin:0;color:#dbe5ed;font-size:13px;line-height:1.55}
+.family-footer-cta .patria-button{white-space:nowrap;background:#c5222b;color:#fff;border-color:#c5222b}
+.family-theme-red{--family-accent:#c5222b}.family-theme-blue{--family-accent:#17395f}.family-theme-gold{--family-accent:#8b6b2f}.family-theme-dark{--family-accent:#17202a}
+@media(max-width:800px){.family-note{grid-template-columns:1fr}.family-links-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.family-footer-cta{align-items:flex-start;flex-direction:column}}
+@media(max-width:560px){.family-subpage-hero{padding:24px 21px;margin-bottom:27px}.family-subpage-hero h1{font-size:2rem}.family-subpage-hero p{font-size:14px}.family-links-grid{grid-template-columns:1fr}.family-note-main,.family-note-side{padding:20px}.family-footer-cta{padding:22px}.family-footer-cta .patria-button{width:100%;text-align:center}}
