@@ -83,6 +83,18 @@
   favicon.href = 'assets/favicon.svg';
   upsertMeta('theme-color', '#8b0000');
 
+
+  // Pouzdani ulaz u prijavu: ne ovisi o trenutku učitavanja community.js.
+  window.PatriaSoulOpenAuth = async (mode='login') => {
+    for(let i=0;i<120;i++){
+      if(window.PatriaSoulCommunity?.openAuth){
+        return window.PatriaSoulCommunity.openAuth(mode);
+      }
+      await new Promise(r=>setTimeout(r,100));
+    }
+    alert('Prijava se nije uspjela učitati. Osvježi stranicu i pokušaj ponovno.');
+  };
+
   const navItems = [
     {href:'index.html', label:'🏠 Naslovnica'},
     {href:'vjera.html', label:'✝️ Vjera', children:[
@@ -172,7 +184,7 @@
         link.dataset.navLogin = 'true';
         link.addEventListener('click', event => {
           event.preventDefault();
-          if(window.PatriaSoulCommunity?.openAuth) window.PatriaSoulCommunity.openAuth('login'); else { let n=0; const wait=setInterval(()=>{ if(window.PatriaSoulCommunity?.openAuth){clearInterval(wait);window.PatriaSoulCommunity.openAuth('login');} else if(++n>100) clearInterval(wait); },100); }
+          window.PatriaSoulOpenAuth('login')
         });
       }
       if (item.href === 'pretraga.html') link.classList.add('nav-search');
@@ -255,7 +267,7 @@
     shell.id='ps-community'; shell.className='ps-community ps-community-shell';
     shell.innerHTML='<h2>💬 Zajednica</h2><p class="ps-community-muted">Komentari, reakcije i dijeljenje članka.</p><div class="ps-share-row"><button type="button" data-community-like>❤️ Lajk&nbsp;<span>0</span></button><button type="button" data-community-dislike>👎 Dislike&nbsp;<span>0</span></button><button type="button" data-community-share>↗ Podijeli članak</button></div><div class="ps-login-prompt">Za komentiranje i prijavu komentara prijavi se ili registriraj. <strong>Lajk i Dislike dostupni su bez prijave.</strong><br><button type="button" data-community-login>🔐 Prijava</button> <button type="button" data-community-signup>Registracija</button></div>';
     article.appendChild(shell);
-    shell.querySelector('[data-community-login]').onclick=()=>window.PatriaSoulCommunity?.openAuth?.('login');
+    shell.querySelector('[data-community-login]').onclick=()=>window.PatriaSoulOpenAuth('login');
 shell.querySelector('[data-community-like]').onclick=()=>window.PatriaSoulCommunity?.reactArticle?.('like');
 shell.querySelector('[data-community-dislike]').onclick=()=>window.PatriaSoulCommunity?.reactArticle?.('dislike');
     shell.querySelector('[data-community-signup]').onclick=()=>{ if(window.PatriaSoulCommunity?.openAuth) window.PatriaSoulCommunity.openAuth('signup'); else { let n=0; const wait=setInterval(()=>{ if(window.PatriaSoulCommunity?.openAuth){clearInterval(wait);window.PatriaSoulCommunity.openAuth('signup');} else if(++n>30) clearInterval(wait); },100); } };
@@ -266,12 +278,12 @@ shell.querySelector('[data-community-dislike]').onclick=()=>window.PatriaSoulCom
   (() => {
     if (!document.querySelector('link[data-patriasoul-community]')) {
       const css=document.createElement('link');
-      css.rel='stylesheet'; css.href='assets/css/community.css?v=6';
+      css.rel='stylesheet'; css.href='assets/css/community.css?v=7';
       css.dataset.patriasoulCommunity='true'; document.head.appendChild(css);
     }
     if (!document.querySelector('script[data-patriasoul-community]')) {
       const script=document.createElement('script');
-      script.src='assets/js/community.js?v=6';
+      script.src='assets/js/community.js?v=7';
       script.dataset.patriasoulCommunity='true'; document.body.appendChild(script);
     }
   })();
