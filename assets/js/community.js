@@ -109,6 +109,17 @@
     return '<div class="ps-comment" data-comment="'+c.id+'"><div class="ps-comment-head">'+avatar({display_name:name,avatar_url:counts.avatars?.[c.user_id]})+'<div><div class="ps-comment-name">'+esc(name)+'</div><div class="ps-comment-date">'+new Date(c.created_at).toLocaleString('hr-HR')+'</div></div></div><div class="ps-comment-body">'+esc(c.content)+'</div><div class="ps-comment-tools"><button class="ps-tool '+(r==='like'?'active':'')+'" data-react="like">❤️ '+like+'</button><button class="ps-tool '+(r==='dislike'?'active':'')+'" data-react="dislike">👎 '+dis+'</button><button class="ps-tool" data-reply>↩ Odgovori</button><button class="ps-tool" data-report>⚑ Prijavi</button></div><div class="ps-replies"></div></div>';
   }
 
+  async function reactArticle(type){
+    await ready;
+    if(!sb || !user){ alert('Reakcija trenutno nije dostupna.'); return; }
+    const articleSlug=slug();
+    const {data:mineData}=await sb.from('community_article_reactions').select('user_id,reaction').eq('article_slug',articleSlug);
+    const mine=(mineData||[]).find(x=>x.user_id===user.id);
+    if(mine?.reaction===type) await sb.from('community_article_reactions').delete().eq('article_slug',articleSlug).eq('user_id',user.id);
+    else await sb.from('community_article_reactions').upsert({article_slug:articleSlug,user_id:user.id,reaction:type},{onConflict:'article_slug,user_id'});
+    mountComments();
+  }
+
   async function mountComments(){
     const article=document.querySelector('.article-page');if(!article)return;
     const old=document.getElementById('ps-community');if(old)old.remove();
@@ -146,7 +157,7 @@
   async function init(){
     // UI se mora prikazati i ako CDN privremeno ne učita Supabase.
     // Supabase služi za podatke/auth, ali ne smije sakriti cijeli community sloj.
-    if(!window.supabase){try{await load(CDN)}catch(e){ authHeader(); mountComments(); return; }}
+    if(!window.supabase){try{await load(CDN)}catch(e){ readyResolve(); authHeader(); mountComments(); return; }}
     sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
     const session=(await sb.auth.getSession()).data.session;
     if(session?.user){ user=session.user; }
@@ -160,6 +171,6 @@
     sb.auth.onAuthStateChange(async(_event,s)=>{user=s?.user||null;isAnonymous=!!user?.is_anonymous;if(user)await ensureProfile();authHeader();mountComments()});
     authHeader();mountComments();
   }
-  window.PatriaSoulCommunity={openAuth};
+  window.PatriaSoulCommunity={openAuth,reactArticle};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
