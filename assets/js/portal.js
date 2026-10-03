@@ -172,7 +172,7 @@
         link.dataset.navLogin = 'true';
         link.addEventListener('click', event => {
           event.preventDefault();
-          if(window.PatriaSoulCommunity?.openAuth) window.PatriaSoulCommunity.openAuth('login'); else { let n=0; const wait=setInterval(()=>{ if(window.PatriaSoulCommunity?.openAuth){clearInterval(wait);window.PatriaSoulCommunity.openAuth('login');} else if(++n>30) clearInterval(wait); },100); }
+          if(window.PatriaSoulCommunity?.openAuth) window.PatriaSoulCommunity.openAuth('login'); else { let n=0; const wait=setInterval(()=>{ if(window.PatriaSoulCommunity?.openAuth){clearInterval(wait);window.PatriaSoulCommunity.openAuth('login');} else if(++n>100) clearInterval(wait); },100); }
         });
       }
       if (item.href === 'pretraga.html') link.classList.add('nav-search');
@@ -253,7 +253,7 @@
     if(!article || document.getElementById('ps-community')) return;
     const shell=document.createElement('section');
     shell.id='ps-community'; shell.className='ps-community ps-community-shell';
-    shell.innerHTML='<h2>💬 Zajednica</h2><p class="ps-community-muted">Komentari, reakcije i dijeljenje članka.</p><div class="ps-share-row"><button type="button" data-community-like>❤️ Lajk <span>0</span></button><button type="button" data-community-dislike>👎 Dislike <span>0</span></button><button type="button" data-community-share>↗ Podijeli članak</button></div><div class="ps-login-prompt">Za komentiranje i prijavu komentara prijavi se ili registriraj. <strong>Lajk i Dislike dostupni su bez prijave.</strong><br><button type="button" data-community-login>🔐 Prijava</button> <button type="button" data-community-signup>Registracija</button></div>';
+    shell.innerHTML='<h2>💬 Zajednica</h2><p class="ps-community-muted">Komentari, reakcije i dijeljenje članka.</p><div class="ps-share-row"><button type="button" data-community-like>❤️ Lajk&nbsp;<span>0</span></button><button type="button" data-community-dislike>👎 Dislike&nbsp;<span>0</span></button><button type="button" data-community-share>↗ Podijeli članak</button></div><div class="ps-login-prompt">Za komentiranje i prijavu komentara prijavi se ili registriraj. <strong>Lajk i Dislike dostupni su bez prijave.</strong><br><button type="button" data-community-login>🔐 Prijava</button> <button type="button" data-community-signup>Registracija</button></div>';
     article.appendChild(shell);
     shell.querySelector('[data-community-login]').onclick=()=>window.PatriaSoulCommunity?.openAuth?.('login');
 shell.querySelector('[data-community-like]').onclick=()=>window.PatriaSoulCommunity?.reactArticle?.('like');
@@ -266,12 +266,12 @@ shell.querySelector('[data-community-dislike]').onclick=()=>window.PatriaSoulCom
   (() => {
     if (!document.querySelector('link[data-patriasoul-community]')) {
       const css=document.createElement('link');
-      css.rel='stylesheet'; css.href='assets/css/community.css?v=5';
+      css.rel='stylesheet'; css.href='assets/css/community.css?v=6';
       css.dataset.patriasoulCommunity='true'; document.head.appendChild(css);
     }
     if (!document.querySelector('script[data-patriasoul-community]')) {
       const script=document.createElement('script');
-      script.src='assets/js/community.js?v=5';
+      script.src='assets/js/community.js?v=6';
       script.dataset.patriasoulCommunity='true'; document.body.appendChild(script);
     }
   })();
