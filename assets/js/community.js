@@ -2,7 +2,7 @@
   const SUPABASE_URL = 'https://ijimozjfdffejbczwyzb.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_SvuPtQUmXamt1a1_JpU6Jg_Bf3Fshqr';
   const QUIZ_URL = 'https://patriasoul.github.io/kviz/';
-  const CDN = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js';
+  const CDN = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
   const load = src => new Promise((resolve,reject)=>{const s=document.createElement('script');s.src=src;s.onload=resolve;s.onerror=reject;document.head.appendChild(s)});
   const esc = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   const slug = () => {
@@ -144,7 +144,13 @@
   }
 
   async function init(){
-    if(!window.supabase){try{await load(CDN)}catch(e){return}}
+    // UI se mora prikazati i ako CDN privremeno ne učita Supabase.
+    // Supabase služi za podatke/auth, ali ne smije sakriti cijeli community sloj.
+    if(!window.supabase){try{await load(CDN)}catch(e){
+      authHeader();
+      mountComments();
+      return;
+    }}
     sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
     const session=(await sb.auth.getSession()).data.session;user=session?.user||null;if(user)await ensureProfile();
     sb.auth.onAuthStateChange(async(_event,s)=>{user=s?.user||null;if(user)await ensureProfile();authHeader();mountComments()});
