@@ -145,7 +145,7 @@
 
   async function init(){
     if(!window.supabase){try{await load(CDN)}catch(e){return}}
-    sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storageKey:'patriasoul-auth'}});
+    sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
     const session=(await sb.auth.getSession()).data.session;user=session?.user||null;if(user)await ensureProfile();
     sb.auth.onAuthStateChange(async(_event,s)=>{user=s?.user||null;if(user)await ensureProfile();authHeader();mountComments()});
     authHeader();mountComments();
