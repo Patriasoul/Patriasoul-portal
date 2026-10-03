@@ -37,11 +37,11 @@ window.PatriaSoulContent = {
       image:"https://commons.wikimedia.org/wiki/Special:FilePath/HrvArhAus.jpg", imageAlt:"Proslava hrvatskog jezika u Australiji", imageCaption:"Hrvatski arhiv Australije u Sydneyju."
     },
     vjeraObitelj: {
-      title:"Vjera koja se prenosi: od obitelji do svakodnevice", kicker:"VJERA I ŽIVOT",
-      deck:"Vjera se često ne pamti po velikim riječima, nego po malim stvarima: molitvi, blagdanu, crkvi i primjeru čovjeka koji je znao pomoći drugome.",
-      date:"2026-09-20", meta:"Piše: PatriaSoul · 20. rujna 2026. · Hrvatska · 7 min čitanja", url:"clanak-vjera-obitelj.html",
-      category:"Vjera", subcategory:"Vjera i život", rubric:"Vjera i život", tags:["Vjera","obitelj","Vjera i život","Crkva","hrvatska baština","svjedočanstvo"], place:"Hrvatska", period:"20. i 21. stoljeće", type:"Vjerska priča",
-      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Aljmas_Church.jpg?v=20261003", imageAlt:"Svetište Gospe od Utočišta u Aljmašu", imageCaption:"Svetište Gospe od Utočišta u Aljmašu. Foto: MaGa / Wikimedia Commons, CC BY-SA 4.0."
+      title:"Vepric: svetište Majke Božje Lurdske podno Biokova", kicker:"VJERA I SVETIŠTA",
+      deck:"Na zapadnom ulazu u Makarsku nalazi se Vepric, marijansko svetište povezano s prirodnom špiljom, molitvom i hodočašćima. Njegova priča počinje početkom 20. stoljeća i vezana je uz biskupa Jurja Carića.",
+      date:"2026-10-03", meta:"Piše: PatriaSoul · 3. listopada 2026. · Makarska · 8 min čitanja", url:"clanak-vjera-obitelj.html",
+      category:"Vjera", subcategory:"Vjera i svetišta", rubric:"Vjera i svetišta", tags:["Vepric","Makarska","Gospa Lurdska","svetište","Juraj Carić","hodočašće"], place:"Makarska", period:"1908.–danas", type:"Vjerska priča",
+      image:"https://commons.wikimedia.org/wiki/Special:FilePath/Vepric%20Gospina%20kapelica.jpg", imageAlt:"Gospina kapelica u Vepricu kraj Makarske", imageCaption:"Gospina kapelica u Vepricu kraj Makarske. Foto: Mario Žamić / Wikimedia Commons, CC BY-SA 3.0."
     },
     ruderBoskovic: {
       title:"Ruđer Bošković: čovjek koji je znanje nosio preko granica", kicker:"ŽIVOTNE PRIČE · LJUDI",
