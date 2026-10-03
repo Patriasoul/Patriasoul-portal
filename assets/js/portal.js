@@ -239,6 +239,19 @@
     footer.innerHTML = '<div class="container footer-grid"><div><strong class="footer-brand">PatriaSoul · Čuvari nasljeđa</strong><p>Čuvamo priče. Provjeravamo činjenice. Prenosimo nasljeđe.</p></div><div><strong>Temelji</strong><a href="vjera.html">✝️ Vjera</a><a href="obitelj.html">❤️ Obitelj</a><a href="domovina.html">🇭🇷 Domovina</a><a href="branitelji-hrvatska.html">🪖 Branitelji Hrvatske</a><a href="povijest.html">📚 Povijest</a><a href="cuvari-nasljeda.html">🛡️ Čuvari nasljeđa</a></div><div><strong>Istraži</strong><a href="hrvatska-danas.html">📰 Hrvatska danas</a><a href="dijaspora.html">🌍 Dijaspora</a><a href="hrvatska-stvara.html">🔧 Hrvatska stvara</a><a href="svjedocanstva.html">✝️ Svjedočanstva</a><a href="crkvena-bastina.html">⛪ Crkvena baština</a><a href="svetista.html">🕯️ Svetišta</a></div><div><strong>O nama</strong><a href="o-nama.html">O PatriaSoul</a><a href="urednicki-standard.html">Urednički standard</a><a href="pravne-informacije.html">Pravne informacije</a><a href="privatnost.html">Privatnost</a><a href="kontakt.html">Kontakt</a><a href="pretraga.html">Pretraga</a></div><small>PatriaSoul · Čuvari nasljeđa</small></div>';
   }
 
+  // Community fallback: uvijek prikaži vidljiv blok na člancima, čak i prije učitavanja Supabase sloja.
+  (() => {
+    const article=document.querySelector('.article-page');
+    if(!article || document.getElementById('ps-community')) return;
+    const shell=document.createElement('section');
+    shell.id='ps-community'; shell.className='ps-community ps-community-shell';
+    shell.innerHTML='<h2>💬 Komentari</h2><p class="ps-community-muted">Ovdje možete komentirati članak, odgovoriti drugim čitateljima, označiti sadržaj i prijaviti komentar.</p><div class="ps-share-row"><button type="button" data-community-login>Prijava</button><button type="button" data-community-signup>Registracija</button><button type="button" data-community-share>↗ Podijeli članak</button></div><div class="ps-login-prompt">Za komentiranje, reakcije i prijavu komentara potreban je PatriaSoul račun.</div>';
+    article.appendChild(shell);
+    shell.querySelector('[data-community-login]').onclick=()=>window.PatriaSoulCommunity?.openAuth?.('login');
+    shell.querySelector('[data-community-signup]').onclick=()=>window.PatriaSoulCommunity?.openAuth?.('signup');
+    shell.querySelector('[data-community-share]').onclick=async()=>{try{if(navigator.share) await navigator.share({title:document.title,url:location.href}); else {await navigator.clipboard.writeText(location.href);alert('Poveznica je kopirana.')}}catch(e){}};
+  })();
+
   // PatriaSoul Community: shared login/profile/comments/reactions on portal and articles.
   (() => {
     if (!document.querySelector('link[data-patriasoul-community]')) {
