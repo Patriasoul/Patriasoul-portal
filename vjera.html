@@ -88,38 +88,66 @@
   const now=new Date();
   const yyyy=now.getFullYear(), mm=String(now.getMonth()+1).padStart(2,"0"), dd=String(now.getDate()).padStart(2,"0");
   const key=yyyy+"-"+mm+"-"+dd;
+
   const dailyFallback={
-    "2026-10-02":{
-      liturgical:"Sveti Anđeli Čuvari",
-      gospelTitle:"Anđeli njihovi na nebu uvijek gledaju lice Oca mojega",
-      gospelRef:"Mt 18, 1–5.10",
-      gospelText:"Isus učenike poučava poniznosti i jednostavnosti te ih upozorava da ne preziru ni jednoga od malenih. Evanđelje podsjeća na vrijednost svakog čovjeka i na Božju brigu za njega.",
-      saint:"Sveti Anđeli Čuvari",
-      saintText:"Spomendan posvećen Anđelima Čuvarima, koji u kršćanskoj vjeri označavaju Božju brigu i zaštitu čovjeka na njegovu životnom putu.",
-      wordTitle:"Bog poznaje čovjeka i vodi ga",
-      wordRef:"Ps 139, 1–3.7–8.9–10.13–14",
-      wordText:"Psalam govori o Božjoj blizini: Bog poznaje čovjeka, njegove putove i njegove misli. Pred njegovom prisutnošću čovjek ne može biti skriven, a njegova je ruka uvijek spremna voditi i držati.",
-      verse:"Anđeli njihovi na nebu uvijek gledaju lice Oca mojega, koji je na nebesima.",
-      verseRef:"Mt 18, 10",
-      thought:"Danas zastani i zahvali za ljude i darove koji te prate kroz život. Poniznost, povjerenje i briga za najmanje otvaraju srce Božjoj blizini."
+    "2026-10-03":{
+      liturgical:"Subota 26. tjedna kroz godinu",
+      gospelTitle:"Radujte se što su vam imena zapisana na nebesima",
+      gospelRef:"Lk 10, 17–24",
+      gospelText:"Sedamdesetdvojica vraćaju se Isusu radosni zbog onoga što su doživjeli u njegovu imenu. Isus ih podsjeća da prava radost nije samo u uspjehu, nego u tome što su njihova imena zapisana na nebesima. Zatim zahvaljuje Ocu koji svoju istinu objavljuje malenima i jednostavnima.",
+      gospelInfo:"Glavna poruka današnjeg Evanđelja jest radost koja ne ovisi o ljudskom uspjehu. Isus učenike vraća prema onome što je dublje: prema odnosu s Bogom, poniznosti i zahvalnosti.",
+      saint:"Sveti Dionizije Areopagit i sveti Dionizije",
+      saintText:"Danas se u hrvatskom katoličkom kalendaru spominju sveti Dionizije, Areopagit, i drugi sveci. Dan je ujedno blizu blagdana svetoga Franje Asiškoga, koji se slavi 4. listopada.",
+      saintInfo:"Sveti Dionizije Areopagit u kršćanskoj se predaji povezuje s Atenom i prvim navještajem Evanđelja među Grcima. U različitim izvorima razlikuju se povijesni podatci i kasnija predaja, pa ih treba jasno razdvajati.",
+      wordTitle:"Radost",
+      wordRef:"Lk 10, 20",
+      wordText:"Današnja ključna riječ je radost. Isus ne usmjerava učenike samo prema onome što su uspjeli učiniti, nego prema Božjoj blizini i činjenici da njihova imena pripadaju nebu.",
+      wordInfo:"Riječ dana može biti mali podsjetnik za cijeli dan: zahvalnost za dobro koje smo primili ne treba pretvoriti u ponos, nego u poniznost i radost.",
+      verse:"Radujte se što su vam imena zapisana na nebesima.",
+      verseRef:"Lk 10, 20",
+      thought:"Ne mjeri današnji dan samo onime što si postigao. Zahvali Bogu za ono što ti je darovano, za ljude koje ti je stavio na put i za svako dobro koje možeš učiniti drugome."
     }
   };
+
+  const weekday=["nedjelja","ponedjeljak","utorak","srijeda","četvrtak","petak","subota"];
+
   function set(id,value){const el=document.getElementById(id);if(el)el.textContent=value||"—";}
+  function isEnglish(s){return /\b(the|of|week|ordinary|time|saint|blessed|memorial|feast|solemnity|saturday|sunday|monday|tuesday|wednesday|thursday|friday)\b/i.test(String(s||""));}
+  function refHr(s){
+    return String(s||"")
+      .replace(/\bLuke\b/gi,"Lk").replace(/\bMatthew\b/gi,"Mt").replace(/\bMark\b/gi,"Mk").replace(/\bJohn\b/gi,"Iv")
+      .replace(/\bPsalm\b/gi,"Ps").replace(/\bPsalms\b/gi,"Ps")
+      .replace(/\bIsaiah\b/gi,"Iz").replace(/\bJob\b/gi,"Job").replace(/\bExodus\b/gi,"Izl")
+      .replace(/\bRomans\b/gi,"Rim").replace(/\bActs\b/gi,"Dj").replace(/\bRevelation\b/gi,"Otk")
+      .replace(/\bWisdom\b/gi,"Mudr").replace(/\bSirach\b/gi,"Sir").replace(/\bProverbs\b/gi,"Izr")
+      .replace(/\bFirst Corinthians\b/gi,"1 Kor").replace(/\bSecond Corinthians\b/gi,"2 Kor")
+      .replace(/\bFirst Reading\b/gi,"Prvo čitanje").replace(/\bSecond Reading\b/gi,"Drugo čitanje")
+      .replace(/\band\b/gi,"i");
+  }
+  function localCelebration(name){
+    const n=String(name||"");
+    if(!n || isEnglish(n)) return "Liturgijski dan";
+    return n;
+  }
   function render(d){
     set("faith-date",now.getDate()+". "+months[now.getMonth()]+" "+yyyy+". · "+d.liturgical);
     set("faith-gospel-title",d.gospelTitle);
     set("faith-gospel-ref",d.gospelRef);
     set("faith-gospel-text",d.gospelText);
+    set("faith-gospel-info",d.gospelInfo);
     set("faith-saint",d.saint);
     set("faith-saint-text",d.saintText);
+    set("faith-saint-info",d.saintInfo);
     set("faith-word-title",d.wordTitle);
     set("faith-word-ref",d.wordRef);
     set("faith-word-text",d.wordText);
+    set("faith-word-info",d.wordInfo);
     set("faith-verse",d.verse);
     set("faith-verse-ref",d.verseRef);
-    set("faith-thought-title","Kratka misao dana");
+    set("faith-thought-title","Što ponijeti iz današnje riječi");
     set("faith-thought",d.thought);
   }
+
   async function load(){
     const fallback=dailyFallback[key];
     try{
@@ -129,37 +157,39 @@
       ]);
       if(!calRes.ok||!readRes.ok) throw new Error("Dnevni podaci nisu dostupni");
       const cal=await calRes.json(), readings=await readRes.json(), celebration=cal.celebration||{};
-      const gospelRef=readings.readings?.gospel||"";
-      const psalmRef=readings.readings?.psalm||"";
+      const gospelRef=refHr(readings.readings?.gospel);
+      const psalmRef=refHr(readings.readings?.psalm);
+      const firstRef=refHr(readings.readings?.firstReading);
+      const secondRef=refHr(readings.readings?.secondReading);
+      const knownTitle=(gospelRef==="Lk 10,17-24"||gospelRef==="Lk 10,17–24") ? "Radujte se što su vam imena zapisana na nebesima" : "Današnje Evanđelje";
       const dynamic={
-        liturgical:celebration.name||cal.season||"Liturgijski dan",
-        gospelTitle:"Današnje Evanđelje",
-        gospelRef:gospelRef||"Dnevno Evanđelje",
-        gospelText:"Današnje Evanđelje donosi poziv na vjeru, poniznost i život prema Božjoj riječi.",
-        saint:celebration.name||"Svetac dana",
-        saintText:celebration.description||"Liturgijski spomendan prema dnevnom kalendaru.",
-        wordTitle:"Riječ iz današnjih čitanja",
-        wordRef:psalmRef||"Dnevna liturgijska čitanja",
-        wordText:"Današnja Božja riječ poziva na zaustavljanje, razmišljanje i zahvalnost.",
-        verse:"Riječ dana",
-        verseRef:psalmRef||"Dnevna liturgijska čitanja",
-        thought:"Zastani, pročitaj današnju Božju riječ i pronađi trenutak zahvalnosti."
+        liturgical:(cal.season==="Ordinary Time"?"Vrijeme kroz godinu":(isEnglish(cal.season)?"Liturgijsko vrijeme":cal.season)),
+        gospelTitle:knownTitle,
+        gospelRef:gospelRef||"Današnje Evanđelje",
+        gospelText:"Današnje Evanđelje govori o Božjoj riječi, vjeri i životu učenika. Pročitaj navedeni odlomak i obrati pozornost na ono što Isus govori svojim učenicima.",
+        gospelInfo:"Čitanje dana ne donosi samo podatak za kalendar. Ono otvara temu za razmišljanje i povezuje vjeru s konkretnim životom.",
+        saint:localCelebration(celebration.name),
+        saintText:!isEnglish(celebration.description)&&celebration.description ? celebration.description : "Današnji kalendar donosi liturgijski spomendan. Podatak je prikazan na hrvatskom i ne preuzima engleski opis iz izvora.",
+        saintInfo:"Za podatke o svecima PatriaSoul treba razlikovati ono što potvrđuju povijesni izvori od kasnije crkvene i pobožne predaje.",
+        wordTitle:"Riječ dana",
+        wordRef:gospelRef||psalmRef||"Dnevna čitanja",
+        wordText:"Današnja riječ poziva na pažnju prema Božjoj prisutnosti, zahvalnosti i konkretnom životu vjere.",
+        wordInfo:"Prvo čitanje: "+(firstRef||"—")+" · Psalam: "+(psalmRef||"—")+(secondRef?" · Drugo čitanje: "+secondRef:""),
+        verse:knownTitle==="Radujte se što su vam imena zapisana na nebesima" ? "Radujte se što su vam imena zapisana na nebesima." : "Božja riječ za današnji dan.",
+        verseRef:gospelRef||psalmRef||"Dnevna čitanja",
+        thought:"Zastani uz današnju riječ. Pročitaj odlomak, razmisli što govori tvojoj svakodnevici i pokušaj jednu njegovu poruku pretvoriti u konkretno dobro djelo."
       };
       render(fallback||dynamic);
     }catch(err){
       render(fallback||{
         liturgical:"Liturgijski dan",
-        gospelTitle:"Današnje Evanđelje",
-        gospelRef:"Dnevno Evanđelje",
-        gospelText:"Današnji liturgijski tekst trenutačno nije dostupan.",
-        saint:"Svetac dana",
-        saintText:"Podatak trenutačno nije dostupan.",
-        wordTitle:"Riječ dana",
-        wordRef:"Dnevna liturgijska čitanja",
-        wordText:"Podatak trenutačno nije dostupan.",
-        verse:"Riječ dana",
-        verseRef:"Dnevna liturgijska čitanja",
-        thought:"Zastani, pročitaj Božju riječ i pronađi trenutak zahvalnosti."
+        gospelTitle:"Današnje Evanđelje",gospelRef:"Dnevno Evanđelje",
+        gospelText:"Današnji liturgijski sadržaj trenutačno nije dostupan. Prikazat ćemo ga ponovno kada izvor bude dostupan.",
+        gospelInfo:"PatriaSoul neće prikazivati neprovjereni ili engleski tekst kao hrvatski sadržaj.",
+        saint:"Svetac dana",saintText:"Podatak trenutačno nije dostupan.",saintInfo:"Podatak će biti prikazan kada ga možemo potvrditi iz pouzdanog izvora.",
+        wordTitle:"Riječ dana",wordRef:"Dnevna čitanja",wordText:"Podatak trenutačno nije dostupan.",wordInfo:"—",
+        verse:"Božja riječ za današnji dan.",verseRef:"Dnevna čitanja",
+        thought:"Zastani, pročitaj Božju riječ i pronađi trenutak za zahvalnost."
       });
     }
   }
