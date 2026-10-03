@@ -270,7 +270,7 @@
     shell.querySelector('[data-community-login]').onclick=()=>window.PatriaSoulOpenAuth('login');
 shell.querySelector('[data-community-like]').onclick=()=>window.PatriaSoulCommunity?.reactArticle?.('like');
 shell.querySelector('[data-community-dislike]').onclick=()=>window.PatriaSoulCommunity?.reactArticle?.('dislike');
-    shell.querySelector('[data-community-signup]').onclick=()=>{ if(window.PatriaSoulCommunity?.openAuth) window.PatriaSoulCommunity.openAuth('signup'); else { let n=0; const wait=setInterval(()=>{ if(window.PatriaSoulCommunity?.openAuth){clearInterval(wait);window.PatriaSoulCommunity.openAuth('signup');} else if(++n>30) clearInterval(wait); },100); } };
+    shell.querySelector('[data-community-signup]').onclick=()=>window.PatriaSoulOpenAuth('signup');
     shell.querySelector('[data-community-share]').onclick=async()=>{try{if(navigator.share) await navigator.share({title:document.title,url:location.href}); else {await navigator.clipboard.writeText(location.href);alert('Poveznica je kopirana.')}}catch(e){}};
   })();
 
